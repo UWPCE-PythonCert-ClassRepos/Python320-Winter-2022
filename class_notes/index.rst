@@ -11,6 +11,14 @@ https://github.com/UWPCE-PythonCert-ClassRepos/Python320-Winter-2022
 
 You can go there for Examples and Solutions as well.
 
+Examples:
+
+https://github.com/UWPCE-PythonCert-ClassRepos/Python320-Winter-2022/tree/main/Examples
+
+Solutions:
+
+https://github.com/UWPCE-PythonCert-ClassRepos/Python320-Winter-2022/tree/main/Solutions
+
 
 Notes for each Lesson
 =====================
