@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=notes
 set BUILDDIR=build
-set SPHINXPROJ=Py310-Fall2020
+set SPHINXPROJ=Py320-Winter2022
 
 if "%1" == "" goto help
 

@@ -4,8 +4,8 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = Py310-Fall2020
-SOURCEDIR     = notes
+SPHINXPROJ    = Py320-Winter2022
+SOURCEDIR     = class_notes
 BUILDDIR      = build
 
 # Put it first so that "make" without argument is like "make help".

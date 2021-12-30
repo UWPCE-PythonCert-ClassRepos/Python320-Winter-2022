@@ -65,7 +65,7 @@ You should have gotten a link to the instance for the class sent to you.
 
 Is everyone "hooked up" to Canvas?
 
-NOTE: I'm not a big Canvas fan: it's where to go to find assignemnts and get on teh Zoom, etc, but much of our interaction will be via programming tools, like gitHub, rather than Canvas.
+NOTE: I'm not a big Canvas fan: it's where to go to find assignemnts and get on the Zoom, etc, but much of our interaction will be via programming tools, like gitHub, rather than Canvas.
 
 Class Structure
 ---------------
@@ -105,6 +105,29 @@ Homework:
 
 * To submit your work, we will use gitHub Classroom:
 
+2) git / gitHub Classroom
+-------------------------
+
+The second, and harder part is gitHub classroom.
+
+Sorry about the false start -- it was buggy!
+
+But we've settled on a workflow, and hopefully it will suport that workflow consitently.
+
+In general, most of you seem to have got the basics down:
+
+ - Accepting the assignment
+ - Cloning the assignment repo onto your machine.
+ - Adding a file to git
+ - Commiting your changes
+ - Pushing your changes to gitHub.
+
+Did you all get a gitHub Classroom repo working?
+
+(zoom poll)
+
+For a reminder:
+
 :ref:`github_classroom`
 
 https://uwpce-pythoncert.github.io/ProgrammingInPython/topics/01-setting_up/github_classroom.html
@@ -122,7 +145,7 @@ MS Teams:
 
 We have set up an MS Team for this class:
 
-`MS Team for Pyy310 Fall 2020 <https://teams.microsoft.com/l/team/19%3adcf0c33c75da4ff689e05c243fb241ca%40thread.tacv2/conversations?groupId=5060689e-5534-4fd7-95a9-7252f9eb3855&tenantId=f6b6dd5b-f02f-441a-99a0-162ac5060bd2>`_
+[Insert link here:]
 
 Most of you are already members (with your uw email), but if not, I think you can go to that link and request to join.
 
@@ -134,7 +157,6 @@ We highly encourage you to work together. You will learn at a much deeper level 
 I will also send occasional email out to the whole class -- make sure I have the email address you want me to use. (I've got your uw email addresses now).
 
 
-
 Office Hours
 ------------
 
@@ -144,38 +166,6 @@ Please feel free to attend even if you do not have a specific question. It is an
 
 What are good times for you?
 
-.. _lightning_talks:
-
-Lightning Talks
-===============
-
-"Lightning Talks" are a tradition in open-source technical conferences (and maybe others?).  The idea is that people can do a quick talk about a topic of their choice -- much lower pressure than a "real" talk -- but gives folks a chance to show off something they have worked on.
-
-For this class, it's a chance to us to learn a bit about each-other and maybe something new about Python.
-
-Each of you will be required to give one lightning talk at some point during the course.
-
-**Lightning Talks Requirements**
-
- * 5 minutes each (including setup) - no kidding!
- * Every student will give one
- * Purposes: introduce yourself, share interests, show Python applications
- * Any topic you like that is related to Python -- according to you!
-
-
-Schedule the lightning talks:
------------------------------
-
-We need to schedule your lightning talks.
-
-** Let's use Python for that !**
-
-There is a class list in the class repo here:
-
-``examples/session01/students.txt``
-
-Let's write a script to generate a random talk schedule...
-
 
 gitHub Classroom
 ----------------
@@ -184,14 +174,50 @@ Let's get you set up with gitHub classroom so you can submit your work:
 
 :ref:`github_classroom`
 
-:ref:`basic_python_syntax`
 
-:ref:`py2_vs_py3`
+About git
+---------
+
+Now that we've done that, a few thoughts on git:
+
+Do you have any conceptual Questions?
+
+
+Notes:
+------
+
+git is very flexible, and does not lose data easily. However, it is **much** harder to undo things than it is to make changes.  So you will be happier if you take some extra care to not commit changes that you don't want. Some hints:
+
+* Always do a ``git status`` before you commit -- make sure that the stuff you are going to commit is what you want!
+
+  - note that if you do ``git commit`` it will only commit those files listed under "staged for commit". But if you do ``git commit -a`` (-a for all) then it will commit everything modified, i.e. "Changes not staged for commit:".
+
+Note in the status report::
+
+    $ git status
+    On branch master
+    Your branch is up to date with 'origin/master'.
+
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   notes_for_class/source/lesson02.rst
+
+    ...
+
+It even tells you want to do: use ``git add`` to stage particular files, or ``git checkout`` to revert a file back to its state as of the last commit. It doesn't mention ``git commit -a``, but that will commmit everything that is "not staged for commit".
+
+If you are careful before the commit stage, then you won't have to "roll back" changes very often.
+
+But if you do:
+
+https://uwpce-pythoncert.github.io/ProgrammingInPython/topics/01-setting_up/git_hints.html#backing-out-a-change
+
+There are other nifty hints on that page, if you get stuck.
+
 
 
 Exercises
 =========
-
-:ref:`python_pushups`
-
 
