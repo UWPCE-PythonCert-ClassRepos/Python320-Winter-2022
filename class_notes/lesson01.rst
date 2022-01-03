@@ -65,7 +65,9 @@ You should have gotten a link to the instance for the class sent to you.
 
 Is everyone "hooked up" to Canvas?
 
-NOTE: I'm not a big Canvas fan: it's where to go to find assignemnts and get on the Zoom, etc, but much of our interaction will be via programming tools, like gitHub, rather than Canvas.
+NOTE: I'm not a big Canvas fan: it's where to go to find assignments and get on the Zoom, etc, but much of our interaction will be via programming tools, like gitHub, rather than Canvas.
+
+
 
 Class Structure
 ---------------
@@ -89,7 +91,7 @@ This means that you are expected to complete the reading (and video watching) BE
 
 Interrupt us with questions -- please!
 
-Subhiksha will be monitoring Zoom chat
+Luis and I will be monitoring Zoom chat -- but it's easy to miss -- so feel free to speak up!
 
 (Some of the best learning prompted by questions)
 
@@ -99,7 +101,7 @@ Homework:
 
 * Homework will be reading, a handful of videos, and links to optional external materials -- videos, blog posts, etc.
 
-* Exercises will be started in class -- but you can finish them at home (and you will need time to do that!)
+* Exercises will often be started in class -- but you can finish them at home (and you will need time to do that!)
 
 * You are adults -- it's up to you to do the homework. But if you don't code, you won't learn to code. And we can't give you a certificate if you haven't demonstrated that you've done the work.
 
@@ -109,10 +111,6 @@ Homework:
 -------------------------
 
 The second, and harder part is gitHub classroom.
-
-Sorry about the false start -- it was buggy!
-
-But we've settled on a workflow, and hopefully it will suport that workflow consitently.
 
 In general, most of you seem to have got the basics down:
 
@@ -135,20 +133,19 @@ https://uwpce-pythoncert.github.io/ProgrammingInPython/topics/01-setting_up/gith
 
 We'll play around with this in this session so we can get the hang of it.
 
-It's new to me, too!
-
 
 Communication
 -------------
 
 MS Teams:
 
-We have set up an MS Team for this class:
 
-[Insert link here:]
+We will use MS Teams to communicate -- it's a good way for us to communicate as a group, rather than more directly as individuals.
 
-Most of you are already members (with your uw email), but if not, I think you can go to that link and request to join.
+`Link to the Team <https://teams.microsoft.com/l/team/19%3aQ-nZkfCZ6FCD5xc9n_X2dB6M3l-nu0rEF27WMRlXnEQ1%40thread.tacv2/conversations?groupId=b2f3f042-43c1-4709-8f31-cffa42956a3d&tenantId=f6b6dd5b-f02f-441a-99a0-162ac5060bd2>`_
 
+
+Most of you should already be members (with your uw email), but if not, I think you can go to that link and request to join.
 
 Anything Python related is fair game.  Questions and discussion about the assignments are encouraged.
 
@@ -160,7 +157,7 @@ I will also send occasional email out to the whole class -- make sure I have the
 Office Hours
 ------------
 
-We will generally will hold "office hours" on Zoom for a couple hours each weekend.  We will try to have one session on Saturday, and one on Sunday.
+We will generally will hold two "office hours" sessions on Zoom each week.
 
 Please feel free to attend even if you do not have a specific question. It is an opportunity to work with the instructors and fellow students, and learn from each other.
 
@@ -180,6 +177,8 @@ About git
 
 Now that we've done that, a few thoughts on git:
 
+Have you got the gitHub classroom "flow" down?
+
 Do you have any conceptual Questions?
 
 
@@ -195,8 +194,8 @@ git is very flexible, and does not lose data easily. However, it is **much** har
 Note in the status report::
 
     $ git status
-    On branch master
-    Your branch is up to date with 'origin/master'.
+    On branch main
+    Your branch is up to date with 'origin/main'.
 
     Changes not staged for commit:
       (use "git add <file>..." to update what will be committed)
@@ -206,7 +205,7 @@ Note in the status report::
 
     ...
 
-It even tells you want to do: use ``git add`` to stage particular files, or ``git checkout`` to revert a file back to its state as of the last commit. It doesn't mention ``git commit -a``, but that will commmit everything that is "not staged for commit".
+It even tells you want to do: use ``git add`` to stage particular files, or ``git checkout`` to revert a file back to its state as of the last commit. It doesn't mention ``git commit -a``, but that will commit everything that is "not staged for commit".
 
 If you are careful before the commit stage, then you won't have to "roll back" changes very often.
 
@@ -216,8 +215,101 @@ https://uwpce-pythoncert.github.io/ProgrammingInPython/topics/01-setting_up/git_
 
 There are other nifty hints on that page, if you get stuck.
 
+Evaluation of your work
+=======================
+
+In the previous class, the focus was on getting the basics of Python down.
+
+ * Getting the code to do what you want it to do
+
+You were introduced to many of the concepts of good software development practices:
+
+ * Code style / linting
+ * Unit testing / TDD
+ * Error handling
+ * Well thought out code structure
+ * Documenting the code
+
+In this class, we will be emphasizing these ideas. The assignments will evaluated with all this in mind. In short, your code will be expected to:
+
+* Work correctly
+* Be PEP 8 compliant
+* Have complete Unit Tests (ideally 100% coverage)
+* Be basically documented (i.e. docstrings on functions / classes)
 
 
-Exercises
-=========
+Unit Testing
+============
 
+The first week is about Unit Testing and TDD. You were introduced to these concepts in the previous class, but we are now taking it up a notch. In particular:
+
+* How to use the ``unittest`` testing framework
+* Fixtures
+* Mocking
+* Code Coverage
+
+You may find that much of the material in the readings / videos for this week are review -- but review is a good thing !
+
+
+Unit Testing Terminology
+------------------------
+
+**Unit Testing** is a concept:
+
+    "a software testing method by which individual units of source code are tested to determine whether they are fit for use."
+
+Unit testing can be done in any language with any number of testing frameworks and test runners, including roll-your-own asserts in an ``if __name__ == "__main__":`` block.
+
+A **test framework** is a collection of utilities that aid in writing unit tests.
+
+A **test runner** is a utility that makes it easy to run unit tests, including reporting the results, etc.
+
+**test coverage** is a measure of how much of the code under test is actually used when the suite of unit tests is run.
+Note that less than 100% coverage means the tests are incomplete. But even with 100% coverage, there may be many possibilities that were never tested.
+
+**Test Driven Development (TDD)**: is "a software development process relying on software requirements being converted to test cases before software is fully developed".
+In short: write the tests before the code.
+It can feel pretty awkward at first: After all, we are thinking about how to make the code work -- that's what we want to focus on. But trust me: it really does lead to cleaner, more robust code.
+And if you follow TDD, 100% coverage is almost guaranteed.
+
+These are all concepts that are independent of the tools.
+
+Python Unit Testing Tools
+-------------------------
+
+**``unittest``** is a unit testing framework that is delivered as part of the Python standard library. It is used by cPython itself, as well as a number of major packages, e.g. Django.
+
+**``pytest``** is both a test runner *and* a unit testing framework. It can be used to run ``unittest`` tests, as well as the simpler tests based on the pytest test framework.
+
+**``coverage``** is a python package that helps you determine the coverage of a set of unit tests.
+It can be run by itself, or along with pytest, via pytest-cov.
+
+
+Unit testing for this class
+---------------------------
+
+As ``unittest`` is part of the standard library, every Python developer should be familiar with it.
+So this week's exercise should be completed using the ``unittest`` framework.
+For the rest of the class, you are free to use either ``unittest`` or ``pytest`` tests -- which ever you find most productive.
+But in either case, we expect you to follow TDD and have comprehensive test coverage
+
+Any thoughts / questions about Unit Testing before we jump in?
+
+
+``unittest`` in practice
+========================
+
+Usually, you will have completed all the reading / videos before class. So we'd be ready to jump right in to the Exercises.
+
+But since you all should be familiar with testing already,let's jump right in anyway!
+
+Handy references for unitest:
+.............................
+
+The official docs:
+
+https://docs.python.org/3/library/unittest.html
+
+A cheat sheet for the asserts:
+
+https://kapeli.com/cheat_sheets/Python_unittest_Assertions.docset/Contents/Resources/Documents/index
