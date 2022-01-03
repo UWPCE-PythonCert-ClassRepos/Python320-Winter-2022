@@ -5,6 +5,10 @@ Advanced Programming in Python: Winter 2022 Online
 
 Notes, etc. for UWPCE Winter class of Py320: Advanced Programming in Python
 
+These notes are used to help guide class time.
+
+The notes themselves, and any example code, will be updated as the class progresses.
+
 These notes are rendered from this gitHub repo:
 
 https://github.com/UWPCE-PythonCert-ClassRepos/Python320-Winter-2022
