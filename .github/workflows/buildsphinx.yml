@@ -29,9 +29,10 @@ jobs:
 
     - name: Publish to gh-pages
       run: |
-        git config --global user.name 'gitHub actions'
-        git config --global user.email 'actions@users.noreply.github.com'
+        git config --global user.name 'Sphinx Builder'
+        git config --global user.email 'builder@noreply.github.com'
         cp -R build/html/ docs/
+        git status
         git commit -am "Rebuilt the Docs"
         git push
 
