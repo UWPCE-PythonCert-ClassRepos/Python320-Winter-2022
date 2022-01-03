@@ -303,8 +303,9 @@ Usually, you will have completed all the reading / videos before class. So we'd 
 
 But since you all should be familiar with testing already,let's jump right in anyway!
 
-Handy references for unitest:
-.............................
+
+Handy references for unittest:
+------------------------------
 
 The official docs:
 
