@@ -24,8 +24,14 @@ jobs:
         pip install -r requirements.txt
 
     - name: Build Docs
-      if: always()
       run: |
         make html
-    # - name: Publish to gh-pages
-    #   run: |
+
+    - name: Publish to gh-pages
+      run: |
+        git config --global user.name 'gitHub actions'
+        git config --global user.email 'actions@users.noreply.github.com'
+        cp -R build/html/ docs/
+        git commit -am "Rebuilt the Docs"
+        git push
+
