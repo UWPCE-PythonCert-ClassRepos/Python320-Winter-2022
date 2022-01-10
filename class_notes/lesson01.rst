@@ -135,7 +135,8 @@ I will also send occasional email out to the whole class -- make sure I have the
 You can also send email directly to your instructors:
 
 Chris: PythonCHB@gmail.com
-Luis:
+
+Luis: ldconejo@uw.edu
 
 
 Office Hours
