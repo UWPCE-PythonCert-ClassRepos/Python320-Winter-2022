@@ -26,11 +26,13 @@ jobs:
     - name: Build Docs
       run: |
         make html
+
         git config --global user.name 'Sphinx Builder'
         git config --global user.email 'builder@noreply.github.com'
+
         echo pwd
         echo cp -R build/html/ docs/
         echo git status
-        git commit -am "Rebuilt the Docs"
+        echo git commit -am "Rebuilt the Docs"
         git push
 
