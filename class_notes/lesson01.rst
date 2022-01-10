@@ -44,9 +44,13 @@ So we'll go around the Zoom and introduce ourselves:
 Tell us a tiny bit about yourself:
 
 * Name
+
 * Why did you want to learn Python?
+
 * What's one cool thing you learned about python last quarter?
+
  - Or one thing you really want to learn this quarter?
+
 * Is there anything from last quarter that you are confused about that you want us to clarify?
 
 * What is your gitHub handle?
@@ -170,7 +174,7 @@ In this class, we will be emphasizing these ideas. The assignments will evaluate
 
 
 And now, some real work:
-=======================
+========================
 
 git / gitHub Classroom
 ----------------------

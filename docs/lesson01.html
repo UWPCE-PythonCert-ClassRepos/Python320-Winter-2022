@@ -105,15 +105,18 @@
 <li class="toctree-l2"><a class="reference internal" href="#introduction-to-this-class">Introduction to This Class</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#class-structure">Class Structure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#homework">Homework:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#git-github-classroom">2) git / gitHub Classroom</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#communication">Communication</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#office-hours">Office Hours</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#github-classroom">gitHub Classroom</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#about-git">About git</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#notes">Notes:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#new-expectations">New Expectations</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#evaluation-of-your-work">Evaluation of your work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#and-now-some-real-work">And now, some real work:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#git-github-classroom">git / gitHub Classroom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#github-actions">gitHub actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#some-notes-about-git">Some notes about git</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#unit-testing">Unit Testing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#unit-testing-terminology">Unit Testing Terminology</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#python-unit-testing-tools">Python Unit Testing Tools</a></li>
@@ -122,6 +125,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#unittest-in-practice"><code class="docutils literal notranslate"><span class="pre">unittest</span></code> in practice</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#handy-references-for-unittest">Handy references for unittest:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-complete-testcase">A complete TestCase:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#chris-unit-testing-hints">Chris’ Unit Testing Hints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-pylint">Running pylint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assignment-01">Assignment 01:</a></li>
 </ul>
 </li>
 </ul>
@@ -202,11 +209,10 @@
             
   <div class="section" id="introduction-to-py320-advanced-programming-in-python">
 <span id="notes-lesson01"></span><h1>1/11/2022: Introduction to Py320: Advanced Programming in Python<a class="headerlink" href="#introduction-to-py320-advanced-programming-in-python" title="Permalink to this headline">¶</a></h1>
-<p>In which you are introduced to this class, your instructors, your environment and your now best friend, Python.</p>
+<p>In which you are introduced to this class and your instructors, and continue your relationship with your now best friend, Python.</p>
 <a class="reference internal image-reference" href="_images/python.png"><img alt="_images/python.png" class="align-center" src="_images/python.png" style="width: 80%;" /></a>
 <p><a class="reference external" href="http://xkcd.com/353">xkcd.com/353</a></p>
-<p>The goal of this lesson is get us all familiar with each other, the class, and all the tools and systems we’ll need to conduct the class.
-That is, at the end of this lesson  we can start the actual learning about Python :-)</p>
+<p>The goal of this lesson is get us all familiar with each other, the class, and all the tools and systems we’ll need to conduct the class. As this is the second in the series, that shoulnd’ttake too long, so we’ll get into Topic 1: Unit Testing!</p>
 <div class="section" id="who-are-we">
 <h2>Who are we?<a class="headerlink" href="#who-are-we" title="Permalink to this headline">¶</a></h2>
 <p>Introduction to your instructors:</p>
@@ -214,78 +220,65 @@ That is, at the end of this lesson  we can start the actual learning about Pytho
 <p>Luis</p>
 <div class="section" id="who-are-you">
 <h3>Who are you?<a class="headerlink" href="#who-are-you" title="Permalink to this headline">¶</a></h3>
-<p>Despite the common myth of the lone programmer, most software development is a collaborative activity.  As such, we encourage students in this program to work together whenever possible.</p>
-<p>As you will be working with your fellow students for the rest of the program, we’ll take
-a couple minutes now to get to know each other.</p>
-<p>This is a lot harder to do online, but we’ll try to make use of Zoom as best we can!</p>
-<p>So we’ll go around the zoom and introduce ourselves:</p>
+<p>Despite the common myth of the lone programmer, most software development is a collaborative activity.  As such, we encourage students in this class to work together whenever possible.</p>
+<p>You all have been working together for some time already, but we instructors don’t know you yet. And particularly since this is an entirely online class – maybe it’s a good idea for you to reintroduce yourselves to each other as well.</p>
+<p>So we’ll go around the Zoom and introduce ourselves:</p>
 <p>Tell us a tiny bit about yourself:</p>
 <ul class="simple">
 <li>Name</li>
-<li>Programming background: what languages have you used?</li>
-<li>Why do you want to learn Python?</li>
-<li>What’s your favorite coffee shop or bar – or was, before the Pandemic.</li>
-<li>What is your gitHub handle – if you already have one.
-If not, send it to us when you get it: <code class="docutils literal notranslate"><span class="pre">pythonCHB&#64;gmail.com</span></code></li>
+<li>Why did you want to learn Python?</li>
+<li>What’s one cool thing you learned about python last quarter?</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Or one thing you really want to learn this quarter?</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Is there anything from last quarter that you are confused about that you want us to clarify?</li>
+<li>What is your gitHub handle?</li>
 </ul>
 </div>
 </div>
 <div class="section" id="introduction-to-this-class">
 <h2>Introduction to This Class<a class="headerlink" href="#introduction-to-this-class" title="Permalink to this headline">¶</a></h2>
-<p>The overall class is managed by a learning management system – Canvas.</p>
-<p>You should have gotten a link to the instance for the class sent to you.</p>
-<p>Is everyone “hooked up” to Canvas?</p>
-<p>NOTE: I’m not a big Canvas fan: it’s where to go to find assignments and get on the Zoom, etc, but much of our interaction will be via programming tools, like gitHub, rather than Canvas.</p>
+<p>As before, the overall class is managed in Canvas. You should all be familiar with that now.</p>
+<p>Is everyone “hooked up” to the Canvas instance for this class?</p>
+<p>NOTE: I’m not a big Canvas fan: it’s where to go to find the readings and videos, get the links to the assignments and get on the Zoom, etc, but much of our interaction will be via MS Teams and programming tools, like gitHub, rather than Canvas.</p>
+<p>NOTE: It’s UW policy that your assignments are uploaded to Canvas (as a zip file), so that there is a record of your work. But Luis and I will look exclusively at your PRs in gitHub Classroom to review your work. So do be sure to put a link in to the PR when you are ready for us to review.</p>
+<p>Due dates: You assignments are all due before the next class sessions (i.e. Tuesday at 6:00 pm) – but we do encourage you to turn them in earlier, so we have time to review before the next class.</p>
+<p>In any case – come to the next class prepared with questions, if you have them.</p>
 <div class="section" id="class-structure">
 <h3>Class Structure<a class="headerlink" href="#class-structure" title="Permalink to this headline">¶</a></h3>
+<p>How will we spend this <strong>three hour</strong> sessions each week?</p>
 <p>We will be using a variation of a
 <a class="reference external" href="https://en.wikipedia.org/wiki/Flipped_classroom">“flipped classroom”</a>
 for this class.</p>
-<p>This means that the “homework” will be reading, watching videos, coding, etc.</p>
-<p>And class time will be spent primarily coding:</p>
+<p>Class time will be spent primarily coding and addressing questions:</p>
 <blockquote>
 <div><ul class="simple">
 <li>Still some lecture – as little as possible</li>
 <li>Lots of demos</li>
-<li>Working on Coding Exercises:
+<li>Working on the Exercises:
 - On your own, with us to help
 - In small groups (breakout groups on Zoom)
 - Instructor led.</li>
 </ul>
 </div></blockquote>
-<p>This means that you are expected to complete the reading (and video watching) BEFORE each class. That way, we don’t have to take class time introducing the basic material and can focus on questions and applying what you’ve read about.</p>
+<p>This means that you are expected to complete the reading (and video watching) <strong>before</strong> each class. That way, we don’t have to take class time introducing the basic material and can focus on questions and applying what you’ve read about.</p>
 <p>Interrupt us with questions – please!</p>
 <p>Luis and I will be monitoring Zoom chat – but it’s easy to miss – so feel free to speak up!</p>
 <p>(Some of the best learning prompted by questions)</p>
+<p><strong>NOTE:</strong> I will try to take a break about once and hour. But I tend to get “in the zone”, so may forget. Please feel free to remind me if you need a break!</p>
 </div>
 <div class="section" id="homework">
 <h3>Homework:<a class="headerlink" href="#homework" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Homework will be reading, a handful of videos, and links to optional external materials – videos, blog posts, etc.</li>
-<li>Exercises will often be started in class – but you can finish them at home (and you will need time to do that!)</li>
+<li>Homework will be reading, videos, and links to external materials – videos, blog posts, etc.</li>
+<li>Exercises will often be started in class – but you will finish them on your own at home (and you will need time to do that!)</li>
 <li>You are adults – it’s up to you to do the homework. But if you don’t code, you won’t learn to code. And we can’t give you a certificate if you haven’t demonstrated that you’ve done the work.</li>
-<li>To submit your work, we will use gitHub Classroom:</li>
+<li>To submit your work, we will continue to use gitHub Classroom.</li>
 </ul>
-</div>
-<div class="section" id="git-github-classroom">
-<h3>2) git / gitHub Classroom<a class="headerlink" href="#git-github-classroom" title="Permalink to this headline">¶</a></h3>
-<p>The second, and harder part is gitHub classroom.</p>
-<p>In general, most of you seem to have got the basics down:</p>
-<blockquote>
-<div><ul class="simple">
-<li>Accepting the assignment</li>
-<li>Cloning the assignment repo onto your machine.</li>
-<li>Adding a file to git</li>
-<li>Commiting your changes</li>
-<li>Pushing your changes to gitHub.</li>
-</ul>
-</div></blockquote>
-<p>Did you all get a gitHub Classroom repo working?</p>
-<p>(zoom poll)</p>
-<p>For a reminder:</p>
-<p><a class="reference external" href="https://uwpce-pythoncert.github.io/ProgrammingInPython/topics/01-setting_up/github_classroom.html#github-classroom" title="(in Programming in Python)"><span>Working with gitHub Classroom</span></a></p>
-<p><a class="reference external" href="https://uwpce-pythoncert.github.io/ProgrammingInPython/topics/01-setting_up/github_classroom.html">https://uwpce-pythoncert.github.io/ProgrammingInPython/topics/01-setting_up/github_classroom.html</a></p>
-<p>We’ll play around with this in this session so we can get the hang of it.</p>
 </div>
 <div class="section" id="communication">
 <h3>Communication<a class="headerlink" href="#communication" title="Permalink to this headline">¶</a></h3>
@@ -296,6 +289,9 @@ for this class.</p>
 <p>Anything Python related is fair game.  Questions and discussion about the assignments are encouraged.</p>
 <p>We highly encourage you to work together. You will learn at a much deeper level if you work together, and it gets you ready to collaborate with colleagues.</p>
 <p>I will also send occasional email out to the whole class – make sure I have the email address you want me to use. (I’ve got your uw email addresses now).</p>
+<p>You can also send email directly to your instructors:</p>
+<p>Chris: <a class="reference external" href="mailto:PythonCHB&#37;&#52;&#48;gmail&#46;com">PythonCHB<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Luis:</p>
 </div>
 <div class="section" id="office-hours">
 <h3>Office Hours<a class="headerlink" href="#office-hours" title="Permalink to this headline">¶</a></h3>
@@ -303,19 +299,99 @@ for this class.</p>
 <p>Please feel free to attend even if you do not have a specific question. It is an opportunity to work with the instructors and fellow students, and learn from each other.</p>
 <p>What are good times for you?</p>
 </div>
-<div class="section" id="github-classroom">
-<h3>gitHub Classroom<a class="headerlink" href="#github-classroom" title="Permalink to this headline">¶</a></h3>
-<p>Let’s get you set up with gitHub classroom so you can submit your work:</p>
-<p><a class="reference external" href="https://uwpce-pythoncert.github.io/ProgrammingInPython/topics/01-setting_up/github_classroom.html#github-classroom" title="(in Programming in Python)"><span>Working with gitHub Classroom</span></a></p>
+<div class="section" id="new-expectations">
+<h3>New Expectations<a class="headerlink" href="#new-expectations" title="Permalink to this headline">¶</a></h3>
 </div>
-<div class="section" id="about-git">
-<h3>About git<a class="headerlink" href="#about-git" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="evaluation-of-your-work">
+<h2>Evaluation of your work<a class="headerlink" href="#evaluation-of-your-work" title="Permalink to this headline">¶</a></h2>
+<p>In the previous class, the focus was on getting the basics of Python down.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Getting the code to do what you want it to do</li>
+</ul>
+</div></blockquote>
+<p>You were introduced to many of the concepts of good software development practices:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Code style / linting</li>
+<li>Unit testing / TDD</li>
+<li>Error handling</li>
+<li>Well thought out code structure</li>
+<li>Documenting the code</li>
+</ul>
+</div></blockquote>
+<p>In this class, we will be emphasizing these ideas. The assignments will evaluated with all this in mind. In short, your code will be expected to:</p>
+<ul class="simple">
+<li>Work correctly</li>
+<li>Be PEP 8 compliant</li>
+<li>Have complete Unit Tests (100% coverage)</li>
+<li>Be documented (i.e. docstrings on functions / classes)</li>
+</ul>
+</div>
+<div class="section" id="and-now-some-real-work">
+<h2>And now, some real work:<a class="headerlink" href="#and-now-some-real-work" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="git-github-classroom">
+<h3>git / gitHub Classroom<a class="headerlink" href="#git-github-classroom" title="Permalink to this headline">¶</a></h3>
+<p>You used gitHub classroom last quarter, so this should all be familiar.</p>
+<p><strong>SOMETHING NEW</strong></p>
+<p>The gitHub classroom for this class has been set up using a new UW organization. In order to ensure a bit more privacy for students, you need to have a gitHub account that is “hooked up” to a <code class="docutils literal notranslate"><span class="pre">uw.edu</span></code> email address. If your gitHub account is already set up with your <code class="docutils literal notranslate"><span class="pre">uw.edu</span></code> email address then you are all set.</p>
+<p>But if it wasn’t, you have two options:</p>
+<ol class="arabic simple">
+<li>Create a new gitHub account, using your <code class="docutils literal notranslate"><span class="pre">uw.edu</span></code> email address – all good.</li>
+<li>You can add your <code class="docutils literal notranslate"><span class="pre">uw.edu</span></code> email address to your existing gitHub account – I think that’s the way to go.</li>
+</ol>
+<p>Let’s do that now.</p>
+<p>If you are not sure – then try to accept the first assignment, and</p>
+<p>Once done, we can get the first assignment going:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Accepting the first assignment</li>
+<li>Clone the assignment repo onto your machine.</li>
+<li>Adding a file (<code class="docutils literal notranslate"><span class="pre">test_main.py</span></code>)</li>
+<li>Commit your changes</li>
+<li>Push your changes to gitHub.</li>
+</ul>
+</div></blockquote>
+<p>For a reminder: (plus there’s a summary in Canvas):</p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/ProgrammingInPython/topics/01-setting_up/github_classroom.html#github-classroom" title="(in Programming in Python)"><span>Working with gitHub Classroom</span></a></p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/ProgrammingInPython/topics/01-setting_up/github_classroom.html">https://uwpce-pythoncert.github.io/ProgrammingInPython/topics/01-setting_up/github_classroom.html</a></p>
+</div>
+<div class="section" id="github-actions">
+<h3>gitHub actions<a class="headerlink" href="#github-actions" title="Permalink to this headline">¶</a></h3>
+<p><strong>SOMETHING ELSE NEW</strong></p>
+<p>gitHub has what’s known as a CI/CD (Continuous Integration / Continuous Deployment) system called “Actions”. This is a very complex topic that’s part of development operations (“devops”), which we are not getting into in this class. But in short:</p>
+<p>gitHub actions are a way to run any process you like whenever the repository changes (you push code). This can be:</p>
+<ul class="simple">
+<li>Building the code</li>
+<li>Linting the code</li>
+<li>Running the tests</li>
+<li>Packaging up the code</li>
+<li>Deploying the application</li>
+<li>The list goes on and on ….</li>
+</ul>
+<p>The gitHub classroom assignments for this class have been set up to run gitHub actions to do three things:</p>
+<p>You probably haven’t completed the reading for the first week yet, but this is talked about there :-)</p>
+<ol class="arabic simple">
+<li>“lint” the code – run PyLint on the code to check for conformance with PEP 8</li>
+<li>Run pytest – making sure all of them pass</li>
+<li>Run “coverage” on your tests – to make sure that your tests are testing all of your code</li>
+</ol>
+<p>If any of these three processes fails or is incomplete, then the “action” will fail, and gitHub will send you an email saying so.</p>
+<p><strong>NOTE:</strong></p>
+<p>“Failing the CI” does not mean that you have failed the assignment – but in order to get full credit, all these checks should pass.</p>
+<p><strong>NOTE 2:</strong></p>
+<p>These checks <strong>DO NOT CHECK IF YOUR CODE WORKS CORRECTLY</strong> It only means your code meets the standards for style and testing. Whether it does the job is up to you to ensure!</p>
+<p>Finally: These results should not be a surprise – you should be doing these checks on your own before pushing to gitHub anyway.</p>
+<p>This process mirrors real development practices – often there are policies that all code must “pass the CI” before it is merged into the production branch.</p>
+<p>You should have seen your first CI failure when you created the assignment repo – which makes sense, you haven’t written the code yet, of course it fails!</p>
+</div>
+<div class="section" id="some-notes-about-git">
+<h3>Some notes about git<a class="headerlink" href="#some-notes-about-git" title="Permalink to this headline">¶</a></h3>
 <p>Now that we’ve done that, a few thoughts on git:</p>
 <p>Have you got the gitHub classroom “flow” down?</p>
 <p>Do you have any conceptual Questions?</p>
-</div>
-<div class="section" id="notes">
-<h3>Notes:<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h3>
+<p>Should I go over these notes?</p>
 <p>git is very flexible, and does not lose data easily. However, it is <strong>much</strong> harder to undo things than it is to make changes.  So you will be happier if you take some extra care to not commit changes that you don’t want. Some hints:</p>
 <ul class="simple">
 <li>Always do a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code> before you commit – make sure that the stuff you are going to commit is what you want!<ul>
@@ -344,34 +420,9 @@ Changes not staged for commit:
 <p>There are other nifty hints on that page, if you get stuck.</p>
 </div>
 </div>
-<div class="section" id="evaluation-of-your-work">
-<h2>Evaluation of your work<a class="headerlink" href="#evaluation-of-your-work" title="Permalink to this headline">¶</a></h2>
-<p>In the previous class, the focus was on getting the basics of Python down.</p>
-<blockquote>
-<div><ul class="simple">
-<li>Getting the code to do what you want it to do</li>
-</ul>
-</div></blockquote>
-<p>You were introduced to many of the concepts of good software development practices:</p>
-<blockquote>
-<div><ul class="simple">
-<li>Code style / linting</li>
-<li>Unit testing / TDD</li>
-<li>Error handling</li>
-<li>Well thought out code structure</li>
-<li>Documenting the code</li>
-</ul>
-</div></blockquote>
-<p>In this class, we will be emphasizing these ideas. The assignments will evaluated with all this in mind. In short, your code will be expected to:</p>
-<ul class="simple">
-<li>Work correctly</li>
-<li>Be PEP 8 compliant</li>
-<li>Have complete Unit Tests (ideally 100% coverage)</li>
-<li>Be basically documented (i.e. docstrings on functions / classes)</li>
-</ul>
-</div>
 <div class="section" id="unit-testing">
 <h2>Unit Testing<a class="headerlink" href="#unit-testing" title="Permalink to this headline">¶</a></h2>
+<p>And now the actual assignment!</p>
 <p>The first week is about Unit Testing and TDD. You were introduced to these concepts in the previous class, but we are now taking it up a notch. In particular:</p>
 <ul class="simple">
 <li>How to use the <code class="docutils literal notranslate"><span class="pre">unittest</span></code> testing framework</li>
@@ -389,10 +440,10 @@ Changes not staged for commit:
 <p>A <strong>test framework</strong> is a collection of utilities that aid in writing unit tests.</p>
 <p>A <strong>test runner</strong> is a utility that makes it easy to run unit tests, including reporting the results, etc.</p>
 <p><strong>test coverage</strong> is a measure of how much of the code under test is actually used when the suite of unit tests is run.
-Note that less than 100% coverage means the tests are incomplete. But even with 100% coverage, there may be many possibilities that were never tested.</p>
-<p><strong>Test Driven Development (TDD)</strong>: is “a software development process relying on software requirements being converted to test cases before software is fully developed”.
-In short: write the tests before the code.
-It can feel pretty awkward at first: After all, we are thinking about how to make the code work – that’s what we want to focus on. But trust me: it really does lead to cleaner, more robust code.
+Note that less than 100% coverage means the tests are incomplete. But even with 100% coverage, there may be many possibilities that have not been tested.</p>
+<p><strong>Test Driven Development (TDD)</strong>: is “a software development process relying on software requirements being converted to test cases before software is fully developed”.</p>
+<p>In short: write the tests before the code.</p>
+<p>It can feel pretty awkward at first: After all, we are thinking about how to make the code work – that’s what we want to focus on. But trust me: it really does lead to cleaner, more robust code.
 And if you follow TDD, 100% coverage is almost guaranteed.</p>
 <p>These are all concepts that are independent of the tools.</p>
 </div>
@@ -406,8 +457,8 @@ It can be run by itself, or along with pytest, via pytest-cov.</p>
 <div class="section" id="unit-testing-for-this-class">
 <h3>Unit testing for this class<a class="headerlink" href="#unit-testing-for-this-class" title="Permalink to this headline">¶</a></h3>
 <p>As <code class="docutils literal notranslate"><span class="pre">unittest</span></code> is part of the standard library, every Python developer should be familiar with it.
-So this week’s exercise should be completed using the <code class="docutils literal notranslate"><span class="pre">unittest</span></code> framework.
-For the rest of the class, you are free to use either <code class="docutils literal notranslate"><span class="pre">unittest</span></code> or <code class="docutils literal notranslate"><span class="pre">pytest</span></code> tests – which ever you find most productive.
+So this week’s exercise should be completed using the <code class="docutils literal notranslate"><span class="pre">unittest</span></code> framework.</p>
+<p>For the rest of the class, you are free to use either <code class="docutils literal notranslate"><span class="pre">unittest</span></code> or <code class="docutils literal notranslate"><span class="pre">pytest</span></code> tests – whichever you find most productive.
 But in either case, we expect you to follow TDD and have comprehensive test coverage</p>
 <p>Any thoughts / questions about Unit Testing before we jump in?</p>
 </div>
@@ -422,6 +473,89 @@ But in either case, we expect you to follow TDD and have comprehensive test cove
 <p><a class="reference external" href="https://docs.python.org/3/library/unittest.html">https://docs.python.org/3/library/unittest.html</a></p>
 <p>A cheat sheet for the asserts:</p>
 <p><a class="reference external" href="https://kapeli.com/cheat_sheets/Python_unittest_Assertions.docset/Contents/Resources/Documents/index">https://kapeli.com/cheat_sheets/Python_unittest_Assertions.docset/Contents/Resources/Documents/index</a></p>
+</div>
+<div class="section" id="a-complete-testcase">
+<h3>A complete TestCase:<a class="headerlink" href="#a-complete-testcase" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">unittest</span></code> is a class-based system for structuring tests. Each actual test is a method of a subclass of <code class="docutils literal notranslate"><span class="pre">unitest.TestCase</span></code>.</p>
+<p>(like pytest, the methods should be named <code class="docutils literal notranslate"><span class="pre">test_something</span></code>)</p>
+<p>What does <code class="docutils literal notranslate"><span class="pre">TestCase</span></code> provide?</p>
+<ul class="simple">
+<li>A set of “assert” methods for testing various things</li>
+<li>optionally, “fixtures”, with <code class="docutils literal notranslate"><span class="pre">setUp()</span></code> and <code class="docutils literal notranslate"><span class="pre">tearDown()</span></code> methods.</li>
+</ul>
+<p>A simple test case (see code in class repo: Examples/Lesson01):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="k">class</span> <span class="nc">TestListSorting</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="n">sorted_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="c1">#    sample_list = [5, 1, 6, 3]</span>
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sample_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">test_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sorted_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sorted_list</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sample_list</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sorted_list</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_reverse_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sample_list</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sorted_list</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>How do you run these?</p>
+<p>With unittest directly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">test_simple</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>With pytest:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="n">test_simple</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Personally, I like pytest as a test runner – even if we’re using <code class="docutils literal notranslate"><span class="pre">unittest</span></code> tests.</p>
+<p>Let’s try that out, and then play around with it.</p>
+</div>
+<div class="section" id="chris-unit-testing-hints">
+<h3>Chris’ Unit Testing Hints<a class="headerlink" href="#chris-unit-testing-hints" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Make sure that a new test fails at least once – it’s the only way to assure that (a) the test is being run, and (b) that it actually tests something –hopefully what you want it to test!</li>
+<li>While you are debugging the code (or the tests) it sometimes helpful to force a failure: <code class="docutils literal notranslate"><span class="pre">assert</span> <span class="pre">False</span></code>. That way pytest will not swallow any output from print statements, etc.</li>
+<li>If you have a lot of tests, and are only working on one, you can sub-select with pytest.</li>
+</ol>
+<p>One file: simply pass in the filename:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="n">test_simple</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>One test is a file: pass (part of) the name of the test with the <code class="docutils literal notranslate"><span class="pre">-k</span></code> flag:</p>
+<blockquote>
+<div>pytest -k reverse_sort test_simple.py</div></blockquote>
+<p>Note: you can pass in an expression for fancier selection. See the pytest docs.</p>
+</div>
+<div class="section" id="running-pylint">
+<h3>Running pylint<a class="headerlink" href="#running-pylint" title="Permalink to this headline">¶</a></h3>
+<p>First make sure you’ve got it installed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pylint</span>
+</pre></div>
+</div>
+<p>Then it’s pretty simple to run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pylint</span> <span class="n">test_simple</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="assignment-01">
+<h3>Assignment 01:<a class="headerlink" href="#assignment-01" title="Permalink to this headline">¶</a></h3>
+<p>Now that we’ve got that down – time to work on the assignment!</p>
+<p>Let’s go to your gitHub classroom repo.</p>
 </div>
 </div>
 </div>
