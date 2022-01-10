@@ -322,10 +322,12 @@ A **test framework** is a collection of utilities that aid in writing unit tests
 A **test runner** is a utility that makes it easy to run unit tests, including reporting the results, etc.
 
 **test coverage** is a measure of how much of the code under test is actually used when the suite of unit tests is run.
-Note that less than 100% coverage means the tests are incomplete. But even with 100% coverage, there may be many possibilities that were never tested.
+Note that less than 100% coverage means the tests are incomplete. But even with 100% coverage, there may be many possibilities that have not been tested.
 
 **Test Driven Development (TDD)**: is "a software development process relying on software requirements being converted to test cases before software is fully developed".
+
 In short: write the tests before the code.
+
 It can feel pretty awkward at first: After all, we are thinking about how to make the code work -- that's what we want to focus on. But trust me: it really does lead to cleaner, more robust code.
 And if you follow TDD, 100% coverage is almost guaranteed.
 
@@ -347,7 +349,8 @@ Unit testing for this class
 
 As ``unittest`` is part of the standard library, every Python developer should be familiar with it.
 So this week's exercise should be completed using the ``unittest`` framework.
-For the rest of the class, you are free to use either ``unittest`` or ``pytest`` tests -- which ever you find most productive.
+
+For the rest of the class, you are free to use either ``unittest`` or ``pytest`` tests -- whichever you find most productive.
 But in either case, we expect you to follow TDD and have comprehensive test coverage
 
 Any thoughts / questions about Unit Testing before we jump in?
@@ -371,3 +374,111 @@ https://docs.python.org/3/library/unittest.html
 A cheat sheet for the asserts:
 
 https://kapeli.com/cheat_sheets/Python_unittest_Assertions.docset/Contents/Resources/Documents/index
+
+
+A complete TestCase:
+--------------------
+
+``unittest`` is a class-based system for structuring tests. Each actual test is a method of a subclass of ``unitest.TestCase``.
+
+(like pytest, the methods should be named ``test_something``)
+
+What does ``TestCase`` provide?
+
+* A set of "assert" methods for testing various things
+* optionally, "fixtures", with ``setUp()`` and ``tearDown()`` methods.
+
+A simple test case (see code in class repo: Examples/Lesson01):
+
+.. code-block:: python
+
+    import unittest
+
+    class TestListSorting(unittest.TestCase):
+
+        sorted_list = [1, 3, 5, 6]
+    #    sample_list = [5, 1, 6, 3]
+
+        def setUp(self):
+            self.sample_list = [5, 1, 6, 3]
+
+        def tearDown(self):
+            pass
+
+        def test_sort(self):
+            self.assertNotEqual(self.sample_list, self.sorted_list)
+            self.assertNotEqual(self.sample_list, self.sorted_list[::-1])
+            self.sample_list.sort()
+            self.assertEqual(self.sample_list, self.sorted_list)
+
+        def test_reverse_sort(self):
+
+            self.sample_list.sort(reverse=True)
+            self.assertEqual(self.sample_list, self.sorted_list[::-1])
+
+
+    if __name__ == '__main__':
+        unittest.main()
+
+How do you run these?
+
+With unittest directly: ::
+
+  python test_simple.py
+
+
+With pytest: ::
+
+  pytest test_simple.py
+
+
+Personally, I like pytest as a test runner -- even if we're using ``unittest`` tests.
+
+
+Let's try that out, and then play around with it.
+
+
+Chris' Unit Testing Hints
+-------------------------
+
+1) Make sure that a new test fails at least once -- it's the only way to assure that (a) the test is being run, and (b) that it actually tests something --hopefully what you want it to test!
+
+2) While you are debugging the code (or the tests) it sometimes helpful to force a failure: ``assert False``. That way pytest will not swallow any output from print statements, etc.
+
+3) If you have a lot of tests, and are only working on one, you can sub-select with pytest.
+
+One file: simply pass in the filename: ::
+
+    pytest test_simple.py
+
+One test is a file: pass (part of) the name of the test with the ``-k`` flag:
+
+    pytest -k reverse_sort test_simple.py
+
+Note: you can pass in an expression for fancier selection. See the pytest docs.
+
+
+Running pylint
+--------------
+
+First make sure you've got it installed::
+
+  pip install pylint
+
+Then it's pretty simple to run::
+
+  pylint test_simple.py
+
+
+Assignment 01:
+--------------
+
+Now that we've got that down -- time to work on the assignment!
+
+Let's go to your gitHub classroom repo.
+
+
+
+
+
+
