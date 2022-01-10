@@ -7,7 +7,7 @@
 ################################################################
 
 
-In which you are introduced to this class, your instructors, your environment and your now best friend, Python.
+In which you are introduced to this class and your instructors, and continue your relationship with your now best friend, Python.
 
 
 .. image:: /_static/python.png
@@ -20,8 +20,7 @@ In which you are introduced to this class, your instructors, your environment an
 .. _xkcd.com/353: http://xkcd.com/353
 
  
-The goal of this lesson is get us all familiar with each other, the class, and all the tools and systems we'll need to conduct the class.
-That is, at the end of this lesson  we can start the actual learning about Python :-)
+The goal of this lesson is get us all familiar with each other, the class, and all the tools and systems we'll need to conduct the class. As this is the second in the series, that shoulnd'ttake too long, so we'll get into Topic 1: Unit Testing!
 
 Who are we?
 ===========
@@ -36,58 +35,59 @@ Luis
 Who are you?
 ------------
 
-Despite the common myth of the lone programmer, most software development is a collaborative activity.  As such, we encourage students in this program to work together whenever possible.
+Despite the common myth of the lone programmer, most software development is a collaborative activity.  As such, we encourage students in this class to work together whenever possible.
 
-As you will be working with your fellow students for the rest of the program, we'll take 
-a couple minutes now to get to know each other.
+You all have been working together for some time already, but we instructors don't know you yet. And particularly since this is an entirely online class -- maybe it's a good idea for you to reintroduce yourselves to each other as well.
 
-This is a lot harder to do online, but we'll try to make use of Zoom as best we can!
-
-So we'll go around the zoom and introduce ourselves:
+So we'll go around the Zoom and introduce ourselves:
 
 Tell us a tiny bit about yourself:
 
 * Name
-* Programming background: what languages have you used?
-* Why do you want to learn Python?
-* What's your favorite coffee shop or bar -- or was, before the Pandemic.
+* Why did you want to learn Python?
+* What's one cool thing you learned about python last quarter?
+ - Or one thing you really want to learn this quarter?
+* Is there anything from last quarter that you are confused about that you want us to clarify?
 
-* What is your gitHub handle -- if you already have one.
-  If not, send it to us when you get it: ``pythonCHB@gmail.com``
+* What is your gitHub handle?
 
 
 Introduction to This Class
 ==========================
 
-The overall class is managed by a learning management system -- Canvas.
+As before, the overall class is managed in Canvas. You should all be familiar with that now.
 
-You should have gotten a link to the instance for the class sent to you.
+Is everyone "hooked up" to the Canvas instance for this class?
 
-Is everyone "hooked up" to Canvas?
+NOTE: I'm not a big Canvas fan: it's where to go to find the readings and videos, get the links to the assignments and get on the Zoom, etc, but much of our interaction will be via MS Teams and programming tools, like gitHub, rather than Canvas.
 
-NOTE: I'm not a big Canvas fan: it's where to go to find assignments and get on the Zoom, etc, but much of our interaction will be via programming tools, like gitHub, rather than Canvas.
+NOTE: It's UW policy that your assignments are uploaded to Canvas (as a zip file), so that there is a record of your work. But Luis and I will look exclusively at your PRs in gitHub Classroom to review your work. So do be sure to put a link in to the PR when you are ready for us to review.
 
+Due dates: You assignments are all due before the next class sessions (i.e. Tuesday at 6:00 pm) -- but we do encourage you to turn them in earlier, so we have time to review before the next class.
+
+In any case -- come to the next class prepared with questions, if you have them.
 
 
 Class Structure
 ---------------
 
+How will we spend this **three hour** sessions each week?
+
 We will be using a variation of a
 `"flipped classroom" <https://en.wikipedia.org/wiki/Flipped_classroom>`_
 for this class.
 
-This means that the "homework" will be reading, watching videos, coding, etc.
 
-And class time will be spent primarily coding:
+Class time will be spent primarily coding and addressing questions:
 
  * Still some lecture -- as little as possible
  * Lots of demos
- * Working on Coding Exercises:
+ * Working on the Exercises:
    - On your own, with us to help
    - In small groups (breakout groups on Zoom)
    - Instructor led.
 
-This means that you are expected to complete the reading (and video watching) BEFORE each class. That way, we don't have to take class time introducing the basic material and can focus on questions and applying what you've read about.
+This means that you are expected to complete the reading (and video watching) **before** each class. That way, we don't have to take class time introducing the basic material and can focus on questions and applying what you've read about.
 
 Interrupt us with questions -- please!
 
@@ -95,50 +95,25 @@ Luis and I will be monitoring Zoom chat -- but it's easy to miss -- so feel free
 
 (Some of the best learning prompted by questions)
 
+**NOTE:** I will try to take a break about once and hour. But I tend to get "in the zone", so may forget. Please feel free to remind me if you need a break!
+
 
 Homework:
 ---------
 
-* Homework will be reading, a handful of videos, and links to optional external materials -- videos, blog posts, etc.
+* Homework will be reading, videos, and links to external materials -- videos, blog posts, etc.
 
-* Exercises will often be started in class -- but you can finish them at home (and you will need time to do that!)
+* Exercises will often be started in class -- but you will finish them on your own at home (and you will need time to do that!)
 
 * You are adults -- it's up to you to do the homework. But if you don't code, you won't learn to code. And we can't give you a certificate if you haven't demonstrated that you've done the work.
 
-* To submit your work, we will use gitHub Classroom:
-
-2) git / gitHub Classroom
--------------------------
-
-The second, and harder part is gitHub classroom.
-
-In general, most of you seem to have got the basics down:
-
- - Accepting the assignment
- - Cloning the assignment repo onto your machine.
- - Adding a file to git
- - Commiting your changes
- - Pushing your changes to gitHub.
-
-Did you all get a gitHub Classroom repo working?
-
-(zoom poll)
-
-For a reminder:
-
-:ref:`github_classroom`
-
-https://uwpce-pythoncert.github.io/ProgrammingInPython/topics/01-setting_up/github_classroom.html
-
-
-We'll play around with this in this session so we can get the hang of it.
+* To submit your work, we will continue to use gitHub Classroom.
 
 
 Communication
 -------------
 
 MS Teams:
-
 
 We will use MS Teams to communicate -- it's a good way for us to communicate as a group, rather than more directly as individuals.
 
@@ -153,6 +128,11 @@ We highly encourage you to work together. You will learn at a much deeper level 
 
 I will also send occasional email out to the whole class -- make sure I have the email address you want me to use. (I've got your uw email addresses now).
 
+You can also send email directly to your instructors:
+
+Chris: PythonCHB@gmail.com
+Luis:
+
 
 Office Hours
 ------------
@@ -163,17 +143,114 @@ Please feel free to attend even if you do not have a specific question. It is an
 
 What are good times for you?
 
-
-gitHub Classroom
+New Expectations
 ----------------
 
-Let's get you set up with gitHub classroom so you can submit your work:
+Evaluation of your work
+=======================
+
+In the previous class, the focus was on getting the basics of Python down.
+
+ * Getting the code to do what you want it to do
+
+You were introduced to many of the concepts of good software development practices:
+
+ * Code style / linting
+ * Unit testing / TDD
+ * Error handling
+ * Well thought out code structure
+ * Documenting the code
+
+In this class, we will be emphasizing these ideas. The assignments will evaluated with all this in mind. In short, your code will be expected to:
+
+* Work correctly
+* Be PEP 8 compliant
+* Have complete Unit Tests (100% coverage)
+* Be documented (i.e. docstrings on functions / classes)
+
+
+And now, some real work:
+=======================
+
+git / gitHub Classroom
+----------------------
+
+You used gitHub classroom last quarter, so this should all be familiar.
+
+**SOMETHING NEW**
+
+The gitHub classroom for this class has been set up using a new UW organization. In order to ensure a bit more privacy for students, you need to have a gitHub account that is "hooked up" to a ``uw.edu`` email address. If your gitHub account is already set up with your ``uw.edu`` email address then you are all set.
+
+But if it wasn't, you have two options:
+
+1) Create a new gitHub account, using your ``uw.edu`` email address -- all good.
+
+2) You can add your ``uw.edu`` email address to your existing gitHub account -- I think that's the way to go.
+
+
+Let's do that now.
+
+If you are not sure -- then try to accept the first assignment, and
+
+Once done, we can get the first assignment going:
+
+ - Accepting the first assignment
+ - Clone the assignment repo onto your machine.
+ - Adding a file (``test_main.py``)
+ - Commit your changes
+ - Push your changes to gitHub.
+
+For a reminder: (plus there's a summary in Canvas):
 
 :ref:`github_classroom`
 
+https://uwpce-pythoncert.github.io/ProgrammingInPython/topics/01-setting_up/github_classroom.html
 
-About git
----------
+gitHub actions
+--------------
+
+**SOMETHING ELSE NEW**
+
+gitHub has what's known as a CI/CD (Continuous Integration / Continuous Deployment) system called "Actions". This is a very complex topic that's part of development operations ("devops"), which we are not getting into in this class. But in short:
+
+gitHub actions are a way to run any process you like whenever the repository changes (you push code). This can be:
+
+* Building the code
+* Linting the code
+* Running the tests
+* Packaging up the code
+* Deploying the application
+* The list goes on and on ....
+
+The gitHub classroom assignments for this class have been set up to run gitHub actions to do three things:
+
+You probably haven't completed the reading for the first week yet, but this is talked about there :-)
+
+1) "lint" the code -- run PyLint on the code to check for conformance with PEP 8
+
+2) Run pytest -- making sure all of them pass
+
+3) Run "coverage" on your tests -- to make sure that your tests are testing all of your code
+
+If any of these three processes fails or is incomplete, then the "action" will fail, and gitHub will send you an email saying so.
+
+**NOTE:**
+
+"Failing the CI" does not mean that you have failed the assignment -- but in order to get full credit, all these checks should pass.
+
+**NOTE 2:**
+
+These checks **DO NOT CHECK IF YOUR CODE WORKS CORRECTLY** It only means your code meets the standards for style and testing. Whether it does the job is up to you to ensure!
+
+Finally: These results should not be a surprise -- you should be doing these checks on your own before pushing to gitHub anyway.
+
+This process mirrors real development practices -- often there are policies that all code must "pass the CI" before it is merged into the production branch.
+
+You should have seen your first CI failure when you created the assignment repo -- which makes sense, you haven't written the code yet, of course it fails!
+
+
+Some notes about git
+--------------------
 
 Now that we've done that, a few thoughts on git:
 
@@ -181,9 +258,8 @@ Have you got the gitHub classroom "flow" down?
 
 Do you have any conceptual Questions?
 
+Should I go over these notes?
 
-Notes:
-------
 
 git is very flexible, and does not lose data easily. However, it is **much** harder to undo things than it is to make changes.  So you will be happier if you take some extra care to not commit changes that you don't want. Some hints:
 
@@ -215,31 +291,12 @@ https://uwpce-pythoncert.github.io/ProgrammingInPython/topics/01-setting_up/git_
 
 There are other nifty hints on that page, if you get stuck.
 
-Evaluation of your work
-=======================
-
-In the previous class, the focus was on getting the basics of Python down.
-
- * Getting the code to do what you want it to do
-
-You were introduced to many of the concepts of good software development practices:
-
- * Code style / linting
- * Unit testing / TDD
- * Error handling
- * Well thought out code structure
- * Documenting the code
-
-In this class, we will be emphasizing these ideas. The assignments will evaluated with all this in mind. In short, your code will be expected to:
-
-* Work correctly
-* Be PEP 8 compliant
-* Have complete Unit Tests (ideally 100% coverage)
-* Be basically documented (i.e. docstrings on functions / classes)
 
 
 Unit Testing
 ============
+
+And now the actual assignment!
 
 The first week is about Unit Testing and TDD. You were introduced to these concepts in the previous class, but we are now taking it up a notch. In particular:
 
