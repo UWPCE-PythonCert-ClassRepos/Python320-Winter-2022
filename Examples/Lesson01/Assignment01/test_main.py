@@ -13,6 +13,8 @@ import main
 class TestUserCollection(TestCase):
     '''
     tests of the UserCollection class
+
+    this should test all UserCollection functionality
     '''
 
     def test_init_collection(self):
