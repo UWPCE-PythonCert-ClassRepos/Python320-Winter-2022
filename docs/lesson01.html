@@ -1,82 +1,36 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>1/11/2022: Intro and Testing, Coverage, and Linting &mdash; Advanced Python: Winter 2021 1.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'1.0',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="1/18/2022: Logging and Debugging" href="lesson02.html" />
     <link rel="prev" title="Advanced Programming in Python: Winter 2022 Online" href="index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Advanced Python: Winter 2021
-          
-
-          
+            <a href="index.html" class="icon icon-home"> Advanced Python: Winter 2021
           </a>
-
-          
-            
-            
               <div class="version">
                 1.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -84,18 +38,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">1/11/2022: Intro and Testing, Coverage, and Linting</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#who-are-we">Who are we?</a><ul>
@@ -132,6 +75,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#lesson-1-cheat-sheet">Lesson 1 Cheat Sheet:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tl-dr">TL;DR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#for-more-detail">For more detail</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#testing-framework">Testing Framework</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#test-runner">Test Runner</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#unittest-test-runner"><code class="docutils literal notranslate"><span class="pre">unittest</span></code> test runner</a></li>
@@ -162,104 +107,65 @@
 <li class="toctree-l1"><a class="reference internal" href="lesson10.html">3/15/2022: API Design</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Advanced Python: Winter 2021</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>1/11/2022: Intro and Testing, Coverage, and Linting</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="_sources/lesson01.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <div class="section" id="intro-and-testing-coverage-and-linting">
-<span id="notes-lesson01"></span><h1>1/11/2022: Intro and Testing, Coverage, and Linting<a class="headerlink" href="#intro-and-testing-coverage-and-linting" title="Permalink to this headline">¶</a></h1>
+<span id="notes-lesson01"></span><h1>1/11/2022: Intro and Testing, Coverage, and Linting<a class="headerlink" href="#intro-and-testing-coverage-and-linting" title="Permalink to this headline"></a></h1>
 <p>In which you are introduced to this class and your instructors, and continue your relationship with your now best friend, Python.</p>
 <a class="reference internal image-reference" href="_images/python.png"><img alt="_images/python.png" class="align-center" src="_images/python.png" style="width: 80%;" /></a>
 <p><a class="reference external" href="http://xkcd.com/353">xkcd.com/353</a></p>
 <p>The goal of this lesson is get us all familiar with each other, the class, and all the tools and systems we’ll need to conduct the class. As this is the second in the series, that shoulnd’ttake too long, so we’ll get into Topic 1: Unit Testing!</p>
 <div class="section" id="who-are-we">
-<h2>Who are we?<a class="headerlink" href="#who-are-we" title="Permalink to this headline">¶</a></h2>
+<h2>Who are we?<a class="headerlink" href="#who-are-we" title="Permalink to this headline"></a></h2>
 <p>Introduction to your instructors:</p>
 <p>Chris</p>
 <p>Luis</p>
 <div class="section" id="who-are-you">
-<h3>Who are you?<a class="headerlink" href="#who-are-you" title="Permalink to this headline">¶</a></h3>
+<h3>Who are you?<a class="headerlink" href="#who-are-you" title="Permalink to this headline"></a></h3>
 <p>Despite the common myth of the lone programmer, most software development is a collaborative activity.  As such, we encourage students in this class to work together whenever possible.</p>
 <p>You all have been working together for some time already, but we instructors don’t know you yet. And particularly since this is an entirely online class – maybe it’s a good idea for you to reintroduce yourselves to each other as well.</p>
 <p>So we’ll go around the Zoom and introduce ourselves:</p>
 <p>Tell us a tiny bit about yourself:</p>
 <ul class="simple">
-<li>Name</li>
-<li>Why did you want to learn Python?</li>
-<li>What’s one cool thing you learned about python last quarter?</li>
+<li><p>Name</p></li>
+<li><p>Why did you want to learn Python?</p></li>
+<li><p>What’s one cool thing you learned about python last quarter?</p></li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>Or one thing you really want to learn this quarter?</li>
+<li><p>Or one thing you really want to learn this quarter?</p></li>
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li>Is there anything from last quarter that you are confused about that you want us to clarify?</li>
-<li>What is your gitHub handle?</li>
+<li><p>Is there anything from last quarter that you are confused about that you want us to clarify?</p></li>
+<li><p>What is your gitHub handle?</p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="introduction-to-this-class">
-<h2>Introduction to This Class<a class="headerlink" href="#introduction-to-this-class" title="Permalink to this headline">¶</a></h2>
+<h2>Introduction to This Class<a class="headerlink" href="#introduction-to-this-class" title="Permalink to this headline"></a></h2>
 <p>As before, the overall class is managed in Canvas. You should all be familiar with that now.</p>
 <p>Is everyone “hooked up” to the Canvas instance for this class?</p>
 <p>NOTE: I’m not a big Canvas fan: it’s where to go to find the readings and videos, get the links to the assignments and get on the Zoom, etc, but much of our interaction will be via MS Teams and programming tools, like gitHub, rather than Canvas.</p>
@@ -267,7 +173,7 @@
 <p>Due dates: You assignments are all due before the next class sessions (i.e. Tuesday at 6:00 pm) – but we do encourage you to turn them in earlier, so we have time to review before the next class.</p>
 <p>In any case – come to the next class prepared with questions, if you have them.</p>
 <div class="section" id="class-structure">
-<h3>Class Structure<a class="headerlink" href="#class-structure" title="Permalink to this headline">¶</a></h3>
+<h3>Class Structure<a class="headerlink" href="#class-structure" title="Permalink to this headline"></a></h3>
 <p>How will we spend this <strong>three hour</strong> sessions each week?</p>
 <p>We will be using a variation of a
 <a class="reference external" href="https://en.wikipedia.org/wiki/Flipped_classroom">“flipped classroom”</a>
@@ -275,12 +181,12 @@ for this class.</p>
 <p>Class time will be spent primarily coding and addressing questions:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Still some lecture – as little as possible</li>
-<li>Lots of demos</li>
-<li>Working on the Exercises:
+<li><p>Still some lecture – as little as possible</p></li>
+<li><p>Lots of demos</p></li>
+<li><p>Working on the Exercises:
 - On your own, with us to help
 - In small groups (breakout groups on Zoom)
-- Instructor led.</li>
+- Instructor led.</p></li>
 </ul>
 </div></blockquote>
 <p>This means that you are expected to complete the reading (and video watching) <strong>before</strong> each class. That way, we don’t have to take class time introducing the basic material and can focus on questions and applying what you’ve read about.</p>
@@ -290,16 +196,16 @@ for this class.</p>
 <p><strong>NOTE:</strong> I will try to take a break about once and hour. But I tend to get “in the zone”, so may forget. Please feel free to remind me if you need a break!</p>
 </div>
 <div class="section" id="homework">
-<h3>Homework:<a class="headerlink" href="#homework" title="Permalink to this headline">¶</a></h3>
+<h3>Homework:<a class="headerlink" href="#homework" title="Permalink to this headline"></a></h3>
 <ul class="simple">
-<li>Homework will be reading, videos, and links to external materials – videos, blog posts, etc.</li>
-<li>Exercises will often be started in class – but you will finish them on your own at home (and you will need time to do that!)</li>
-<li>You are adults – it’s up to you to do the homework. But if you don’t code, you won’t learn to code. And we can’t give you a certificate if you haven’t demonstrated that you’ve done the work.</li>
-<li>To submit your work, we will continue to use gitHub Classroom.</li>
+<li><p>Homework will be reading, videos, and links to external materials – videos, blog posts, etc.</p></li>
+<li><p>Exercises will often be started in class – but you will finish them on your own at home (and you will need time to do that!)</p></li>
+<li><p>You are adults – it’s up to you to do the homework. But if you don’t code, you won’t learn to code. And we can’t give you a certificate if you haven’t demonstrated that you’ve done the work.</p></li>
+<li><p>To submit your work, we will continue to use gitHub Classroom.</p></li>
 </ul>
 </div>
 <div class="section" id="communication">
-<h3>Communication<a class="headerlink" href="#communication" title="Permalink to this headline">¶</a></h3>
+<h3>Communication<a class="headerlink" href="#communication" title="Permalink to this headline"></a></h3>
 <p>MS Teams:</p>
 <p>We will use MS Teams to communicate – it’s a good way for us to communicate as a group, rather than more directly as individuals.</p>
 <p><a class="reference external" href="https://teams.microsoft.com/l/team/19%3aQ-nZkfCZ6FCD5xc9n_X2dB6M3l-nu0rEF27WMRlXnEQ1%40thread.tacv2/conversations?groupId=b2f3f042-43c1-4709-8f31-cffa42956a3d&amp;tenantId=f6b6dd5b-f02f-441a-99a0-162ac5060bd2">Link to the Team</a></p>
@@ -312,63 +218,63 @@ for this class.</p>
 <p>Luis: <a class="reference external" href="mailto:ldconejo&#37;&#52;&#48;uw&#46;edu">ldconejo<span>&#64;</span>uw<span>&#46;</span>edu</a></p>
 </div>
 <div class="section" id="office-hours">
-<h3>Office Hours<a class="headerlink" href="#office-hours" title="Permalink to this headline">¶</a></h3>
+<h3>Office Hours<a class="headerlink" href="#office-hours" title="Permalink to this headline"></a></h3>
 <p>We will generally will hold two “office hours” sessions on Zoom each week.</p>
 <p>Please feel free to attend even if you do not have a specific question. It is an opportunity to work with the instructors and fellow students, and learn from each other.</p>
 <p>What are good times for you?</p>
 </div>
 <div class="section" id="new-expectations">
-<h3>New Expectations<a class="headerlink" href="#new-expectations" title="Permalink to this headline">¶</a></h3>
+<h3>New Expectations<a class="headerlink" href="#new-expectations" title="Permalink to this headline"></a></h3>
 </div>
 </div>
 <div class="section" id="evaluation-of-your-work">
-<h2>Evaluation of your work<a class="headerlink" href="#evaluation-of-your-work" title="Permalink to this headline">¶</a></h2>
+<h2>Evaluation of your work<a class="headerlink" href="#evaluation-of-your-work" title="Permalink to this headline"></a></h2>
 <p>In the previous class, the focus was on getting the basics of Python down.</p>
 <blockquote>
 <div><ul class="simple">
-<li>Getting the code to do what you want it to do</li>
+<li><p>Getting the code to do what you want it to do</p></li>
 </ul>
 </div></blockquote>
 <p>You were introduced to many of the concepts of good software development practices:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Code style / linting</li>
-<li>Unit testing / TDD</li>
-<li>Error handling</li>
-<li>Well thought out code structure</li>
-<li>Documenting the code</li>
+<li><p>Code style / linting</p></li>
+<li><p>Unit testing / TDD</p></li>
+<li><p>Error handling</p></li>
+<li><p>Well thought out code structure</p></li>
+<li><p>Documenting the code</p></li>
 </ul>
 </div></blockquote>
 <p>In this class, we will be emphasizing these ideas. The assignments will evaluated with all this in mind. In short, your code will be expected to:</p>
 <ul class="simple">
-<li>Work correctly</li>
-<li>Be PEP 8 compliant</li>
-<li>Have complete Unit Tests (100% coverage)</li>
-<li>Be documented (i.e. docstrings on functions / classes)</li>
+<li><p>Work correctly</p></li>
+<li><p>Be PEP 8 compliant</p></li>
+<li><p>Have complete Unit Tests (100% coverage)</p></li>
+<li><p>Be documented (i.e. docstrings on functions / classes)</p></li>
 </ul>
 </div>
 <div class="section" id="and-now-some-real-work">
-<h2>And now, some real work:<a class="headerlink" href="#and-now-some-real-work" title="Permalink to this headline">¶</a></h2>
+<h2>And now, some real work:<a class="headerlink" href="#and-now-some-real-work" title="Permalink to this headline"></a></h2>
 <div class="section" id="git-github-classroom">
-<h3>git / gitHub Classroom<a class="headerlink" href="#git-github-classroom" title="Permalink to this headline">¶</a></h3>
+<h3>git / gitHub Classroom<a class="headerlink" href="#git-github-classroom" title="Permalink to this headline"></a></h3>
 <p>You used gitHub classroom last quarter, so this should all be familiar.</p>
 <p><strong>SOMETHING NEW</strong></p>
 <p>The gitHub classroom for this class has been set up using a new UW organization. In order to ensure a bit more privacy for students, you need to have a gitHub account that is “hooked up” to a <code class="docutils literal notranslate"><span class="pre">uw.edu</span></code> email address. If your gitHub account is already set up with your <code class="docutils literal notranslate"><span class="pre">uw.edu</span></code> email address then you are all set.</p>
 <p>But if it wasn’t, you have two options:</p>
 <ol class="arabic simple">
-<li>Create a new gitHub account, using your <code class="docutils literal notranslate"><span class="pre">uw.edu</span></code> email address – all good.</li>
-<li>You can add your <code class="docutils literal notranslate"><span class="pre">uw.edu</span></code> email address to your existing gitHub account – I think that’s the way to go.</li>
+<li><p>Create a new gitHub account, using your <code class="docutils literal notranslate"><span class="pre">uw.edu</span></code> email address – all good.</p></li>
+<li><p>You can add your <code class="docutils literal notranslate"><span class="pre">uw.edu</span></code> email address to your existing gitHub account – I think that’s the way to go.</p></li>
 </ol>
 <p>Let’s do that now.</p>
 <p>If you are not sure – then try to accept the first assignment, and</p>
 <p>Once done, we can get the first assignment going:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Accepting the first assignment</li>
-<li>Clone the assignment repo onto your machine.</li>
-<li>Adding a file (<code class="docutils literal notranslate"><span class="pre">test_main.py</span></code>)</li>
-<li>Commit your changes</li>
-<li>Push your changes to gitHub.</li>
+<li><p>Accepting the first assignment</p></li>
+<li><p>Clone the assignment repo onto your machine.</p></li>
+<li><p>Adding a file (<code class="docutils literal notranslate"><span class="pre">test_main.py</span></code>)</p></li>
+<li><p>Commit your changes</p></li>
+<li><p>Push your changes to gitHub.</p></li>
 </ul>
 </div></blockquote>
 <p>For a reminder: (plus there’s a summary in Canvas):</p>
@@ -376,24 +282,24 @@ for this class.</p>
 <p><a class="reference external" href="https://uwpce-pythoncert.github.io/ProgrammingInPython/topics/01-setting_up/github_classroom.html">https://uwpce-pythoncert.github.io/ProgrammingInPython/topics/01-setting_up/github_classroom.html</a></p>
 </div>
 <div class="section" id="github-actions">
-<h3>gitHub actions<a class="headerlink" href="#github-actions" title="Permalink to this headline">¶</a></h3>
+<h3>gitHub actions<a class="headerlink" href="#github-actions" title="Permalink to this headline"></a></h3>
 <p><strong>SOMETHING ELSE NEW</strong></p>
 <p>gitHub has what’s known as a CI/CD (Continuous Integration / Continuous Deployment) system called “Actions”. This is a very complex topic that’s part of development operations (“devops”), which we are not getting into in this class. But in short:</p>
 <p>gitHub actions are a way to run any process you like whenever the repository changes (you push code). This can be:</p>
 <ul class="simple">
-<li>Building the code</li>
-<li>Linting the code</li>
-<li>Running the tests</li>
-<li>Packaging up the code</li>
-<li>Deploying the application</li>
-<li>The list goes on and on ….</li>
+<li><p>Building the code</p></li>
+<li><p>Linting the code</p></li>
+<li><p>Running the tests</p></li>
+<li><p>Packaging up the code</p></li>
+<li><p>Deploying the application</p></li>
+<li><p>The list goes on and on ….</p></li>
 </ul>
 <p>The gitHub classroom assignments for this class have been set up to run gitHub actions to do three things:</p>
 <p>You probably haven’t completed the reading for the first week yet, but this is talked about there :-)</p>
 <ol class="arabic simple">
-<li>“lint” the code – run PyLint on the code to check for conformance with PEP 8</li>
-<li>Run pytest – making sure all of them pass</li>
-<li>Run “coverage” on your tests – to make sure that your tests are testing all of your code</li>
+<li><p>“lint” the code – run PyLint on the code to check for conformance with PEP 8</p></li>
+<li><p>Run pytest – making sure all of them pass</p></li>
+<li><p>Run “coverage” on your tests – to make sure that your tests are testing all of your code</p></li>
 </ol>
 <p>If any of these three processes fails or is incomplete, then the “action” will fail, and gitHub will send you an email saying so.</p>
 <p><strong>NOTE:</strong></p>
@@ -405,15 +311,16 @@ for this class.</p>
 <p>You should have seen your first CI failure when you created the assignment repo – which makes sense, you haven’t written the code yet, of course it fails!</p>
 </div>
 <div class="section" id="some-notes-about-git">
-<h3>Some notes about git<a class="headerlink" href="#some-notes-about-git" title="Permalink to this headline">¶</a></h3>
+<h3>Some notes about git<a class="headerlink" href="#some-notes-about-git" title="Permalink to this headline"></a></h3>
 <p>Now that we’ve done that, a few thoughts on git:</p>
 <p>Have you got the gitHub classroom “flow” down?</p>
 <p>Do you have any conceptual Questions?</p>
 <p>Should I go over these notes?</p>
 <p>git is very flexible, and does not lose data easily. However, it is <strong>much</strong> harder to undo things than it is to make changes.  So you will be happier if you take some extra care to not commit changes that you don’t want. Some hints:</p>
 <ul class="simple">
-<li>Always do a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code> before you commit – make sure that the stuff you are going to commit is what you want!<ul>
-<li>note that if you do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code> it will only commit those files listed under “staged for commit”. But if you do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-a</span></code> (-a for all) then it will commit everything modified, i.e. “Changes not staged for commit:”.</li>
+<li><p>Always do a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code> before you commit – make sure that the stuff you are going to commit is what you want!</p>
+<ul>
+<li><p>note that if you do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code> it will only commit those files listed under “staged for commit”. But if you do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-a</span></code> (-a for all) then it will commit everything modified, i.e. “Changes not staged for commit:”.</p></li>
 </ul>
 </li>
 </ul>
@@ -439,21 +346,22 @@ Changes not staged for commit:
 </div>
 </div>
 <div class="section" id="unit-testing">
-<h2>Unit Testing<a class="headerlink" href="#unit-testing" title="Permalink to this headline">¶</a></h2>
+<h2>Unit Testing<a class="headerlink" href="#unit-testing" title="Permalink to this headline"></a></h2>
 <p>And now the actual assignment!</p>
 <p>The first week is about Unit Testing and TDD. You were introduced to these concepts in the previous class, but we are now taking it up a notch. In particular:</p>
 <ul class="simple">
-<li>How to use the <code class="docutils literal notranslate"><span class="pre">unittest</span></code> testing framework</li>
-<li>Fixtures</li>
-<li>Mocking</li>
-<li>Code Coverage</li>
+<li><p>How to use the <code class="docutils literal notranslate"><span class="pre">unittest</span></code> testing framework</p></li>
+<li><p>Fixtures</p></li>
+<li><p>Mocking</p></li>
+<li><p>Code Coverage</p></li>
 </ul>
 <p>You may find that much of the material in the readings / videos for this week are review – but review is a good thing !</p>
 <div class="section" id="unit-testing-terminology">
-<h3>Unit Testing Terminology<a class="headerlink" href="#unit-testing-terminology" title="Permalink to this headline">¶</a></h3>
+<h3>Unit Testing Terminology<a class="headerlink" href="#unit-testing-terminology" title="Permalink to this headline"></a></h3>
 <p><strong>Unit Testing</strong> is a concept:</p>
 <blockquote>
-<div>“a software testing method by which individual units of source code are tested to determine whether they are fit for use.”</div></blockquote>
+<div><p>“a software testing method by which individual units of source code are tested to determine whether they are fit for use.”</p>
+</div></blockquote>
 <p>Unit testing can be done in any language with any number of testing frameworks and test runners, including roll-your-own asserts in an <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> block.</p>
 <p>A <strong>test framework</strong> is a collection of utilities that aid in writing unit tests.</p>
 <p>A <strong>test runner</strong> is a utility that makes it easy to run unit tests, including reporting the results, etc.</p>
@@ -466,14 +374,14 @@ And if you follow TDD, 100% coverage is almost guaranteed.</p>
 <p>These are all concepts that are independent of the tools.</p>
 </div>
 <div class="section" id="python-unit-testing-tools">
-<h3>Python Unit Testing Tools<a class="headerlink" href="#python-unit-testing-tools" title="Permalink to this headline">¶</a></h3>
+<h3>Python Unit Testing Tools<a class="headerlink" href="#python-unit-testing-tools" title="Permalink to this headline"></a></h3>
 <p><strong>``unittest``</strong> is a unit testing framework that is delivered as part of the Python standard library. It is used by cPython itself, as well as a number of major packages, e.g. Django.</p>
 <p><strong>``pytest``</strong> is both a test runner <em>and</em> a unit testing framework. It can be used to run <code class="docutils literal notranslate"><span class="pre">unittest</span></code> tests, as well as the simpler tests based on the pytest test framework.</p>
 <p><strong>``coverage``</strong> is a python package that helps you determine the coverage of a set of unit tests.
 It can be run by itself, or along with pytest, via pytest-cov.</p>
 </div>
 <div class="section" id="unit-testing-for-this-class">
-<h3>Unit testing for this class<a class="headerlink" href="#unit-testing-for-this-class" title="Permalink to this headline">¶</a></h3>
+<h3>Unit testing for this class<a class="headerlink" href="#unit-testing-for-this-class" title="Permalink to this headline"></a></h3>
 <p>As <code class="docutils literal notranslate"><span class="pre">unittest</span></code> is part of the standard library, every Python developer should be familiar with it.
 So this week’s exercise should be completed using the <code class="docutils literal notranslate"><span class="pre">unittest</span></code> framework.</p>
 <p>For the rest of the class, you are free to use either <code class="docutils literal notranslate"><span class="pre">unittest</span></code> or <code class="docutils literal notranslate"><span class="pre">pytest</span></code> tests – whichever you find most productive.
@@ -482,24 +390,24 @@ But in either case, we expect you to follow TDD and have comprehensive test cove
 </div>
 </div>
 <div class="section" id="unittest-in-practice">
-<h2><code class="docutils literal notranslate"><span class="pre">unittest</span></code> in practice<a class="headerlink" href="#unittest-in-practice" title="Permalink to this headline">¶</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">unittest</span></code> in practice<a class="headerlink" href="#unittest-in-practice" title="Permalink to this headline"></a></h2>
 <p>Usually, you will have completed all the reading / videos before class. So we’d be ready to jump right in to the Exercises.</p>
 <p>But since you all should be familiar with testing already,let’s jump right in anyway!</p>
 <div class="section" id="handy-references-for-unittest">
-<h3>Handy references for unittest:<a class="headerlink" href="#handy-references-for-unittest" title="Permalink to this headline">¶</a></h3>
+<h3>Handy references for unittest:<a class="headerlink" href="#handy-references-for-unittest" title="Permalink to this headline"></a></h3>
 <p>The official docs:</p>
 <p><a class="reference external" href="https://docs.python.org/3/library/unittest.html">https://docs.python.org/3/library/unittest.html</a></p>
 <p>A cheat sheet for the asserts:</p>
 <p><a class="reference external" href="https://kapeli.com/cheat_sheets/Python_unittest_Assertions.docset/Contents/Resources/Documents/index">https://kapeli.com/cheat_sheets/Python_unittest_Assertions.docset/Contents/Resources/Documents/index</a></p>
 </div>
 <div class="section" id="a-complete-testcase">
-<h3>A complete TestCase:<a class="headerlink" href="#a-complete-testcase" title="Permalink to this headline">¶</a></h3>
+<h3>A complete TestCase:<a class="headerlink" href="#a-complete-testcase" title="Permalink to this headline"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">unittest</span></code> is a class-based system for structuring tests. Each actual test is a method of a subclass of <code class="docutils literal notranslate"><span class="pre">unitest.TestCase</span></code>.</p>
 <p>(like pytest, the methods should be named <code class="docutils literal notranslate"><span class="pre">test_something</span></code>)</p>
 <p>What does <code class="docutils literal notranslate"><span class="pre">TestCase</span></code> provide?</p>
 <ul class="simple">
-<li>A set of “assert” methods for testing various things</li>
-<li>optionally, “fixtures”, with <code class="docutils literal notranslate"><span class="pre">setUp()</span></code> and <code class="docutils literal notranslate"><span class="pre">tearDown()</span></code> methods.</li>
+<li><p>A set of “assert” methods for testing various things</p></li>
+<li><p>optionally, “fixtures”, with <code class="docutils literal notranslate"><span class="pre">setUp()</span></code> and <code class="docutils literal notranslate"><span class="pre">tearDown()</span></code> methods.</p></li>
 </ul>
 <p>A simple test case (see code in class repo: Examples/Lesson01):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
@@ -544,11 +452,11 @@ But in either case, we expect you to follow TDD and have comprehensive test cove
 <p>Let’s try that out, and then play around with it.</p>
 </div>
 <div class="section" id="chris-unit-testing-hints">
-<h3>Chris’ Unit Testing Hints<a class="headerlink" href="#chris-unit-testing-hints" title="Permalink to this headline">¶</a></h3>
+<h3>Chris’ Unit Testing Hints<a class="headerlink" href="#chris-unit-testing-hints" title="Permalink to this headline"></a></h3>
 <ol class="arabic simple">
-<li>Make sure that a new test fails at least once – it’s the only way to assure that (a) the test is being run, and (b) that it actually tests something –hopefully what you want it to test!</li>
-<li>While you are debugging the code (or the tests) it sometimes helpful to force a failure: <code class="docutils literal notranslate"><span class="pre">assert</span> <span class="pre">False</span></code>. That way pytest will not swallow any output from print statements, etc.</li>
-<li>If you have a lot of tests, and are only working on one, you can sub-select with pytest.</li>
+<li><p>Make sure that a new test fails at least once – it’s the only way to assure that (a) the test is being run, and (b) that it actually tests something –hopefully what you want it to test!</p></li>
+<li><p>While you are debugging the code (or the tests) it sometimes helpful to force a failure: <code class="docutils literal notranslate"><span class="pre">assert</span> <span class="pre">False</span></code>. That way pytest will not swallow any output from print statements, etc.</p></li>
+<li><p>If you have a lot of tests, and are only working on one, you can sub-select with pytest.</p></li>
 </ol>
 <p>One file: simply pass in the filename:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="n">test_simple</span><span class="o">.</span><span class="n">py</span>
@@ -556,11 +464,12 @@ But in either case, we expect you to follow TDD and have comprehensive test cove
 </div>
 <p>One test is a file: pass (part of) the name of the test with the <code class="docutils literal notranslate"><span class="pre">-k</span></code> flag:</p>
 <blockquote>
-<div>pytest -k reverse_sort test_simple.py</div></blockquote>
+<div><p>pytest -k reverse_sort test_simple.py</p>
+</div></blockquote>
 <p>Note: you can pass in an expression for fancier selection. See the pytest docs.</p>
 </div>
 <div class="section" id="running-pylint">
-<h3>Running pylint<a class="headerlink" href="#running-pylint" title="Permalink to this headline">¶</a></h3>
+<h3>Running pylint<a class="headerlink" href="#running-pylint" title="Permalink to this headline"></a></h3>
 <p>First make sure you’ve got it installed:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pylint</span>
 </pre></div>
@@ -571,23 +480,51 @@ But in either case, we expect you to follow TDD and have comprehensive test cove
 </div>
 </div>
 <div class="section" id="assignment-01">
-<h3>Assignment 01:<a class="headerlink" href="#assignment-01" title="Permalink to this headline">¶</a></h3>
+<h3>Assignment 01:<a class="headerlink" href="#assignment-01" title="Permalink to this headline"></a></h3>
 <p>Now that we’ve got that down – time to work on the assignment!</p>
 <p>Let’s go to your gitHub classroom repo.</p>
 </div>
 </div>
 <div class="section" id="lesson-1-cheat-sheet">
-<h2>Lesson 1 Cheat Sheet:<a class="headerlink" href="#lesson-1-cheat-sheet" title="Permalink to this headline">¶</a></h2>
+<h2>Lesson 1 Cheat Sheet:<a class="headerlink" href="#lesson-1-cheat-sheet" title="Permalink to this headline"></a></h2>
+<div class="section" id="tl-dr">
+<h3>TL;DR<a class="headerlink" href="#tl-dr" title="Permalink to this headline"></a></h3>
+<p>To install what you need:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pytest</span><span class="o">-</span><span class="n">cov</span>
+</pre></div>
+</div>
+<p>(that will bring in pytest and coverage in one shot)</p>
+<p>To lint your code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pylint</span> <span class="o">*.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>To run the tests:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span>
+</pre></div>
+</div>
+<p>(you should be doing this VERY often as you work on your code!)</p>
+<p>To run the tests, and coverage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="o">--</span><span class="n">cov</span>
+</pre></div>
+</div>
+<p>To run the tests, and get a nifty html coverage report:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="o">--</span><span class="n">cov</span> <span class="o">--</span><span class="n">cov</span><span class="o">-</span><span class="n">report</span><span class="o">=</span><span class="n">html</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="for-more-detail">
+<h3>For more detail<a class="headerlink" href="#for-more-detail" title="Permalink to this headline"></a></h3>
 <p>In lesson 1, we (re)introduced a set of good software development practices:</p>
 <ul class="simple">
-<li>Unit testing</li>
-<li>Test Driven Development</li>
-<li>Test Coverage</li>
-<li>Code Linting</li>
+<li><p>Unit testing</p></li>
+<li><p>Test Driven Development</p></li>
+<li><p>Test Coverage</p></li>
+<li><p>Code Linting</p></li>
 </ul>
 <p>Recall that these are best practices –there are a number of tools you can use to do these things. What follows is a quick cheat sheet for how to use the tools we recommend.</p>
+</div>
 <div class="section" id="testing-framework">
-<h3>Testing Framework<a class="headerlink" href="#testing-framework" title="Permalink to this headline">¶</a></h3>
+<h3>Testing Framework<a class="headerlink" href="#testing-framework" title="Permalink to this headline"></a></h3>
 <p>For this lesson, you are expected to use the <code class="docutils literal notranslate"><span class="pre">unittest</span></code> test framework. Here are a couple handy references:</p>
 <p>The official docs:</p>
 <p><a class="reference external" href="https://docs.python.org/3/library/unittest.html">https://docs.python.org/3/library/unittest.html</a></p>
@@ -599,9 +536,9 @@ But in either case, we expect you to follow TDD and have comprehensive test cove
 <p>The getting started section is pretty handy for the basics.</p>
 </div>
 <div class="section" id="test-runner">
-<h3>Test Runner<a class="headerlink" href="#test-runner" title="Permalink to this headline">¶</a></h3>
+<h3>Test Runner<a class="headerlink" href="#test-runner" title="Permalink to this headline"></a></h3>
 <div class="section" id="unittest-test-runner">
-<h4><code class="docutils literal notranslate"><span class="pre">unittest</span></code> test runner<a class="headerlink" href="#unittest-test-runner" title="Permalink to this headline">¶</a></h4>
+<h4><code class="docutils literal notranslate"><span class="pre">unittest</span></code> test runner<a class="headerlink" href="#unittest-test-runner" title="Permalink to this headline"></a></h4>
 <p>You can use either the built in <code class="docutils literal notranslate"><span class="pre">unittest</span></code> test runner:</p>
 <p>Running the test file directly:</p>
 <p>It must have this <code class="docutils literal notranslate"><span class="pre">__name__</span></code> block:</p>
@@ -619,7 +556,7 @@ But in either case, we expect you to follow TDD and have comprehensive test cove
 </div>
 </div>
 <div class="section" id="pytest-test-runner">
-<h4><code class="docutils literal notranslate"><span class="pre">pytest</span></code> test runner<a class="headerlink" href="#pytest-test-runner" title="Permalink to this headline">¶</a></h4>
+<h4><code class="docutils literal notranslate"><span class="pre">pytest</span></code> test runner<a class="headerlink" href="#pytest-test-runner" title="Permalink to this headline"></a></h4>
 <p>NOTE: If you haven’t already:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pytest</span>
 </pre></div>
@@ -640,7 +577,7 @@ But in either case, we expect you to follow TDD and have comprehensive test cove
 </div>
 </div>
 <div class="section" id="test-coverage">
-<h3>Test Coverage<a class="headerlink" href="#test-coverage" title="Permalink to this headline">¶</a></h3>
+<h3>Test Coverage<a class="headerlink" href="#test-coverage" title="Permalink to this headline"></a></h3>
 <p>Test coverage can be provided by the <code class="docutils literal notranslate"><span class="pre">coverage</span></code> tool.</p>
 <p><a class="reference external" href="https://coverage.readthedocs.io/">https://coverage.readthedocs.io/</a></p>
 <p>Make sure you have it:</p>
@@ -667,7 +604,7 @@ But in either case, we expect you to follow TDD and have comprehensive test cove
 <p>Then point your browser at the <code class="docutils literal notranslate"><span class="pre">htmlcov/index.html</span></code> that is created.</p>
 <p>Try it out – it’s very cool! It provides a visual line by line report.</p>
 <div class="section" id="pytest-cov">
-<h4><code class="docutils literal notranslate"><span class="pre">pytest-cov</span></code><a class="headerlink" href="#pytest-cov" title="Permalink to this headline">¶</a></h4>
+<h4><code class="docutils literal notranslate"><span class="pre">pytest-cov</span></code><a class="headerlink" href="#pytest-cov" title="Permalink to this headline"></a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">pytest-cov</span></code> package integrates coverage with pytest, making it a touch easier to run.</p>
 <p><a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/">https://pytest-cov.readthedocs.io/en/latest/</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pytest</span><span class="o">-</span><span class="n">cov</span>
@@ -689,7 +626,7 @@ But in either case, we expect you to follow TDD and have comprehensive test cove
 </div>
 </div>
 <div class="section" id="linting">
-<h3>Linting<a class="headerlink" href="#linting" title="Permalink to this headline">¶</a></h3>
+<h3>Linting<a class="headerlink" href="#linting" title="Permalink to this headline"></a></h3>
 <p>There are a number of linting tools out there: <code class="docutils literal notranslate"><span class="pre">pylint</span></code>, <code class="docutils literal notranslate"><span class="pre">flake8</span></code>, <code class="docutils literal notranslate"><span class="pre">pycodestyle</span></code>, and more.</p>
 <p>For this class, we are going to primarily use <code class="docutils literal notranslate"><span class="pre">pylint</span></code> – it’s a solid option.</p>
 <p><a class="reference external" href="https://pylint.org/">https://pylint.org/</a></p>
@@ -706,7 +643,7 @@ But in either case, we expect you to follow TDD and have comprehensive test cove
 </div>
 <p>Pretty simple, eh?</p>
 <div class="section" id="a-linter-in-your-editor-ide">
-<h4>A linter in your editor / IDE.<a class="headerlink" href="#a-linter-in-your-editor-ide" title="Permalink to this headline">¶</a></h4>
+<h4>A linter in your editor / IDE.<a class="headerlink" href="#a-linter-in-your-editor-ide" title="Permalink to this headline"></a></h4>
 <p>It REALLY helps if your editor yells at you for style issues as you write your code.
 Otherwise, you’ll find a LOT of errors when you finally get around to running <code class="docutils literal notranslate"><span class="pre">pylint</span></code>!
 <code class="docutils literal notranslate"><span class="pre">pylint</span></code> can be configured to work with most common Python editors – configure yours now!</p>
@@ -714,7 +651,7 @@ Otherwise, you’ll find a LOT of errors when you finally get around to running 
 </div>
 </div>
 <div class="section" id="the-github-ci">
-<h3>The gitHub CI<a class="headerlink" href="#the-github-ci" title="Permalink to this headline">¶</a></h3>
+<h3>The gitHub CI<a class="headerlink" href="#the-github-ci" title="Permalink to this headline"></a></h3>
 <p>As mentioned in class, the gitHub CI is configured to run tests, coverage, and lint your code.
 We wrote the CI script to be as generic as possible, as we can’t know in advance exactly how you might structure your code.
 If you want to replicate what will happen in the CI, you’ll need to run these commands:</p>
@@ -733,58 +670,33 @@ But if you run that last command, you will get both.
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="lesson02.html" class="btn btn-neutral float-right" title="1/18/2022: Logging and Debugging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="index.html" class="btn btn-neutral float-left" title="Advanced Programming in Python: Winter 2022 Online" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Advanced Programming in Python: Winter 2022 Online" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lesson02.html" class="btn btn-neutral float-right" title="1/18/2022: Logging and Debugging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        
-        &copy; Copyright 2021, Christopher H. Barker
-
-    </p>
+    <p>&#169; Copyright 2021, Christopher H. Barker.</p>
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

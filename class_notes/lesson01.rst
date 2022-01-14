@@ -485,6 +485,47 @@ Let's go to your gitHub classroom repo.
 Lesson 1 Cheat Sheet:
 =====================
 
+TL;DR
+-----
+
+To install what you need:
+
+::
+
+  pip install pytest-cov
+
+(that will bring in pytest and coverage in one shot)
+
+To lint your code:
+
+::
+
+    pylint *.py
+
+To run the tests:
+
+::
+
+    pytest
+
+(you should be doing this VERY often as you work on your code!)
+
+To run the tests, and coverage:
+
+::
+
+    pytest --cov
+
+To run the tests, and get a nifty html coverage report:
+
+::
+
+    pytest --cov --cov-report=html
+
+
+For more detail
+---------------
+
 In lesson 1, we (re)introduced a set of good software development practices:
 
 - Unit testing
