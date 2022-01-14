@@ -2,9 +2,9 @@
 
 .. _notes_lesson01:
 
-################################################################
-1/11/2022: Introduction to Py320: Advanced Programming in Python
-################################################################
+###################################################
+1/11/2022: Intro and Testing, Coverage, and Linting
+###################################################
 
 
 In which you are introduced to this class and your instructors, and continue your relationship with your now best friend, Python.
@@ -482,8 +482,228 @@ Now that we've got that down -- time to work on the assignment!
 
 Let's go to your gitHub classroom repo.
 
+Lesson 1 Cheat Sheet:
+=====================
+
+In lesson 1, we (re)introduced a set of good software development practices:
+
+- Unit testing
+- Test Driven Development
+- Test Coverage
+- Code Linting
+
+Recall that these are best practices --there are a number of tools you can use to do these things. What follows is a quick cheat sheet for how to use the tools we recommend.
+
+Testing Framework
+-----------------
+
+For this lesson, you are expected to use the ``unittest`` test framework. Here are a couple handy references:
+
+The official docs:
+
+https://docs.python.org/3/library/unittest.html
+
+A cheat sheet for the asserts:
+
+https://kapeli.com/cheat_sheets/Python_unittest_Assertions.docset/Contents/Resources/Documents/index
+
+Keep in mind that after this lesson, you are free to use unittest, or pytest directly, or a combination of the two.
+
+Here are the pytest docs:
+
+https://docs.pytest.org/
+
+The getting started section is pretty handy for the basics.
+
+Test Runner
+-----------
+
+``unittest`` test runner
+........................
+
+You can use either the built in ``unittest`` test runner:
+
+Running the test file directly:
+
+It must have this ``__name__`` block:
+
+.. code-block:: python
+
+    if __name__ == "__main__":
+        unittest.main()
+
+Then you can run it directly: ::
+
+    python test_main.py
+
+Running it from unittest (this supports multipel files, etc)
+
+::
+
+    python -m unittest test_main.py
+
+``pytest`` test runner
+......................
+
+NOTE: If you haven't already:
+
+::
+
+    pip install pytest
+
+``pytest`` can run its own tests, as well as ``unittest`` tests. It will automaticaly look for files that look like tests (e.g. start with ``test_``). It will then look in those files for functions and classes that look like tests, and run them. That makes it very easy to run:
+
+::
+
+  pytest
+
+That's it! It will recursively scan for files and directories that look like tests, and run them all. If you want to run just one or two test files, you can pass them to pytest:
+
+::
+
+    pytest test_main.py
+
+If you want to run only a few tests in a test file, you can use the -k flag:
+
+::
+
+    pytest -k users test_main.py
+
+will run only the tests with "users" as part of the test name.
+
+Test Coverage
+-------------
+
+Test coverage can be provided by the ``coverage`` tool.
+
+https://coverage.readthedocs.io/
+
+Make sure you have it:
+
+::
+
+    pip install coverage
+
+Coverage works as a two-step process: first you run it to compute the coverage, then you use it to make a nifty report.
+
+Running coverage:
+
+::
+
+    coverage run -m unittest test_main.py
+
+or
+
+::
+
+    coverage run -m pytest test_main.py
+
+.. note: ``coverage`` will report on any python module called not in the standard library -- which is what we want in this case. But there are lots of way to specify exactly what you want the report on. See the docs for details.
+
+To see the results:
+
+::
+
+    coverage report
 
 
+To get a nifty html report:
+
+::
+
+    coverage html
+
+Then point your browser at the ``htmlcov/index.html`` that is created.
+
+Try it out -- it's very cool! It provides a visual line by line report.
+
+``pytest-cov``
+..............
+
+
+The ``pytest-cov`` package integrates coverage with pytest, making it a touch easier to run.
+
+https://pytest-cov.readthedocs.io/en/latest/
+
+::
+
+    pip install pytest-cov
+
+::
+
+    pytest --cov
+
+If you want only one or a couple files checked:
+
+::
+
+    pytest --cov=main --cov=users test_main.py
+
+(note that you don't use the ``.py`` extension -- it's the name of the python module, not the)
+
+Finally, you can run the tests, compute the coverage, and produce the nifty html report in one command:
+
+::
+
+    pytest --cov --cov-report=html
+
+This is a nice way to go.
+
+Linting
+-------
+
+There are a number of linting tools out there: ``pylint``, ``flake8``, ``pycodestyle``, and more.
+
+For this class, we are going to primarily use ``pylint`` -- it's a solid option.
+
+
+https://pylint.org/
+
+::
+
+  pip install pylint
+
+To lint an individual file:
+
+::
+
+  pylint main.py
+
+To lint all the python code in a dir:
+
+::
+
+   pylint *.py
+
+Pretty simple, eh?
+
+A linter in your editor / IDE.
+..............................
+
+It REALLY helps if your editor yells at you for style issues as you write your code.
+Otherwise, you'll find a LOT of errors when you finally get around to running ``pylint``!
+``pylint`` can be configured to work with most common Python editors -- configure yours now!
+
+https://pylint.pycqa.org/en/latest/user_guide/ide-integration.html
+
+
+The gitHub CI
+-------------
+
+As mentioned in class, the gitHub CI is configured to run tests, coverage, and lint your code.
+We wrote the CI script to be as generic as possible, as we can't know in advance exactly how you might structure your code.
+If you want to replicate what will happen in the CI, you'll need to run these commands:
+
+::
+
+    pylint *.py
+    pytest ./
+    pytest --cov --cov-fail-under=100 ./
+
+Note that this is running the tests twice, once with, and once without, coverage --
+we did that so you'd get a separate failure for coverage than for tests failing.
+But if you run that last command, you will get both.
+(you can probably omit the ``cov-fail-under=100``, that's only for the CI).
 
 
 
