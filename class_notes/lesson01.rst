@@ -592,7 +592,7 @@ NOTE: If you haven't already:
 
     pip install pytest
 
-``pytest`` can run its own tests, as well as ``unittest`` tests. It will automaticaly look for files that look like tests (e.g. start with ``test_``). It will then look in those files for functions and classes that look like tests, and run them. That makes it very easy to run:
+``pytest`` can run its own tests, as well as ``unittest`` tests. It will automatically look for files that look like tests (e.g. start with ``test_``). It will then look in those files for functions and classes that look like tests, and run them. That makes it very easy to run:
 
 ::
 
