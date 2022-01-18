@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chris’ Handy Testing Hints &mdash; Advanced Python: Winter 2021 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="3/15/2022: API Design" href="lesson10.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Advanced Python: Winter 2021
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lesson01.html">1/11/2022: Intro and Testing, Coverage, and Linting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson02.html">1/18/2022: Logging and Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson03.html">1/25/2022: Relational Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson04.html">2/1/2022: Iteration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson05.html">2/8/2022: Consuming APIs and NoSQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson06.html">2/15/2022: Profiling and Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson07.html">2/22/2022: Concurrency and Async</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson08.html">3/1/2022: Functional Techniques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson09.html">3/8/2022: Advanced Language Constructs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson10.html">3/15/2022: API Design</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Chris’ Handy Testing Hints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#test-driven-development-tdd">Test Driven Development (TDD)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#chris-unit-testing-hints">Chris’ Unit Testing Hints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#write-as-you-go">Write as you go:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#make-sure-a-new-test-fails">Make sure a new test fails</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#force-a-failure">Force a failure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-just-the-tests-you-are-working-on">Run just the tests you are working on</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#don-t-put-too-many-tests-on-one-file">Don’t put too many tests on one file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-sure-you-actually-made-a-new-test">Make sure you actually made a new test!</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-data-files-sparingly">Use data files sparingly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-sure-your-data-files-can-be-found">Make sure your data files can be found</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Advanced Python: Winter 2021</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Chris’ Handy Testing Hints</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/testing_hints.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="chris-handy-testing-hints">
+<span id="testing-hints"></span><h1>Chris’ Handy Testing Hints<a class="headerlink" href="#chris-handy-testing-hints" title="Permalink to this headline"></a></h1>
+<p>Here you will find some handy hints for writing and debugging tests (and your code), with a focus on TDD.</p>
+<div class="section" id="test-driven-development-tdd">
+<h2>Test Driven Development (TDD)<a class="headerlink" href="#test-driven-development-tdd" title="Permalink to this headline"></a></h2>
+<p>It’s been said many times, but I’ll say it again:</p>
+<p>TDD essentially means that you write the tests before the code.</p>
+<p>It’s that simple.</p>
+<p>But besides all the other “official” benefits, I find I can be productive for this reason:</p>
+<blockquote>
+<div><p>You need to run your code somehow in order to see if it works, even for simple things like syntax errors.</p>
+</div></blockquote>
+<p>And running the code requires a bit of code-to-run-the-code anyway – why not make them unit tests?</p>
+<p>Before I discovered TDD, I would write a little script that would run the function I was working on. Once it worked, I’d edit that script to try out some other aspect of the code – e.g. what if I passed in an invalid value? TDD is pretty much the same – except that <em>all the tests are saved</em> so you know you when you break something in the future.</p>
+<p>The other alternative to TDD is to run the entire application over an over each time to make a change. Personally, that drives me <em>BONKERS</em> – I don’t want to point and click my way through the whole app in order to see if one little change worked. And for anything but the most microscopic app (like the ones we do for classes like this), there are how many paths through the app to test?</p>
+<p>Anyway – on to TDD:</p>
+<div class="section" id="chris-unit-testing-hints">
+<h3>Chris’ Unit Testing Hints<a class="headerlink" href="#chris-unit-testing-hints" title="Permalink to this headline"></a></h3>
+<div class="section" id="write-as-you-go">
+<h4>Write as you go:<a class="headerlink" href="#write-as-you-go" title="Permalink to this headline"></a></h4>
+<p>When folks talk about TDD, it sounds like you are supposed to write the entire test suite before you start writing any real code. And maybe some people to that. But I write one test at a time. This is helpful, because debugging dozens of test failures all at once is a nightmare. Also, you don’t really know if your test are correct until they do something real.</p>
+<p>So what I do is:</p>
+<dl class="simple">
+<dt>For a single aspect of the unit being tested:</dt><dd><ul class="simple">
+<li><p>Write a single test</p></li>
+<li><p>Run the test, and watch it fail (usually)</p></li>
+<li><p>Write or fix the code until the tests passes</p></li>
+<li><p>On to the next feature!</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="make-sure-a-new-test-fails">
+<h3>Make sure a new test fails<a class="headerlink" href="#make-sure-a-new-test-fails" title="Permalink to this headline"></a></h3>
+<p>When you write a new test – make sure that it fails at least once – it’s the only way to assure that (a) the test is being run, and (b) that it actually tests something – hopefully what you want it to test!</p>
+</div>
+<div class="section" id="force-a-failure">
+<h3>Force a failure<a class="headerlink" href="#force-a-failure" title="Permalink to this headline"></a></h3>
+<p>While you are debugging the code (or the tests) it sometimes helpful to force a failure: put an <code class="docutils literal notranslate"><span class="pre">assert</span> <span class="pre">False</span></code> at the end of the test. That way pytest will not swallow any output from print statements, etc. and you can “print-debug” away.</p>
+</div>
+<div class="section" id="run-just-the-tests-you-are-working-on">
+<h3>Run just the tests you are working on<a class="headerlink" href="#run-just-the-tests-you-are-working-on" title="Permalink to this headline"></a></h3>
+<p>If you have a lot of tests, and are only working on one, you can sub-select with``pytest``.</p>
+<p>The test in only file: simply pass in the filename:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="n">test_simple</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>One test in a file: pass (part of) the name of the test with the <code class="docutils literal notranslate"><span class="pre">-k</span></code> flag:</p>
+<blockquote>
+<div><p>pytest -k reverse_sort test_simple.py</p>
+</div></blockquote>
+<p>Note: you can pass in an expression for fancier selection. See the <code class="docutils literal notranslate"><span class="pre">pytest</span></code> docs.</p>
+<p>(you can also comment out the tests you’re not working on at the moment – but don’t forget to undo that!)</p>
+</div>
+<div class="section" id="don-t-put-too-many-tests-on-one-file">
+<h3>Don’t put too many tests on one file<a class="headerlink" href="#don-t-put-too-many-tests-on-one-file" title="Permalink to this headline"></a></h3>
+<p>You really don’t want too much in one test file. As a project gets big, it gets quite unwieldy. I tend to do one test file per python module – and use the name of the file with the <code class="docutils literal notranslate"><span class="pre">test_</span></code> prefix.</p>
+</div>
+<div class="section" id="make-sure-you-actually-made-a-new-test">
+<h3>Make sure you actually made a new test!<a class="headerlink" href="#make-sure-you-actually-made-a-new-test" title="Permalink to this headline"></a></h3>
+<p>It’s pretty common practice to copy and paste a previous test to make a new one – saves retyping boiler plate code. But don’t forget to change the name! It’s a good idea to look at the number of tests in the test report to makes sure that there’s one more when you create one more.</p>
+</div>
+<div class="section" id="use-data-files-sparingly">
+<h3>Use data files sparingly<a class="headerlink" href="#use-data-files-sparingly" title="Permalink to this headline"></a></h3>
+<p>Sometimes you need some data to “feed” a test.
+If possible, and practical, try to have the test code create that data on the fly – ideally in a fixture or utility function.
+That puts all the information in one place, and assures that your tests stay in sync with your test data.</p>
+</div>
+<div class="section" id="make-sure-your-data-files-can-be-found">
+<h3>Make sure your data files can be found<a class="headerlink" href="#make-sure-your-data-files-can-be-found" title="Permalink to this headline"></a></h3>
+<p>If you do need data files, commit them to the repo, and use relative paths to get them. Here’s some handy hints for how to do that:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># gets the dir that this test file is in.</span>
+<span class="n">HERE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
+
+<span class="c1"># path to a &quot;good&quot; accounts file</span>
+<span class="n">good_account_file</span> <span class="o">=</span> <span class="n">HERE</span> <span class="o">/</span> <span class="s2">&quot;accounts.csv&quot;</span>
+</pre></div>
+</div>
+<p>Now you can use <code class="docutils literal notranslate"><span class="pre">good_account_file</span></code> anywhere you need it in your tests.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lesson10.html" class="btn btn-neutral float-left" title="3/15/2022: API Design" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Christopher H. Barker.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

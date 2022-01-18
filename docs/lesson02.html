@@ -42,8 +42,26 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="lesson01.html">1/11/2022: Intro and Testing, Coverage, and Linting</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">1/18/2022: Logging and Debugging</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#break-time">Break Time!</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Break Time!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#communication">Communication:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mailing-list">Mailing List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ms-teams">MS Teams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#github-classroom">gitHub Classroom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#canvas">Canvas</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#issues-that-come-up-with-the-homework">Issues that come up with the homework</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#naming-things-is-hard">Naming things is hard!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unittest"><code class="docutils literal notranslate"><span class="pre">unittest</span></code>:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-setup-method">The <code class="docutils literal notranslate"><span class="pre">setUp()</span></code> method:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#break-time">Break Time!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#unit-testing-hints">Unit testing hints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Break Time!</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="lesson03.html">1/25/2022: Relational Databases</a></li>
@@ -54,6 +72,7 @@
 <li class="toctree-l1"><a class="reference internal" href="lesson08.html">3/1/2022: Functional Techniques</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson09.html">3/8/2022: Advanced Language Constructs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson10.html">3/15/2022: API Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_hints.html">Chris’ Handy Testing Hints</a></li>
 </ul>
 
         </div>
@@ -83,15 +102,97 @@
   <div class="section" id="logging-and-debugging">
 <span id="notes-lesson02"></span><h1>1/18/2022: Logging and Debugging<a class="headerlink" href="#logging-and-debugging" title="Permalink to this headline"></a></h1>
 <p>A collection of notes to go over in class, to keep things organized.</p>
-<p><strong>NOTES:</strong></p>
+<hr class="docutils" />
 <p>I’ll try to have a break every hour or so – ping me if I forget!</p>
+<div class="section" id="communication">
+<h2>Communication:<a class="headerlink" href="#communication" title="Permalink to this headline"></a></h2>
+<p>So we have WAY too many ways to communicate, so I’d like to narrow it down a bit.</p>
+<div class="section" id="mailing-list">
+<h3>Mailing List<a class="headerlink" href="#mailing-list" title="Permalink to this headline"></a></h3>
+<p>The class mailing list (this I set up at the last minute – new feature that UW provides).</p>
+<p><code class="docutils literal notranslate"><span class="pre">python320a_wi22&#64;uw.edu</span></code></p>
+<p>You should all be receiving mail from this list, and be able to send notes to it as well.</p>
+<p>You can see info about the list, and archives here:</p>
+<p><a class="reference external" href="http://mailman11.u.washington.edu/mailman/listinfo/python320a_wi22">http://mailman11.u.washington.edu/mailman/listinfo/python320a_wi22</a></p>
+<p>(that should be in the footer of emails) – you will probably need to be logged in to your UW account to see it.</p>
+<p>I’d like to use this primarily as a way to make announcements for all of you. But feel free to post questions / comments of general interest, like “when are the office hours?”</p>
+</div>
+<div class="section" id="ms-teams">
+<h3>MS Teams<a class="headerlink" href="#ms-teams" title="Permalink to this headline"></a></h3>
+<p>MS Teams has been working pretty well – some great discussion going, and I see classmates helping each other out – that’s the goal, keep it up!</p>
+<p>Would it be helpful to add a channel for each assignment?</p>
+</div>
+<div class="section" id="github-classroom">
+<h3>gitHub Classroom<a class="headerlink" href="#github-classroom" title="Permalink to this headline"></a></h3>
+<p>gitHub classroom is the primary way to submit your assignments and get your code reviewed. When you post a link to a PR in Canvas to submit your assignment, we will find that and get to it as soon as we can.</p>
+<p>But we can also use a PR to review code in progress if you are stuck.</p>
+<p>The trick is us noticing the PR and question: there are a LOT of repos to keep an eye on! SO you’ll need to ping us one way or another to ask us to take a look. MS Teams is a fine way to do that:</p>
+<p>Another great option it to tag us in a PR message, i.e.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>@pythonCHB, @ldconejo, Could you take a look please?
+</pre></div>
+</div>
+<p>Then we’ll get an email with the comment, and know to look for it.</p>
+</div>
+<div class="section" id="canvas">
+<h3>Canvas<a class="headerlink" href="#canvas" title="Permalink to this headline"></a></h3>
+<p>Canvas messaging is my lest favorite option – it’s not integrated with anything else I do, and tends to encourage less group discussion (why I like MS Teams).</p>
+<div class="section" id="issues-that-come-up-with-the-homework">
+<h4>Issues that come up with the homework<a class="headerlink" href="#issues-that-come-up-with-the-homework" title="Permalink to this headline"></a></h4>
+<p>Each week, I will start class talking about issues the came up when reviewing your work – sticking points, etc, that seem to be common among the class.</p>
+</div>
+</div>
+</div>
+<div class="section" id="naming-things-is-hard">
+<h2>Naming things is hard!<a class="headerlink" href="#naming-things-is-hard" title="Permalink to this headline"></a></h2>
+<p>It’s very tempting to be careless about what you name things. But it can make your code massively more readable if you take some time to give things meaningful (but short) names.</p>
+<p>And make sure not to use deceptive names.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_user</span> <span class="o">=</span> <span class="n">add_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">user_name</span><span class="p">,</span> <span class="n">user_last_name</span><span class="p">,</span> <span class="n">user_collection</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When I read that code, I assume that <code class="docutils literal notranslate"><span class="pre">new_user</span></code> is some sort of object that represents a user. But <code class="docutils literal notranslate"><span class="pre">add_user</span></code> returns <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> – so it’s not a user at all. Maybe:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">success</span> <span class="o">=</span> <span class="n">add_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">user_name</span><span class="p">,</span> <span class="n">user_last_name</span><span class="p">,</span> <span class="n">user_collection</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="unittest">
+<h2><code class="docutils literal notranslate"><span class="pre">unittest</span></code>:<a class="headerlink" href="#unittest" title="Permalink to this headline"></a></h2>
+<div class="section" id="the-setup-method">
+<h3>The <code class="docutils literal notranslate"><span class="pre">setUp()</span></code> method:<a class="headerlink" href="#the-setup-method" title="Permalink to this headline"></a></h3>
+<p>Remember that the code in the <code class="docutils literal notranslate"><span class="pre">setUp</span></code> method is a “fixture” – it gets run <em>before every individual test</em>. So if you have, e.g.:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TestMain</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_collection</span> <span class="o">=</span> <span class="n">main</span><span class="o">.</span><span class="n">init_user_collection</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then <code class="docutils literal notranslate"><span class="pre">self.user_collection</span></code> will <em>always</em> be empty at the start of every test. Indeed – that’s the whole point!</p>
+<p>Note: see above, maybe that should be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TestMain</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">empty_user_collection</span> <span class="o">=</span> <span class="n">main</span><span class="o">.</span><span class="n">init_user_collection</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>That way, in another test, you probably wouldn’t make this mistake:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_save_users</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">su</span> <span class="o">=</span> <span class="n">main</span><span class="o">.</span><span class="n">save_users</span><span class="p">(</span><span class="s1">&#39;accounts_saved.csv&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">empty_user_collection</span><span class="p">)</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
 <div class="section" id="break-time">
-<h2>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h2>
+<h4>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h4>
 <p>10min break:</p>
 </div>
+<div class="section" id="unit-testing-hints">
+<h4>Unit testing hints<a class="headerlink" href="#unit-testing-hints" title="Permalink to this headline"></a></h4>
+<p>Unit testing, and TDD is pretty hard to wrap your head around – it seems pretty backwards at first. So I’ve written up a list of hints for how I go about it here:</p>
+<p><a class="reference internal" href="testing_hints.html#testing-hints"><span class="std std-ref">Chris’ Handy Testing Hints</span></a></p>
+<p>I’ll now take you through my solution to Assigment01, demonstarting many of those hints.</p>
+<p>On to Chris’ code ….</p>
+</div>
 <div class="section" id="id1">
-<h2>Break Time!<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<h4>Break Time!<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h4>
 <p>10min break</p>
+</div>
+</div>
 </div>
 </div>
 

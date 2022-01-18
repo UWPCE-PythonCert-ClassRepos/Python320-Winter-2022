@@ -41,3 +41,6 @@ Notes for each Lesson
     lesson09
     lesson10
 
+    testing_hints
+
+

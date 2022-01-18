@@ -6,6 +6,8 @@
 1/11/2022: Intro and Testing, Coverage, and Linting
 ###################################################
 
+See: :ref:`testing_hints` for some handy hints.
+
 
 In which you are introduced to this class and your instructors, and continue your relationship with your now best friend, Python.
 
@@ -485,6 +487,8 @@ Let's go to your gitHub classroom repo.
 Lesson 1 Cheat Sheet:
 =====================
 
+See: :ref:`testing_hints` for some handy hints on testing.
+
 TL;DR
 -----
 
@@ -592,7 +596,7 @@ NOTE: If you haven't already:
 
     pip install pytest
 
-``pytest`` can run its own tests, as well as ``unittest`` tests. It will automaticaly look for files that look like tests (e.g. start with ``test_``). It will then look in those files for functions and classes that look like tests, and run them. That makes it very easy to run:
+``pytest`` can run its own tests, as well as ``unittest`` tests. It will automatically look for files that look like tests (e.g. start with ``test_``). It will then look in those files for functions and classes that look like tests, and run them. That makes it very easy to run:
 
 ::
 
