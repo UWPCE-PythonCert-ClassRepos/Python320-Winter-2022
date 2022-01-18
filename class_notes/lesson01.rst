@@ -6,6 +6,8 @@
 1/11/2022: Intro and Testing, Coverage, and Linting
 ###################################################
 
+See: :ref:`testing_hints` for some handy hints.
+
 
 In which you are introduced to this class and your instructors, and continue your relationship with your now best friend, Python.
 
@@ -484,6 +486,8 @@ Let's go to your gitHub classroom repo.
 
 Lesson 1 Cheat Sheet:
 =====================
+
+See: :ref:`testing_hints` for some handy hints on testing.
 
 TL;DR
 -----
