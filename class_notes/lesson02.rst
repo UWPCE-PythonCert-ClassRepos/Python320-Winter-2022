@@ -77,10 +77,21 @@ Issues that come up with the homework
 
 Each week, I will start class talking about issues the came up when reviewing your work -- sticking points, etc, that seem to be common among the class.
 
+**NOTE:** We kind of threw you into the deep end with this assignment -- lots to learn all at once!
+
+If you were unable to complete it -- do not despair! You will have a chance to re-submit.
+
+In fact, the next assignments build on this one -- so you *will* need to finish it!
+
+Tonight will be a bit of a catch-up -- we probably won't be able to get to much of the new material - but the you're building skill that will carry through.
+
+
 The GitHub CI
 -------------
 
 I talked about this last week -- but it's worth repeating -- gitHub telling you your PR "failed" is scary, but all it means is that the linting or coverage failed, NOT that you failed the assignment!
+
+Let's see what that looks like.
 
 Linting Errors
 --------------
@@ -93,7 +104,7 @@ But, as it says in PEP 8:
 
 So pylint gives you ways to ignore certain Issues. See the pylint docs for the details, but in short:
 
-You can ignore certain errors for the whole project by putting them in a ``.pylintrc`` file in the dir with your code. This is only a good idea for things that really apply to the whole project.
+You can ignore certain errors for the whole project by putting them in a ``.pylintrc`` file in the dir with your code. This is only a good idea for things that really apply to the whole project -- avoid it.
 
 
 Disabling a particular message in one file:
@@ -126,6 +137,8 @@ https://pylint.pycqa.org/en/latest/faq.html#how-to-disable-a-particular-message
 As a rule, don't disable errors until you are "done" with the code, and are sure you're not going to fix them. They really are helpful while code is still under development.
 
 https://pylint.pycqa.org/en/latest/faq.html#how-to-disable-a-particular-message
+
+Let's look at some examples from my code:
 
 
 Naming things is hard!

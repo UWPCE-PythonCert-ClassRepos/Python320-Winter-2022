@@ -147,12 +147,17 @@
 <div class="section" id="issues-that-come-up-with-the-homework">
 <h4>Issues that come up with the homework<a class="headerlink" href="#issues-that-come-up-with-the-homework" title="Permalink to this headline"></a></h4>
 <p>Each week, I will start class talking about issues the came up when reviewing your work – sticking points, etc, that seem to be common among the class.</p>
+<p><strong>NOTE:</strong> We kind of threw you into the deep end with this assignment – lots to learn all at once!</p>
+<p>If you were unable to complete it – do not despair! You will have a chance to re-submit.</p>
+<p>In fact, the next assignments build on this one – so you <em>will</em> need to finish it!</p>
+<p>Tonight will be a bit of a catch-up – we probably won’t be able to get to much of the new material - but the you’re building skill that will carry through.</p>
 </div>
 </div>
 </div>
 <div class="section" id="the-github-ci">
 <h2>The GitHub CI<a class="headerlink" href="#the-github-ci" title="Permalink to this headline"></a></h2>
 <p>I talked about this last week – but it’s worth repeating – gitHub telling you your PR “failed” is scary, but all it means is that the linting or coverage failed, NOT that you failed the assignment!</p>
+<p>Let’s see what that looks like.</p>
 </div>
 <div class="section" id="linting-errors">
 <h2>Linting Errors<a class="headerlink" href="#linting-errors" title="Permalink to this headline"></a></h2>
@@ -162,7 +167,7 @@
 <div><p>“A Foolish Consistency is the Hobgoblin of Little Minds”</p>
 </div></blockquote>
 <p>So pylint gives you ways to ignore certain Issues. See the pylint docs for the details, but in short:</p>
-<p>You can ignore certain errors for the whole project by putting them in a <code class="docutils literal notranslate"><span class="pre">.pylintrc</span></code> file in the dir with your code. This is only a good idea for things that really apply to the whole project.</p>
+<p>You can ignore certain errors for the whole project by putting them in a <code class="docutils literal notranslate"><span class="pre">.pylintrc</span></code> file in the dir with your code. This is only a good idea for things that really apply to the whole project – avoid it.</p>
 <p>Disabling a particular message in one file:</p>
 <p>Put:</p>
 <p># pylint: disable=XXXXX</p>
@@ -181,6 +186,7 @@
 <p><a class="reference external" href="https://pylint.pycqa.org/en/latest/faq.html#how-to-disable-a-particular-message">https://pylint.pycqa.org/en/latest/faq.html#how-to-disable-a-particular-message</a></p>
 <p>As a rule, don’t disable errors until you are “done” with the code, and are sure you’re not going to fix them. They really are helpful while code is still under development.</p>
 <p><a class="reference external" href="https://pylint.pycqa.org/en/latest/faq.html#how-to-disable-a-particular-message">https://pylint.pycqa.org/en/latest/faq.html#how-to-disable-a-particular-message</a></p>
+<p>Let’s look at some examples from my code:</p>
 </div>
 <div class="section" id="naming-things-is-hard">
 <h2>Naming things is hard!<a class="headerlink" href="#naming-things-is-hard" title="Permalink to this headline"></a></h2>
