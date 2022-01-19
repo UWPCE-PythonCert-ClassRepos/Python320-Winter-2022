@@ -276,7 +276,7 @@ Logging:
 
 We may not have much time left -- but let's take a look at next week's assignment, and give logaru a quick try:
 
-python3 -m pip install logaru
+python3 -m pip install loguru
 
 The docs:
 
