@@ -52,16 +52,22 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#the-github-ci">The GitHub CI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#linting-errors">Linting Errors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#naming-things-is-hard">Naming things is hard!</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#unittest"><code class="docutils literal notranslate"><span class="pre">unittest</span></code>:</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#the-setup-method">The <code class="docutils literal notranslate"><span class="pre">setUp()</span></code> method:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-setup-method">The <code class="docutils literal notranslate"><span class="pre">setUp()</span></code> method:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-special-assertxxxxx-methods">The special assertXXXXX methods</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#break-time">Break Time!</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#unit-testing-hints">Unit testing hints</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id1">Break Time!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Logging and Debugging</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging">Debugging:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logging">Logging:</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="lesson03.html">1/25/2022: Relational Databases</a></li>
@@ -121,6 +127,8 @@
 <h3>MS Teams<a class="headerlink" href="#ms-teams" title="Permalink to this headline"></a></h3>
 <p>MS Teams has been working pretty well – some great discussion going, and I see classmates helping each other out – that’s the goal, keep it up!</p>
 <p>Would it be helpful to add a channel for each assignment?</p>
+<p>NOTE: It’s a known pain to use MS Teams with your UW account if you also use it with another account, e.g. at work. I think the easiest solution is to have two different computers, or two user accounts on one computer.</p>
+<p>Has anyone found a solution to managing two MS Teams accounts?</p>
 </div>
 <div class="section" id="github-classroom">
 <h3>gitHub Classroom<a class="headerlink" href="#github-classroom" title="Permalink to this headline"></a></h3>
@@ -141,6 +149,38 @@
 <p>Each week, I will start class talking about issues the came up when reviewing your work – sticking points, etc, that seem to be common among the class.</p>
 </div>
 </div>
+</div>
+<div class="section" id="the-github-ci">
+<h2>The GitHub CI<a class="headerlink" href="#the-github-ci" title="Permalink to this headline"></a></h2>
+<p>I talked about this last week – but it’s worth repeating – gitHub telling you your PR “failed” is scary, but all it means is that the linting or coverage failed, NOT that you failed the assignment!</p>
+</div>
+<div class="section" id="linting-errors">
+<h2>Linting Errors<a class="headerlink" href="#linting-errors" title="Permalink to this headline"></a></h2>
+<p>We are being particularly Pedantic about pylint for this class – this is to get you used to good habits. So we expect Zero errors flagged by pylint.</p>
+<p>But, as it says in PEP 8:</p>
+<blockquote>
+<div><p>“A Foolish Consistency is the Hobgoblin of Little Minds”</p>
+</div></blockquote>
+<p>So pylint gives you ways to ignore certain Issues. See the pylint docs for the details, but in short:</p>
+<p>You can ignore certain errors for the whole project by putting them in a <code class="docutils literal notranslate"><span class="pre">.pylintrc</span></code> file in the dir with your code. This is only a good idea for things that really apply to the whole project.</p>
+<p>Disabling a particular message in one file:</p>
+<p>Put:</p>
+<p># pylint: disable=XXXXX</p>
+<p>Near the top of the file.</p>
+<p>Where XXXXXX is the error code (e.g. C0103) or error name:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=C0103 # to allow short names in the tests</span>
+<span class="c1"># pylint: disable=invalid-name</span>
+</pre></div>
+</div>
+<p>Do the same thing – the error code is easier to add, the name is easier to read :-)</p>
+<p><a class="reference external" href="https://pylint.pycqa.org/en/latest/faq.html#is-there-a-way-to-disable-a-message-for-a-particular-module-only">https://pylint.pycqa.org/en/latest/faq.html#is-there-a-way-to-disable-a-message-for-a-particular-module-only</a></p>
+<p>Disabling an error on just one line: Sometimes there’s one line where you need to break the rules. In that case, you can put the same comment on that very line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">empty_user_collection</span><span class="p">()</span> <span class="c1"># pylint: disable=unused-variable</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://pylint.pycqa.org/en/latest/faq.html#how-to-disable-a-particular-message">https://pylint.pycqa.org/en/latest/faq.html#how-to-disable-a-particular-message</a></p>
+<p>As a rule, don’t disable errors until you are “done” with the code, and are sure you’re not going to fix them. They really are helpful while code is still under development.</p>
+<p><a class="reference external" href="https://pylint.pycqa.org/en/latest/faq.html#how-to-disable-a-particular-message">https://pylint.pycqa.org/en/latest/faq.html#how-to-disable-a-particular-message</a></p>
 </div>
 <div class="section" id="naming-things-is-hard">
 <h2>Naming things is hard!<a class="headerlink" href="#naming-things-is-hard" title="Permalink to this headline"></a></h2>
@@ -177,6 +217,39 @@
     <span class="o">...</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="the-special-assertxxxxx-methods">
+<h3>The special assertXXXXX methods<a class="headerlink" href="#the-special-assertxxxxx-methods" title="Permalink to this headline"></a></h3>
+<p>There was some chat on MS Teams about the <code class="docutils literal notranslate"><span class="pre">unitest</span> <span class="pre">assertXXX</span></code> methods.</p>
+<p>Here’s a little secret:</p>
+<p>All most of the special assert methods do is wrap a regular assert, and provide a nice error message if it fails.</p>
+<p>But if you use <code class="docutils literal notranslate"><span class="pre">pytest</span></code> – pytest can provide that helpful message anyway!</p>
+<p>Why!?!?  – <code class="docutils literal notranslate"><span class="pre">unitest</span></code> was ported from the JAVA <code class="docutils literal notranslate"><span class="pre">jUnit</span></code> library. At the time, <code class="docutils literal notranslate"><span class="pre">jUnit</span></code> was maybe the only well accepted, well used unit testing framework out there. So porting it made some sense.</p>
+<p>But “Python is not Java” – Python is highly dynamic and introspectable – so test runners can be written (like pytest) that don’t need help providing helpful error messages.</p>
+<p>So feel free to just use a plain old assert.</p>
+<p>I particularly find funny: <code class="docutils literal notranslate"><span class="pre">assertTrue</span></code> – really? we are supposed to write:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">something</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>instead of just plain:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">something</span>
+</pre></div>
+</div>
+<p>Really ?!?!</p>
+<p>Also:</p>
+<p>The is no way that you’d have all teh special asserts you need! and some of them may not even do what you thing they will. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">assertTrue</span><span class="p">(</span><span class="n">something</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Doesn’t check if <code class="docutils literal notranslate"><span class="pre">something</span> <span class="pre">is</span> <span class="pre">True</span></code>, it checks if it’s “truthy”. With bare asserts, you can make the precise assert you want. If you want Truthy:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">something</span>
+</pre></div>
+</div>
+<p>If you want the actual <code class="docutils literal notranslate"><span class="pre">True</span></code> singleton:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">something</span> <span class="ow">is</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>Done.</p>
 <div class="section" id="break-time">
 <h4>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h4>
 <p>10min break:</p>
@@ -185,14 +258,29 @@
 <h4>Unit testing hints<a class="headerlink" href="#unit-testing-hints" title="Permalink to this headline"></a></h4>
 <p>Unit testing, and TDD is pretty hard to wrap your head around – it seems pretty backwards at first. So I’ve written up a list of hints for how I go about it here:</p>
 <p><a class="reference internal" href="testing_hints.html#testing-hints"><span class="std std-ref">Chris’ Handy Testing Hints</span></a></p>
-<p>I’ll now take you through my solution to Assigment01, demonstarting many of those hints.</p>
+<p>I’ll now take you through my solution to Assigment01, demonstrating many of those hints.</p>
+<p>I’ll also try to use the debugger a bit – as an intro.</p>
 <p>On to Chris’ code ….</p>
 </div>
 <div class="section" id="id1">
 <h4>Break Time!<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h4>
 <p>10min break</p>
 </div>
+<div class="section" id="id2">
+<h4>Logging and Debugging<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h4>
 </div>
+</div>
+</div>
+<div class="section" id="debugging">
+<h2>Debugging:<a class="headerlink" href="#debugging" title="Permalink to this headline"></a></h2>
+<p>If there’s time, maybe we can debug some of your code: anyone have a sticky bug they’d like us to look at?</p>
+</div>
+<div class="section" id="logging">
+<h2>Logging:<a class="headerlink" href="#logging" title="Permalink to this headline"></a></h2>
+<p>We may not have much time left – but let’s take a look at next week’s assignment, and give logaru a quick try:</p>
+<p>python3 -m pip install logaru</p>
+<p>The docs:</p>
+<p><a class="reference external" href="https://github.com/Delgan/loguru">https://github.com/Delgan/loguru</a></p>
 </div>
 </div>
 

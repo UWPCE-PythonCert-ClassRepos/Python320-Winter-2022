@@ -106,5 +106,25 @@ If you do need data files, commit them to the repo, and use relative paths to ge
 Now you can use ``good_account_file`` anywhere you need it in your tests.
 
 
+Build the pieces from the ground up
+-----------------------------------
+
+It's often the case that you can't truly test each unit completely separately -- you need some pieces in order to implement others. With TDD -- try to start from the bottom. If you find function A needs function B in order to be written, make sure to write *and test* function B first.
+
+This also means that you should only have one failing test at time -- the one you are working on right then.
+
+Be careful with defaults
+------------------------
+
+If you use defaults in your tests, it's very easy to not catch errors, as the actual set value may have been ignored, or used incorrectly, and but if your tests all use defaults, you'd never know that.
+
+Corollary to the previous: vary your test data.
+-----------------------------------------------
+
+Vary your test data -- similar to above, if you have, e.g. one small test dateset, and you use it for everything, you may accidentally not be testing things!
+
+
+
+
 
 

@@ -62,6 +62,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#make-sure-you-actually-made-a-new-test">Make sure you actually made a new test!</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#use-data-files-sparingly">Use data files sparingly</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#make-sure-your-data-files-can-be-found">Make sure your data files can be found</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-the-pieces-from-the-ground-up">Build the pieces from the ground up</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#be-careful-with-defaults">Be careful with defaults</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#corollary-to-the-previous-vary-your-test-data">Corollary to the previous: vary your test data.</a></li>
 </ul>
 </li>
 </ul>
@@ -172,6 +175,19 @@ That puts all the information in one place, and assures that your tests stay in 
 </pre></div>
 </div>
 <p>Now you can use <code class="docutils literal notranslate"><span class="pre">good_account_file</span></code> anywhere you need it in your tests.</p>
+</div>
+<div class="section" id="build-the-pieces-from-the-ground-up">
+<h3>Build the pieces from the ground up<a class="headerlink" href="#build-the-pieces-from-the-ground-up" title="Permalink to this headline"></a></h3>
+<p>It’s often the case that you can’t truly test each unit completely separately – you need some pieces in order to implement others. With TDD – try to start from the bottom. If you find function A needs function B in order to be written, make sure to write <em>and test</em> function B first.</p>
+<p>This also means that you should only have one failing test at time – the one you are working on right then.</p>
+</div>
+<div class="section" id="be-careful-with-defaults">
+<h3>Be careful with defaults<a class="headerlink" href="#be-careful-with-defaults" title="Permalink to this headline"></a></h3>
+<p>If you use defaults in your tests, it’s very easy to not catch errors, as the actual set value may have been ignored, or used incorrectly, and but if your tests all use defaults, you’d never know that.</p>
+</div>
+<div class="section" id="corollary-to-the-previous-vary-your-test-data">
+<h3>Corollary to the previous: vary your test data.<a class="headerlink" href="#corollary-to-the-previous-vary-your-test-data" title="Permalink to this headline"></a></h3>
+<p>Vary your test data – similar to above, if you have, e.g. one small test dateset, and you use it for everything, you may accidentally not be testing things!</p>
 </div>
 </div>
 </div>
