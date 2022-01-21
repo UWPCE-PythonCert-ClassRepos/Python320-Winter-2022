@@ -229,10 +229,22 @@ class TestUserCollection(unittest.TestCase):
         result = main.save_users(filename, uc)
 
         assert result is True
+        assert filename.is_file()
+
+    def test_save_users_correct(self):
+        """
+        make sure the file was written correctly
+        """
 
         # reload it to see if it worked
-        # this istough -- as this test depends on the load_users
+        # this is tough -- as this test depends on the load_users
         # working. You could look at the generated csv file.
+
+        uc = self.full_user_collection
+
+        filename = HERE / "temp_accounts.csv"
+        result = main.save_users(filename, uc)
+
         uc = self.empty_user_collection
         main.load_users(filename, uc)
 
