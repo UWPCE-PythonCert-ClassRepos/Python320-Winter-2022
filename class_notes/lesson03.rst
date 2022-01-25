@@ -25,6 +25,27 @@ Notes from homework review:
 
 (Names have been omitted to protect the innocent)
 
+**Don't add a lot of cruft to git!**
+
+git is for the code, and various files needed for testing, etc. It is not for anything auto-generated, or anything specific to your setup / IDE, etc.
+
+so:
+
+**No** ``.DS_Store``
+
+**No**  ``.idea/vcs.xml``
+
+(or the many other .idea files!)
+
+**ALWAYS** do a ``git status`` before committing, to make sure you haven't accidentally added a bunch of stuff you didn't need to.
+
+If you have accidentally added stuff, you can do:
+
+``git rem -f .idea/*``
+
+Or whatever. Before you commit. (or after, but then it will be in the history forever)
+
+
 You don't need to type check:
 .............................
 
@@ -134,7 +155,7 @@ This is an (admittedly trivial) pure function -- it does not alter a or b, and d
 
 The nice thing about pure functions is that you don't have to know anything about what's in them to know what will happen when you run that line of code -- only the value of x will be affected.
 
-Functions with side effects ("impure" functions?) on the other hand, will make something happen *inside* the function, and you need to read the documentation to know what that is.
+Functions with side effects ("impure" functions) on the other hand, will make something happen *inside* the function, and you need to read the documentation to know what that is.
 
 Simple function with side effects:
 
@@ -142,7 +163,7 @@ Simple function with side effects:
 
   print("this")
 
-Think about it -- what does ``print`` do? It writes what you ask it to write to standard output (``sys.stdout``). That's it. So it alters the system, but you have no way of knowing how the system is altered by looking at the code where it is called. We all know what print does, so it's generally not problematic, but what if there's this line of code elsewhere in the program:
+Think about it -- what does ``print`` do? It writes what you ask it to write to standard output (``sys.stdout``). That's it. So it alters the system, but you have no way of knowing how the system is altered by looking at the code where it is called. We all know what ``print`` does, so it's generally not problematic, but what if there's this line of code elsewhere in the program:
 
 .. code-block:: python
 
@@ -154,7 +175,7 @@ Let's check that out. In the class repo:
 
 ``Examples/lesson03/redirect.py``
 
-The point here is that when you look at even a simple print() statement, you can't know for sure what's going to happen.
+The point here is that when you look at even a simple ``print()`` statement, you can't know for sure what's going to happen.
 
 "types" of side effects:
 ........................
@@ -173,15 +194,19 @@ Methods on mutable classes:
 
     In that case, the list is sorted in place, as a "side effect" of the function call. But it doesn't change anything else -- only the instance you called it on, so that's pretty clear in the code.
 
-    And it's a Python convention for such mutating methods to return None, so that's it's clear that it's a mutating method. If you do:
+    And it's a Python convention for such mutating methods to return None, so that it's clear that it's a mutating method. If you do:
 
     ``sorted_list = a_list.sort()``
 
-    You will get a ``None``, and it will be really obvious that that isn't what you wanted to do.
+    You will get sorted_list set to ``None``, and it will be really obvious that that isn't what you wanted to do.
 
     Contrast this with non-mutating methods, like:
 
-    ``list.copy()`` which returns a new list, and has not altered the original.
+    ``list.copy()`` which returns a new list, and has not altered the original. So:
+
+    ``new_list = list.copy()``
+
+    You will get a new list assigned to ``new_list``
 
 Functions that alter passed in arguments:
 

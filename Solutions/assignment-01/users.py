@@ -35,25 +35,25 @@ class UserCollection():
         self.database[user_id] = new_user
         return True
 
-#     def modify_user(self, user_id, email, user_name, user_last_name):
-#         '''
-#         Modifies an existing user
-#         '''
-#         if user_id not in self.database:
-#             return False
-#         self.database[user_id].email = email
-#         self.database[user_id].user_name = user_name
-#         self.database[user_id].user_last_name = user_last_name
-#         return True
+    def modify_user(self, user_id, email, user_name, user_last_name):
+        '''
+        Modifies an existing user
+        '''
+        if user_id not in self.database:
+            return False
+        self.database[user_id].email = email
+        self.database[user_id].user_name = user_name
+        self.database[user_id].user_last_name = user_last_name
+        return True
 
-#     def delete_user(self, user_id):
-#         '''
-#         Deletes an existing user
-#         '''
-#         if user_id not in self.database:
-#             return False
-#         del self.database[user_id]
-#         return True
+    def delete_user(self, user_id):
+        '''
+        Deletes an existing user
+        '''
+        if user_id not in self.database:
+            return False
+        del self.database[user_id]
+        return True
 
     def search_user(self, user_id):
         '''
