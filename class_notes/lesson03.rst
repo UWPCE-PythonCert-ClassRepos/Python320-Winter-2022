@@ -21,7 +21,7 @@ So I may not seem to be talking much about the topic of the week -- but **do** t
 With that in mind...
 
 gitHub workflows CI
--------------------
+===================
 
 Apologies -- the way the CI is set up in your assignments, many of you are seeing failures. That's because it's set up in a very generic way: lint all .py files, run all tests, expect 100% test coverage, and don't require any non-standard modules.
 
@@ -51,7 +51,7 @@ Let's take a look now.
 
 
 Notes from homework review:
----------------------------
+===========================
 
 (Names have been omitted to protect the innocent)
 
@@ -77,7 +77,7 @@ Or whatever. Before you commit. (or after, but then it will be in the history fo
 
 
 You don't need to type check:
-.............................
+-----------------------------
 
 I saw some code in some of your submissions that looked like this:
 
@@ -139,6 +139,7 @@ A number of folks (Including me) used a few short names in places where it made 
 Kelton found a nice solution: Putting this in a ``.pylintrc`` file:
 
 ::
+
     [BASIC]
 
     # Good variable names which should always be accepted, separated by a comma.
@@ -148,9 +149,9 @@ nice find!
 
 
 Another important note on testing
-.................................
+---------------------------------
 
-The goal of testing is to make sure that your code is working as it should.
+The goal of testing is to make sure that your code is working as it should. And 100% coverage doesn't tell you that.
 
 
 Relevant Tangent:
@@ -160,9 +161,11 @@ Relevant Tangent:
 
 All functions take zero or more parameters, and
 
- 1) Return values
- and / or
- 2) Change something in the system
+1) Return values
+
+and / or
+
+2) Change something in the system
 
 Functions that only return values are sometimes called "pure" functions.
 
@@ -210,11 +213,11 @@ The point here is that when you look at even a simple ``print()`` statement, you
 
 I'm not sure there are clear definitions here, but you can group side effects into three categories:
 
-System Effects:
+**System Effects:**
 
     That would be like ``print()`` -- something changes in the system somewhere, you need to know what the function does to know what.
 
-Methods on mutable classes:
+**Methods on mutable classes:**
 
     Mutable classes often have methods that change the instance itself. e.g.:
 
@@ -236,7 +239,7 @@ Methods on mutable classes:
 
     You will get a new list assigned to ``new_list``
 
-Functions that alter passed in arguments:
+**Functions that alter passed in arguments:**
 
     This is a case where you pass a mutable object into a function and, and that function alters the actual object passed in. For example:
 
@@ -276,7 +279,7 @@ The simplest case:
 
 A Pure Function:
 
-``search_user`` it give you back something, and does not alter the database, or anything else.
+``search_user``: it give you back something, and does not alter the database, or anything else.
 
 A Mutated Argument:
 
@@ -322,7 +325,7 @@ But you also want to know that the contents of the file is correct. In this case
         uid = 'bwinkle678'
         assert main.search_user(uid, uc).user_id == uid
 
-If you don't have code to read and validate the output, then it's tricker -- you could open the file and validate the contents directly.
+If you don't have code to read and validate the output, then it's trickier -- you could open the file and validate the contents directly.
 
 Or, perhaps niftier, you could mock the ``open()`` function so the the file gets written to memory, and you can look at that.
 
