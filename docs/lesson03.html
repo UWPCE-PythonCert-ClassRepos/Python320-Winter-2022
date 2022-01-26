@@ -43,8 +43,24 @@
 <li class="toctree-l1"><a class="reference internal" href="lesson01.html">1/11/2022: Intro and Testing, Coverage, and Linting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson02.html">1/18/2022: Logging and Debugging</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">1/25/2022: Relational Databases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#github-workflows-ci">gitHub workflows CI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#notes-from-homework-review">Notes from homework review:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#you-don-t-need-to-type-check">You don’t need to type check:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#don-t-check-for-strings-for-filenames">Don’t check for strings for filenames!</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pylint-hint">pylint hint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#another-important-note-on-testing">Another important note on testing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#relevant-tangent">Relevant Tangent:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#types-of-side-effects">“types” of side effects:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#back-to-testing">Back to testing:</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#break-time">Break Time!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mocking">Mocking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id1">Break Time!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logging">Logging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="lesson04.html">2/1/2022: Iteration</a></li>
@@ -54,6 +70,7 @@
 <li class="toctree-l1"><a class="reference internal" href="lesson08.html">3/1/2022: Functional Techniques</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson09.html">3/8/2022: Advanced Language Constructs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson10.html">3/15/2022: API Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_hints.html">Chris’ Handy Testing Hints</a></li>
 </ul>
 
         </div>
@@ -82,16 +99,231 @@
              
   <div class="section" id="relational-databases">
 <span id="notes-lesson03"></span><h1>1/25/2022: Relational Databases<a class="headerlink" href="#relational-databases" title="Permalink to this headline"></a></h1>
-<p>A collection of notes to go over in class, to keep things organized.</p>
 <p><strong>NOTES:</strong></p>
-<p>I’ll try to have a break every hour or so – ping me if I forget!</p>
+<p>A reminder: everything you need to know should be in the Canvas modules – or linked from there.
+There may be some things missing, but if so , that’s an oversight, so do let us know so we can improve the course in the future.</p>
+<p>What that means is that I spend class time on “extras” – more on process, and style, and detail, not things like: “how to write a logging message”.</p>
+<p>And a lot of this is inspired by what we learn when reviewing your work and answering your questions. When we see sticking points, confusions, etc – I”ll try to address those in class, rather than the basics of how to do new things.</p>
+<p>So I may not seem to be talking much about the topic of the week – but <strong>do</strong> try to talk about what you really need to know to become better Python programmers.</p>
+<p>With that in mind…</p>
+<div class="section" id="github-workflows-ci">
+<h2>gitHub workflows CI<a class="headerlink" href="#github-workflows-ci" title="Permalink to this headline"></a></h2>
+<p>Apologies – the way the CI is set up in your assignments, many of you are seeing failures. That’s because it’s set up in a very generic way: lint all .py files, run all tests, expect 100% test coverage, and don’t require any non-standard modules.</p>
+<p>The fact is that CI scripts are always customized to the project. And we don’t know, when we set up the CI, what exactly your project is going to need.</p>
+<p>And this is all a bit of an experiment – first time using it with gitHub classroom.</p>
+<p>Add to all that that fact that once you’ve accepted an assignment, there is no way for us to update it after the fact.</p>
+<p>We could do better, and we will in future assignments, but there may always be some customizing required.</p>
+<p>So: it’s there to help you – if you know all your code is good, then you are good to go, and can submit it for review.</p>
+<p>Oh, and sorry for not being explicit – bring your tests over form the previous assignment! We want to make sure that any changes haven’t broken anything!</p>
+<p>If you do want to get it all to work, you’ll need to customize the CI scripts.</p>
+<p>Look for:</p>
+<p><cite>.github/workflows/pylint.yaml</cite></p>
+<p>There is an example of how I updated mine in the class repo:</p>
+<p>Examples/lesson03/pylint.yaml</p>
+<p>Let’s take a look now.</p>
+</div>
+<div class="section" id="notes-from-homework-review">
+<h2>Notes from homework review:<a class="headerlink" href="#notes-from-homework-review" title="Permalink to this headline"></a></h2>
+<p>(Names have been omitted to protect the innocent)</p>
+<p><strong>Don’t add a lot of cruft to git!</strong></p>
+<p>git is for the code, and various files needed for testing, etc. It is not for anything auto-generated, or anything specific to your setup / IDE, etc.</p>
+<p>so:</p>
+<p><strong>No</strong> <code class="docutils literal notranslate"><span class="pre">.DS_Store</span></code></p>
+<p><strong>No</strong>  <code class="docutils literal notranslate"><span class="pre">.idea/vcs.xml</span></code></p>
+<p>(or the many other .idea files!)</p>
+<p><strong>ALWAYS</strong> do a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code> before committing, to make sure you haven’t accidentally added a bunch of stuff you didn’t need to.</p>
+<p>If you have accidentally added stuff, you can do:</p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rem</span> <span class="pre">-f</span> <span class="pre">.idea/*</span></code></p>
+<p>Or whatever. Before you commit. (or after, but then it will be in the history forever)</p>
+<div class="section" id="you-don-t-need-to-type-check">
+<h3>You don’t need to type check:<a class="headerlink" href="#you-don-t-need-to-type-check" title="Permalink to this headline"></a></h3>
+<p>I saw some code in some of your submissions that looked like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">user_collection</span><span class="p">,</span> <span class="n">users</span><span class="o">.</span><span class="n">UserCollection</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;user_collection argument is not a users.UserCollection.&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>You really don’t need to be type checking your inputs like that. The rule of thumb is that you don’t care if it’s a particular type, you care if it works :-)</p>
+<p>And this doesn’t raise an error, it simply returns False. If the caller has called the function improperly, why do we think it’s going to handle the False return properly? An Exception due to improper calling of the function should absolutely rise  up the call stack as an Exception!</p>
+<p>Also – assertions are for testing – if you really do need to check something for a type, a plain old:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">user_collection</span><span class="p">,</span> <span class="n">users</span><span class="o">.</span><span class="n">UserCollection</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;user_collection argument is not a users.UserCollection.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is more straight forward.</p>
+<p><strong>Side Note</strong></p>
+<p>When I say “assertions are for testing” I mean that quite strictly. In fact, when Python is run in “optimized” mode, assertions are ignored completely.</p>
+<p>So I use a style (based on the the idea of complete unit testing) where I only use assertions in dedicated tests, as we have been.</p>
+<p>However, there is a style where some assertions are put directly in the code. The idea is that particularly in programs that interact a lot with external systems, you want to be able to run the entire application in “test mode”, with assertions turned on, to catch integration errors.</p>
+<p>I have zero experience with that, so can’t really advise you on it – but I can suggest that even in that case, the checks should be at the “boundaries” of the code – where it is being called by external, not-being-tested-by-you, code.</p>
+<p>And for this class, keep your asserts in your tests.</p>
+</div>
+<div class="section" id="don-t-check-for-strings-for-filenames">
+<h3>Don’t check for strings for filenames!<a class="headerlink" href="#don-t-check-for-strings-for-filenames" title="Permalink to this headline"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;filename must be a string.&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>Remember: Python is “Duck Typed” – we don’t care if the filename is a string, all we care is that it can be used to open a file.
+And in fact, in recent versions, all the Python standard library functions (like <code class="docutils literal notranslate"><span class="pre">open()</span></code>) can take <em>either</em> a string <em>or</em> a <code class="docutils literal notranslate"><span class="pre">Path</span></code> object.
+So this code is actually preventing a perfectly reasonable use!</p>
+<p>If you do need a string path (for instance, to save it in a file, or pass it to a non-python system), you can use the <code class="docutils literal notranslate"><span class="pre">os.fspath</span></code> function to make a string path out of anything that is supported by the propocol.</p>
+</div>
+<div class="section" id="pylint-hint">
+<h3>pylint hint<a class="headerlink" href="#pylint-hint" title="Permalink to this headline"></a></h3>
+<p>A number of folks (Including me) used a few short names in places where it made sense – particularly the tests. But pylint doesn’t like that.</p>
+<p>Kelton found a nice solution: Putting this in a <code class="docutils literal notranslate"><span class="pre">.pylintrc</span></code> file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">BASIC</span><span class="p">]</span>
+
+<span class="c1"># Good variable names which should always be accepted, separated by a comma.</span>
+<span class="n">good</span><span class="o">-</span><span class="n">names</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="n">uc</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">us</span>
+</pre></div>
+</div>
+<p>nice find!</p>
+</div>
+<div class="section" id="another-important-note-on-testing">
+<h3>Another important note on testing<a class="headerlink" href="#another-important-note-on-testing" title="Permalink to this headline"></a></h3>
+<p>The goal of testing is to make sure that your code is working as it should. And 100% coverage doesn’t tell you that.</p>
+<div class="section" id="relevant-tangent">
+<h4>Relevant Tangent:<a class="headerlink" href="#relevant-tangent" title="Permalink to this headline"></a></h4>
+<p>“Pure” functions and “Side Effects”</p>
+<p>All functions take zero or more parameters, and</p>
+<ol class="arabic simple">
+<li><p>Return values</p></li>
+</ol>
+<p>and / or</p>
+<ol class="arabic simple" start="2">
+<li><p>Change something in the system</p></li>
+</ol>
+<p>Functions that only return values are sometimes called “pure” functions.</p>
+<p>Functions that change something in the system are said to have “side effects”</p>
+<p>Simple Pure function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mult</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+</pre></div>
+</div>
+<p>This is an (admittedly trivial) pure function – it does not alter a or b, and does not change anything else in the system. It will only have an impact at all if the return value is used for something:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">mult</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The nice thing about pure functions is that you don’t have to know anything about what’s in them to know what will happen when you run that line of code – only the value of x will be affected.</p>
+<p>Functions with side effects (“impure” functions) on the other hand, will make something happen <em>inside</em> the function, and you need to read the documentation to know what that is.</p>
+<p>Simple function with side effects:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;this&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Think about it – what does <code class="docutils literal notranslate"><span class="pre">print</span></code> do? It writes what you ask it to write to standard output (<code class="docutils literal notranslate"><span class="pre">sys.stdout</span></code>). That’s it. So it alters the system, but you have no way of knowing how the system is altered by looking at the code where it is called. We all know what <code class="docutils literal notranslate"><span class="pre">print</span></code> does, so it’s generally not problematic, but what if there’s this line of code elsewhere in the program:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;temp_output.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now what will <code class="docutils literal notranslate"><span class="pre">print()</span></code> do?</p>
+<p>Let’s check that out. In the class repo:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Examples/lesson03/redirect.py</span></code></p>
+<p>The point here is that when you look at even a simple <code class="docutils literal notranslate"><span class="pre">print()</span></code> statement, you can’t know for sure what’s going to happen.</p>
+</div>
+<div class="section" id="types-of-side-effects">
+<h4>“types” of side effects:<a class="headerlink" href="#types-of-side-effects" title="Permalink to this headline"></a></h4>
+<p>I’m not sure there are clear definitions here, but you can group side effects into three categories:</p>
+<p><strong>System Effects:</strong></p>
+<blockquote>
+<div><p>That would be like <code class="docutils literal notranslate"><span class="pre">print()</span></code> – something changes in the system somewhere, you need to know what the function does to know what.</p>
+</div></blockquote>
+<p><strong>Methods on mutable classes:</strong></p>
+<blockquote>
+<div><p>Mutable classes often have methods that change the instance itself. e.g.:</p>
+<p><code class="docutils literal notranslate"><span class="pre">list.sort()</span></code></p>
+<p>In that case, the list is sorted in place, as a “side effect” of the function call. But it doesn’t change anything else – only the instance you called it on, so that’s pretty clear in the code.</p>
+<p>And it’s a Python convention for such mutating methods to return None, so that it’s clear that it’s a mutating method. If you do:</p>
+<p><code class="docutils literal notranslate"><span class="pre">sorted_list</span> <span class="pre">=</span> <span class="pre">a_list.sort()</span></code></p>
+<p>You will get sorted_list set to <code class="docutils literal notranslate"><span class="pre">None</span></code>, and it will be really obvious that that isn’t what you wanted to do.</p>
+<p>Contrast this with non-mutating methods, like:</p>
+<p><code class="docutils literal notranslate"><span class="pre">list.copy()</span></code> which returns a new list, and has not altered the original. So:</p>
+<p><code class="docutils literal notranslate"><span class="pre">new_list</span> <span class="pre">=</span> <span class="pre">list.copy()</span></code></p>
+<p>You will get a new list assigned to <code class="docutils literal notranslate"><span class="pre">new_list</span></code></p>
+</div></blockquote>
+<p><strong>Functions that alter passed in arguments:</strong></p>
+<blockquote>
+<div><p>This is a case where you pass a mutable object into a function and, and that function alters the actual object passed in. For example:</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cap_names</span><span class="p">(</span><span class="n">user_info</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Properly capitalize the names in user_info dict</span>
+
+<span class="sd">    The user_info dict is altered in place, and None is returned.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;first_name&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span><span class="p">,</span> <span class="s1">&#39;middle_name&#39;</span><span class="p">}:</span>
+        <span class="n">user_info</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">user_info</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Examples/lesson03/mutating.py</span></code></p>
+<p>These can be more confusing, because it’s not clear without reading the documentation what might get altered. Not too bad in this example, but when a function has multiple arguments, it can be very confusing.</p>
+<p>NOTE: One thing that helps in Python is immutable types. If you pass an immutable in to a function, you know for sure that it won’t be altered.</p>
+</div>
+</div>
+<div class="section" id="back-to-testing">
+<h3>Back to testing:<a class="headerlink" href="#back-to-testing" title="Permalink to this headline"></a></h3>
+<p>Why did I take you on that fascinating side tangent now?</p>
+<p>Think a bit about testing:</p>
+<p>Pure functions are pretty easy to test: make sure they return what they are expected to return. You may need to test a variety of input, but it’s still clear what to look for as a result.</p>
+<p>Functions with side effects, on the other hand, can be a lot harder to test.</p>
+<p>It can be hard to figure out what you expect the side effect to be, and it can be hard to actually test that side effect.</p>
+<p>In the system we are building here – many of the function are impure, so you need to think carefully about how to test them.</p>
+<p>The simplest case:</p>
+<p>A Pure Function:</p>
+<p><code class="docutils literal notranslate"><span class="pre">search_user</span></code>: it give you back something, and does not alter the database, or anything else.</p>
+<p>A Mutated Argument:</p>
+<p>Many of them fall into this category – e.g. a UserCollection is passed in, and it may be altered in some way.</p>
+<p>System Side Effect:</p>
+<p>The <cite>save_users()</cite> function saves the contents of a UserCollection to a file. So it returns only a success flag, and does not alter the passed-in UserCollection.</p>
+<p>What is does do is create a new CSV file. So that’s a system side effect. So how do you test it?</p>
+<p>Well, first, you do need to test that it is successful and unsuccessful when it should be – that’s straightforward.</p>
+<p>Second, you want to test that it actually created the file correctly. Perhaps:</p>
+<p>But you also want to know that the contents of the file is correct. In this case, that’s not too hard, as we also have code to read the file.</p>
+<p>If you don’t have code to read and validate the output, then it’s trickier – you could open the file and validate the contents directly.</p>
+<p>Or, perhaps niftier, you could mock the <code class="docutils literal notranslate"><span class="pre">open()</span></code> function so the the file gets written to memory, and you can look at that.</p>
+</div>
+</div>
 <div class="section" id="break-time">
 <h2>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h2>
 <p>10min break:</p>
 </div>
+<div class="section" id="mocking">
+<h2>Mocking<a class="headerlink" href="#mocking" title="Permalink to this headline"></a></h2>
+<p>Mocking is tricky, but very powerful for keeping tests truly isolated.</p>
+<p>Luis will now take you on a tour of some mocking techniques that are helpful for this project(s).</p>
+<p><strong>Pass to Luis</strong></p>
+<p>After that, we can look at how I mocked input for complete test coverage of the <code class="docutils literal notranslate"><span class="pre">menu.py</span></code> script.</p>
+</div>
 <div class="section" id="id1">
 <h2>Break Time!<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <p>10min break</p>
+</div>
+<div class="section" id="debugging">
+<h2>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline"></a></h2>
+<p>Did you all find the bugs in assignment 2 easily enough?</p>
+<p>Anyone have any questions about debugging?</p>
+<p>NOTE: the debugger does not play well with mocking <code class="docutils literal notranslate"><span class="pre">input()</span></code>!</p>
+</div>
+<div class="section" id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline"></a></h2>
+<p>A key concept that is not that clear from the loguru docs</p>
+<p>(and I’m not sure how clear it is in the standard lib docs)</p>
+<p>There is <strong>ONE</strong> logger for each application (python instance)</p>
+<p>So you SET UP the logger somewhere at the “Top” level, and you USE it everywhere else.</p>
+<p>In this case, <code class="docutils literal notranslate"><span class="pre">menu.py</span></code> is the application start up acript. Sp you want your logger configuration to go there.</p>
+<p>Everywhere else you simple call <code class="docutils literal notranslate"><span class="pre">logger.debug()</span></code> (or whatever) and away you go.</p>
+<p>Every place you:</p>
+<p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">loguru</span> <span class="pre">import</span> <span class="pre">logger</span></code></p>
+<p>or</p>
+<p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">logging</span></code></p>
+<p>You are getting the SAME instance of the logger.</p>
+<p>This is because in your working code, you have no idea how it’s being run, or what logging configuration you may need.</p>
+<p>NOTE: You probably want to configure the logger in your tests, too – clearly not with the same configuration!</p>
 </div>
 </div>
 
