@@ -20,6 +20,36 @@ So I may not seem to be talking much about the topic of the week -- but **do** t
 
 With that in mind...
 
+gitHub workflows CI
+-------------------
+
+Apologies -- the way the CI is set up in your assignments, many of you are seeing failures. That's because it's set up in a very generic way: lint all .py files, run all tests, expect 100% test coverage, and don't require any non-standard modules.
+
+The fact is that CI scripts are always customized to the project. And we don't know, when we set up the CI, what exactly your project is going to need.
+
+And this is all a bit of an experiment -- first time using it with gitHub classroom.
+
+Add to all that that fact that once you've accepted an assignment, there is no way for us to update it after the fact.
+
+We could do better, and we will in future assignments, but there may always be some customizing required.
+
+So: it's there to help you -- if you know all your code is good, then you are good to go, and can submit it for review.
+
+Oh, and sorry for not being explicit -- bring your tests over form the previous assignment! We want to make sure that any changes haven't broken anything!
+
+If you do want to get it all to work, you'll need to customize the CI scripts.
+
+Look for:
+
+`.github/workflows/pylint.yaml`
+
+There is an example of how I updated mine in the class repo:
+
+Examples/lesson03/pylint.yaml
+
+Let's take a look now.
+
+
 Notes from homework review:
 ---------------------------
 
@@ -59,9 +89,9 @@ I saw some code in some of your submissions that looked like this:
         print('user_collection argument is not a users.UserCollection.')
         return False
 
-You really don't need to be type checking your inputs like that. The rule of thumb is that you don't care if it's particular type, you care if it works :-)
+You really don't need to be type checking your inputs like that. The rule of thumb is that you don't care if it's a particular type, you care if it works :-)
 
-And this doesn't raise an error, it simply returns False. If the caller has called the function improperly, why do we think it's going to handle the False return properly? An Exception do to improper calling of the function should absolutely rise to up the call stack!
+And this doesn't raise an error, it simply returns False. If the caller has called the function improperly, why do we think it's going to handle the False return properly? An Exception due to improper calling of the function should absolutely rise  up the call stack as an Exception!
 
 Also -- assertions are for testing -- if you really do need to check something for a type, a plain old:
 
@@ -76,15 +106,13 @@ is more straight forward.
 
 When I say "assertions are for testing" I mean that quite strictly. In fact, when Python is run in "optimized" mode, assertions are ignored completely.
 
-So I use a style (based on the the idea of complete testing) where I only use assertions in dedicated tests, as we have been.
+So I use a style (based on the the idea of complete unit testing) where I only use assertions in dedicated tests, as we have been.
 
 However, there is a style where some assertions are put directly in the code. The idea is that particularly in programs that interact a lot with external systems, you want to be able to run the entire application in "test mode", with assertions turned on, to catch integration errors.
 
-I have zero experience with that, so can't really advise you on it -- but I can suggest that even in that case, the checks should be at the "boundaries" of the code -- where is is being called by external, not-being-tested-by-you, code.
+I have zero experience with that, so can't really advise you on it -- but I can suggest that even in that case, the checks should be at the "boundaries" of the code -- where it is being called by external, not-being-tested-by-you, code.
 
 And for this class, keep your asserts in your tests.
-
-
 
 Don't check for strings for filenames!
 --------------------------------------
@@ -101,12 +129,12 @@ Remember: Python is "Duck Typed" -- we don't care if the filename is a string, a
 And in fact, in recent versions, all the Python standard library functions (like ``open()``) can take *either* a string *or* a ``Path`` object.
 So this code is actually preventing a perfectly reasonable use!
 
-If you do need a string path (for instance, to save it in a file, or pass it to a non-python system), you can use the ``os.fspath`` function to make a string path our of anything that is supported by the propocol.
+If you do need a string path (for instance, to save it in a file, or pass it to a non-python system), you can use the ``os.fspath`` function to make a string path out of anything that is supported by the propocol.
 
 pylint hint
 -----------
 
-A number of folks (Including me) used a few short names in places where it made sense -- particually the tests. But pylint doesn't like that.
+A number of folks (Including me) used a few short names in places where it made sense -- particularly the tests. But pylint doesn't like that.
 
 Kelton found a nice solution: Putting this in a ``.pylintrc`` file:
 
@@ -225,7 +253,7 @@ Functions that alter passed in arguments:
 
 ``Examples/lesson03/mutating.py``
 
-These can be more confusing, because it's not clear without reading the documentation what might get altered. Not too bad in this example, but when a function has multiple arguments, it can be confusing.
+These can be more confusing, because it's not clear without reading the documentation what might get altered. Not too bad in this example, but when a function has multiple arguments, it can be very confusing.
 
 NOTE: One thing that helps in Python is immutable types. If you pass an immutable in to a function, you know for sure that it won't be altered.
 
@@ -248,7 +276,7 @@ The simplest case:
 
 A Pure Function:
 
-search_user
+``search_user`` it give you back something, and does not alter the database, or anything else.
 
 A Mutated Argument:
 
@@ -304,11 +332,59 @@ Break Time!
 
 10min break:
 
+Mocking
+=======
 
+Mocking is tricky, but very powerful for keeping tests truly isolated.
+
+Luis will now take you on a tour of some mocking techniques that are helpful for this project(s).
+
+**Pass to Luis**
+
+After that, we can look at how I mocked input for complete test coverage of the ``menu.py`` script.
 
 Break Time!
 ===========
 
 10min break
+
+Debugging
+=========
+
+Did you all find the bugs in assignment 2 easily enough?
+
+Anyone have any questions about debugging?
+
+NOTE: the debugger does not play well with mocking ``input()``!
+
+
+Logging
+=======
+
+A key concept that is not that clear from the loguru docs
+
+(and I'm not sure how clear it is in the standard lib docs)
+
+There is **ONE** logger for each application (python instance)
+
+So you SET UP the logger somewhere at the "Top" level, and you USE it everywhere else.
+
+In this case, ``menu.py`` is the application start up acript. Sp you want your logger configuration to go there.
+
+Everywhere else you simple call ``logger.debug()`` (or whatever) and away you go.
+
+Every place you:
+
+``from loguru import logger``
+
+or
+
+``import logging``
+
+You are getting the SAME instance of the logger.
+
+This is because in your working code, you have no idea how it's being run, or what logging configuration you may need.
+
+NOTE: You probably want to configure the logger in your tests, too -- clearly not with the same configuration!
 
 

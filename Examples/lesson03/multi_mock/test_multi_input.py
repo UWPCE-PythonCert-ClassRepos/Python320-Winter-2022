@@ -30,6 +30,3 @@ class mocked_multi_input:
 def test_chant(new_mocked_input):
 
     assert chant() == "ABCD"
-
-
-
