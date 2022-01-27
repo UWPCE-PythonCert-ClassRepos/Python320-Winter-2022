@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gitHub actions/workflows and CI &mdash; Advanced Python: Winter 2021 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Chris’ Handy Testing Hints" href="testing_hints.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Advanced Python: Winter 2021
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lesson01.html">1/11/2022: Intro and Testing, Coverage, and Linting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson02.html">1/18/2022: Logging and Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson03.html">1/25/2022: Relational Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson04.html">2/1/2022: Iteration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson05.html">2/8/2022: Consuming APIs and NoSQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson06.html">2/15/2022: Profiling and Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson07.html">2/22/2022: Concurrency and Async</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson08.html">3/1/2022: Functional Techniques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson09.html">3/8/2022: Advanced Language Constructs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lesson10.html">3/15/2022: API Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_hints.html">Chris’ Handy Testing Hints</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">gitHub actions/workflows and CI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-ci-configuration">The CI configuration:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-code-checks-yml-file">The <code class="docutils literal notranslate"><span class="pre">code_checks.yml</span></code> file</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Advanced Python: Winter 2021</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>gitHub actions/workflows and CI</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/github_actions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="github-actions-workflows-and-ci">
+<h1>gitHub actions/workflows and CI<a class="headerlink" href="#github-actions-workflows-and-ci" title="Permalink to this headline"></a></h1>
+<p>In this class, we are using the “gitHub actions” Continuous Integration (CI) system to check your code when it is pushed to gitHub.</p>
+<p>Whenever you push your assignments to gitHub, the “actions” will run, and if they don’t all pass, you will get an email from gitHub about it.</p>
+<p>In some cases, even if you’re code is perfect, it will still fail.
+That’s because it’s set up in a very generic way: lint all .py files, run all tests, expect 100% test coverage, and don’t require any non-standard modules.</p>
+<p>The fact is that CI scripts are always customized to the project. And we don’t know, when we set up the CI, what exactly your project is going to need.</p>
+<p>But there may always be some customizing required.</p>
+<p>The CI should be set up to be easy to customize.</p>
+<div class="section" id="the-ci-configuration">
+<h2>The CI configuration:<a class="headerlink" href="#the-ci-configuration" title="Permalink to this headline"></a></h2>
+<p>gitHub actions looks for CI configuration in:</p>
+<p><code class="docutils literal notranslate"><span class="pre">.github/workflows/</span></code></p>
+<p>In there, if there is a <code class="docutils literal notranslate"><span class="pre">*.yml</span></code> file, github will look in there for defined actions. (<code class="docutils literal notranslate"><span class="pre">*.yml</span></code> uses the YAML Ain’t Markup Language (YAML) format – google for details, but it’s pretty easy to read).</p>
+<p>The YAML files specify various jobs that can be run when certain actions occur – for instance, whenever someone pushes to a repo.</p>
+<p>These are the files used for the class setup:</p>
+<p><code class="docutils literal notranslate"><span class="pre">code_checks.yml</span></code>:</p>
+<blockquote>
+<div><p>This is the main YAML file that defines the gitHub actions. it should be in the <code class="docutils literal notranslate"><span class="pre">.github/workflows</span></code> dir in the repo.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>:</p>
+<blockquote>
+<div><p>This is where you specify what non-standard libraries your project needs, e.g. pandas, loguru, peewee, …</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">.coveragerc</span></code></p>
+<blockquote>
+<div><p>This is where you can configure how coverage is run – in particular you can specify files to exclude.</p>
+</div></blockquote>
+<p>They can be found in the class repo here:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Examples/gitHub_Actions</span></code></p>
+<div class="section" id="the-code-checks-yml-file">
+<h3>The <code class="docutils literal notranslate"><span class="pre">code_checks.yml</span></code> file<a class="headerlink" href="#the-code-checks-yml-file" title="Permalink to this headline"></a></h3>
+<p>Here is an annotated version of the workflow file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CodeChecks</span><span class="w"></span>
+
+<span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">push</span><span class="p p-Indicator">]</span><span class="w"></span>
+
+<span class="nt">jobs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">check</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span><span class="w"></span>
+
+<span class="w">    </span><span class="nt">strategy</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">matrix</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;3.10&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span><span class="w"></span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up Python ${{ matrix.python-version }}</span><span class="w"></span>
+<span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v2</span><span class="w"></span>
+<span class="w">      </span><span class="nt">with</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ matrix.python-version }}</span><span class="w"></span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span><span class="w"></span>
+<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">        </span><span class="no">python -m pip install --upgrade pip</span><span class="w"></span>
+<span class="w">        </span><span class="no"># core packages needed for testing</span><span class="w"></span>
+<span class="w">        </span><span class="no">pip install pylint pytest pytest-cov</span><span class="w"></span>
+<span class="w">        </span><span class="no"># extra requirements for this project</span><span class="w"></span>
+<span class="w">        </span><span class="no">pip install -r requirements.txt</span><span class="w"></span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Analysing the code with pylint</span><span class="w"></span>
+<span class="w">      </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always()</span><span class="w"></span>
+<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">        </span><span class="no">pylint `ls -R|grep .py$|xargs`</span><span class="w"></span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run tests</span><span class="w"></span>
+<span class="w">      </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always()</span><span class="w"></span>
+<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">        </span><span class="no">pytest ./</span><span class="w"></span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run test coverage</span><span class="w"></span>
+<span class="w">      </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always()</span><span class="w"></span>
+<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">        </span><span class="no">pytest --cov --cov-fail-under=100 ./</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="testing_hints.html" class="btn btn-neutral float-left" title="Chris’ Handy Testing Hints" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Christopher H. Barker.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
