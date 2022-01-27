@@ -21,7 +21,7 @@ gitHub actions looks for configuration in:
 
 ``.github/workflows/``
 
-In there, if there is a ``*.yml`` file, github will look in there for defined actions. (``*.yml`` uses the **Y**AML **A**in't **M**arkup **L**anguage (YAML) format -- google for details, but it's pretty easy to read).
+In there, if there is a ``*.yml`` file, github will look in there for defined actions. (``*.yml`` uses the **Y** AML **A** in't **M** arkup **L** anguage (YAML) format -- google for details, but it's pretty easy to read).
 
 The YAML files specify various jobs that can be run when certain actions occur -- for instance, whenever someone pushes to the repo.
 
