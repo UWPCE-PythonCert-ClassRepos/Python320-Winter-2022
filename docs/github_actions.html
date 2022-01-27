@@ -52,6 +52,7 @@
 <li class="toctree-l1"><a class="reference internal" href="testing_hints.html">Chris’ Handy Testing Hints</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">gitHub actions/workflows and CI</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#the-ci-configuration">The CI configuration:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#files-used-for-assignment-repos">Files used for assignment repos:</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#the-code-checks-yml-file">The <code class="docutils literal notranslate"><span class="pre">code_checks.yml</span></code> file</a></li>
 </ul>
 </li>
@@ -89,50 +90,58 @@
 <p>Whenever you push your assignments to gitHub, the “actions” will run, and if they don’t all pass, you will get an email from gitHub about it.</p>
 <p>In some cases, even if you’re code is perfect, it will still fail.
 That’s because it’s set up in a very generic way: lint all .py files, run all tests, expect 100% test coverage, and don’t require any non-standard modules.</p>
-<p>The fact is that CI scripts are always customized to the project. And we don’t know, when we set up the CI, what exactly your project is going to need.</p>
-<p>But there may always be some customizing required.</p>
+<p>The fact is that CI scripts generally need to be customized to the project. And we don’t know, when we set up the CI, what exactly your project is going to need. So there may always be some customizing required.</p>
 <p>The CI should be set up to be easy to customize.</p>
 <div class="section" id="the-ci-configuration">
 <h2>The CI configuration:<a class="headerlink" href="#the-ci-configuration" title="Permalink to this headline"></a></h2>
-<p>gitHub actions looks for CI configuration in:</p>
+<p>gitHub actions looks for configuration in:</p>
 <p><code class="docutils literal notranslate"><span class="pre">.github/workflows/</span></code></p>
-<p>In there, if there is a <code class="docutils literal notranslate"><span class="pre">*.yml</span></code> file, github will look in there for defined actions. (<code class="docutils literal notranslate"><span class="pre">*.yml</span></code> uses the YAML Ain’t Markup Language (YAML) format – google for details, but it’s pretty easy to read).</p>
-<p>The YAML files specify various jobs that can be run when certain actions occur – for instance, whenever someone pushes to a repo.</p>
-<p>These are the files used for the class setup:</p>
+<p>In there, if there is a <code class="docutils literal notranslate"><span class="pre">*.yml</span></code> file, github will look in there for defined actions. (<code class="docutils literal notranslate"><span class="pre">*.yml</span></code> uses the <a href="#id1"><span class="problematic" id="id2">**</span></a>Y**AML <a href="#id3"><span class="problematic" id="id4">**</span></a>A**in’t <a href="#id5"><span class="problematic" id="id6">**</span></a>M**arkup <a href="#id7"><span class="problematic" id="id8">**</span></a>L**anguage (YAML) format – google for details, but it’s pretty easy to read).</p>
+<p>The YAML files specify various jobs that can be run when certain actions occur – for instance, whenever someone pushes to the repo.</p>
+<div class="section" id="files-used-for-assignment-repos">
+<h3>Files used for assignment repos:<a class="headerlink" href="#files-used-for-assignment-repos" title="Permalink to this headline"></a></h3>
+<p>These are the files used for the class setup.
+(if your assignment repo doesn’t have these, you can add them by hand)</p>
+<p>They can be found in the class repo here:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Examples/gitHub_Actions</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">code_checks.yml</span></code>:</p>
 <blockquote>
 <div><p>This is the main YAML file that defines the gitHub actions. it should be in the <code class="docutils literal notranslate"><span class="pre">.github/workflows</span></code> dir in the repo.</p>
 </div></blockquote>
 <p><code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>:</p>
 <blockquote>
-<div><p>This is where you specify what non-standard libraries your project needs, e.g. pandas, loguru, peewee, …</p>
+<div><p>This is where you specify what non-standard libraries your project needs, e.g. pandas, loguru, peewee, …
+See: <a class="reference external" href="https://pip.pypa.io/en/stable/reference/requirements-file-format/">https://pip.pypa.io/en/stable/reference/requirements-file-format/</a></p>
 </div></blockquote>
 <p><code class="docutils literal notranslate"><span class="pre">.coveragerc</span></code></p>
 <blockquote>
-<div><p>This is where you can configure how coverage is run – in particular you can specify files to exclude.</p>
+<div><p>This is where you can configure how coverage is run – in particular you can specify files to exclude. See: <a class="reference external" href="https://coverage.readthedocs.io/en/latest/config.html">https://coverage.readthedocs.io/en/latest/config.html</a></p>
 </div></blockquote>
 <p>They can be found in the class repo here:</p>
 <p><code class="docutils literal notranslate"><span class="pre">Examples/gitHub_Actions</span></code></p>
+</div>
 <div class="section" id="the-code-checks-yml-file">
 <h3>The <code class="docutils literal notranslate"><span class="pre">code_checks.yml</span></code> file<a class="headerlink" href="#the-code-checks-yml-file" title="Permalink to this headline"></a></h3>
 <p>Here is an annotated version of the workflow file:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CodeChecks</span><span class="w"></span>
 
+<span class="c1"># this says that this job willbe run when the repo is pushed to</span><span class="w"></span>
 <span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">push</span><span class="p p-Indicator">]</span><span class="w"></span>
 
 <span class="nt">jobs</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">check</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span><span class="w"></span>
+<span class="w">  </span><span class="nt">check</span><span class="p">:</span><span class="w">  </span><span class="c1"># this is the check job.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span><span class="w">  </span><span class="c1"># uses Ubuntu Linux</span><span class="w"></span>
 
 <span class="w">    </span><span class="nt">strategy</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">matrix</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">matrix</span><span class="p">:</span><span class="w">  </span><span class="c1"># you can run the job on multiple versions</span><span class="w"></span>
+<span class="w">               </span><span class="c1"># of Python -- good for testing libraries</span><span class="w"></span>
 <span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;3.10&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
 
-<span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span><span class="w"></span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">  </span><span class="c1"># each steo to do</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span><span class="w">  </span><span class="c1"># this checks out the repo</span><span class="w"></span>
 
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up Python ${{ matrix.python-version }}</span><span class="w"></span>
-<span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v2</span><span class="w"></span>
+<span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v2</span><span class="w">  </span><span class="c1"># gets python itself installed</span><span class="w"></span>
 <span class="w">      </span><span class="nt">with</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ matrix.python-version }}</span><span class="w"></span>
 
@@ -142,22 +151,24 @@ That’s because it’s set up in a very generic way: lint all .py files, run al
 <span class="w">        </span><span class="no"># core packages needed for testing</span><span class="w"></span>
 <span class="w">        </span><span class="no">pip install pylint pytest pytest-cov</span><span class="w"></span>
 <span class="w">        </span><span class="no"># extra requirements for this project</span><span class="w"></span>
+<span class="w">        </span><span class="no"># anything you add to the requirements.txt file will get installed</span><span class="w"></span>
 <span class="w">        </span><span class="no">pip install -r requirements.txt</span><span class="w"></span>
 
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Analysing the code with pylint</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Analyzing the code with pylint</span><span class="w"></span>
 <span class="w">      </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always()</span><span class="w"></span>
-<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w">  </span><span class="c1"># runs pylint on all Python files in the repo</span><span class="w"></span>
 <span class="w">        </span><span class="no">pylint `ls -R|grep .py$|xargs`</span><span class="w"></span>
 
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run tests</span><span class="w"></span>
-<span class="w">      </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always()</span><span class="w"></span>
+<span class="w">      </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always()</span><span class="w">  </span><span class="c1"># runs even if pylint &quot;failed&quot;</span><span class="w"></span>
 <span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">        </span><span class="no">pytest ./</span><span class="w"></span>
+<span class="w">        </span><span class="no">pytest ./  # pytest will search for everything that looks like a test</span><span class="w"></span>
 
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run test coverage</span><span class="w"></span>
-<span class="w">      </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always()</span><span class="w"></span>
-<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">        </span><span class="no">pytest --cov --cov-fail-under=100 ./</span><span class="w"></span>
+<span class="w">      </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always()</span><span class="w">  </span><span class="c1"># run even if some of the tests failed</span><span class="w"></span>
+<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w">  </span><span class="c1"># runs all tests, passes if 100% coverage is achieved</span><span class="w"></span>
+<span class="w">              </span><span class="no"># coverage can be configured in the .coveragerc file</span><span class="w"></span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">pytest --cov --cov-fail-under=100 ./</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
