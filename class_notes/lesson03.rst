@@ -76,6 +76,9 @@ If you have accidentally added stuff, you can do:
 Or whatever. Before you commit. (or after, but then it will be in the history forever)
 
 
+.. note:: There are some times when you might want to put IDE configuration in git -- particularly if it's only you, or the entire team is using the same IDE. But you don't want to put anything specific to your system in git. For example, here are recommendations for PyCharm: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+
 You don't need to type check:
 -----------------------------
 
