@@ -7,7 +7,7 @@ REM Command file for Sphinx documentation
 if "%SPHINXBUILD%" == "" (
 	set SPHINXBUILD=sphinx-build
 )
-set SOURCEDIR=notes
+set SOURCEDIR=class_notes
 set BUILDDIR=build
 set SPHINXPROJ=Py320-Winter2022
 
