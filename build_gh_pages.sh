@@ -8,7 +8,7 @@ cp -R build/html/ docs/
 pushd docs
 git add . # in case there are new files added
 git commit -a -m "updating the class notes"
-git pull -s ours --no-edit
+# git pull -s ours --no-edit
 git push
 
 

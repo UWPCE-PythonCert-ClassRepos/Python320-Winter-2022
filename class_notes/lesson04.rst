@@ -36,6 +36,33 @@ Break Time!
 
 10min break:
 
+Notes about PeeWee
+==================
+
+Initializing the database
+-------------------------
+
+PeeWee models require a ``Meta`` class with a database attribute:
+
+.. code-block:: python
+
+   class Meta:
+        database = db
+
+Which usually goes in the Base model class.
+
+All the examples in the PeeWee docs have you initializing the database at the top of the models file. That's really not the best place for it -- ideally, your models are independent of the back-end database.
+
+But the database does need to be defined when the model classes are defined.
+
+Solution?
+
+Put the model definition in its own file, and import that in your models file. That way, it can be updated independently. And also mocked for testing, etc.
+
+Also: in real-world code, the database configuration would likely be read from a config file or the like.
+
+
+
 
 
 Break Time!
