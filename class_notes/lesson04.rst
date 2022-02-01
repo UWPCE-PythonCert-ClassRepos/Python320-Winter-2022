@@ -39,6 +39,11 @@ Break Time!
 Notes about PeeWee
 ==================
 
+Luis is going to go through his solution -- so you all can get some ideas if you haven't gotten yours to fully work.
+
+
+A few thoughts of mine on PeeWee / datbases:
+
 Initializing the database
 -------------------------
 
@@ -51,23 +56,399 @@ PeeWee models require a ``Meta`` class with a database attribute:
 
 Which usually goes in the Base model class.
 
-All the examples in the PeeWee docs have you initializing the database at the top of the models file. That's really not the best place for it -- ideally, your models are independent of the back-end database.
+All the examples in the PeeWee docs have you initializing the database at the top of the models file. That's a easy way to do it for small demos, but not ideal for a full application, and especially not for tests.
 
 But the database does need to be defined when the model classes are defined.
 
 Solution?
 
-Put the model definition in its own file, and import that in your models file. That way, it can be updated independently. And also mocked for testing, etc.
 
 Also: in real-world code, the database configuration would likely be read from a config file or the like.
 
+Testing the database functionality:
+-----------------------------------
+
+When you are doing unit tests, you really don't want to use the production database!
+
+Which means that you need to configure the database differently in tests that on your main code.
+
+The PeeWee docs have a section on this:
+
+[insert URL here]
+/peewee-3.6.0/index.html#testing-peewee-applications
 
 
+
+Foreign Keys
+------------
+
+See notes in PeeWee docs about Foreign Keys:
+
+https://docs.peewee-orm.com/en/latest/peewee/relationships.html#relationships-and-joins
+
+"In SQLite, foreign keys are not enabled by default. ... To avoid problems, I recommend that you enable foreign-key constraints when using SQLite, "
+
+::
+
+    # Ensure foreign-key constraints are enforced.
+    db = SqliteDatabase('my_app.db', pragmas={'foreign_keys': 1})
+
+
+maxlen vs constraints, vs...
+----------------------------
+
+It would seem obvious that using maxlen on a char field would, well, restrict its length.
+
+It turns out that PeeWee passes maxlength on to the underlying database.
+
+But SQLlite doesn't support restricted length fields, so nothing happens if you pass in a long string.
+
+Constraints, on the other hand, are enforced by PeeWee itself.
+
+The other option is to check or truncate the length in your own code.
 
 
 Break Time!
 ===========
 
 10min break
+
+Iterators and Iterables
+=======================
+
+The next assignment is to extend your social media app with a some iterators. For the most part, the hard part of that is the PeeWee stuff, but I'd like to take a bit of time to go over the Iterator Protocol.
+
+Iterator Protocol
+=================
+
+**Iteration** is going through all the objects in a container.
+
+"An iterator is an object that enables a programmer to traverse a container"
+
+So an **Iterator** is a thing that lets you get all the items in a container one by one.
+
+**Wait!** don't we just use ``for`` loops for that?
+
+Indeed we do, and that's the way to go for the common case, but directly working with iterators can provide more flexibility. And for loops are are using the Iterator Protocol under the hood.
+
+An **Iterable** is an object that can provide an iterator.
+
+One key point is that there is no one "type" of Iterator or Iterable -- an Iterator is not a particular class.
+
+Rather, in Python, an Iterator or Iterable is anything that conforms to a particular protocol -- known as the **Iterator Protocol**.
+
+That protocol has two sides: the one users of a iterator see, and the one that you need to make to implement an iterator.
+
+Using Iterators
+---------------
+
+How to get an Iterator
+......................
+
+The first thing you need to do to iterate over a iterable is to abtian its iterator.
+
+The built in function ``iter()`` will retrieve an iterator from an iterable:
+
+.. code-block:: ipython
+
+    # a list is a common "iterable"
+
+    In [1]: l = [1, 2, 3, 4]
+
+    In [2]: it = iter(l)
+
+    In [3]: it
+    Out[3]: <list_iterator at 0x103e46800>
+
+You can see that the object returned is not the list -- but a special "iterator" object.
+
+
+How to use an Iterator
+......................
+
+Once you obtained an iterator, it's easy to use, when you want the next item from the iterator, call ``next()``
+
+.. code-block:: ipython
+
+    In [4]: next(it)
+    Out[4]: 1
+
+    In [5]: next(it)
+    Out[5]: 2
+
+What happens when there are no more items?
+
+.. code-block:: ipython
+
+    In [6]: next(it)
+    Out[6]: 3
+
+    In [7]: next(it)
+    Out[7]: 4
+
+    In [8]: next(it)
+    ---------------------------------------------------------------------------
+    StopIteration                             Traceback (most recent call last)
+    <ipython-input-8-bc1ab118995a> in <module>
+    ----> 1 next(it)
+
+    StopIteration:
+
+When an iterator is "exhausted", it raises a special type of Exception: ``StopIteration``.
+
+So you can emulate a ``for`` loop with a ``while`` loop like so:
+
+The for loop:
+
+.. code-block:: ipython
+
+    In [10]: for item in l:
+        ...:     print(item)
+        ...:
+    1
+    2
+    3
+    4
+
+Built with ``while`` and the Iterator Protocol
+
+.. code-block:: ipython
+
+    In [14]: while True:
+        ...:     try:
+        ...:         item = next(it)
+        ...:     except StopIteration:
+        ...:         break
+        ...:     print(item)
+        ...:
+    1
+    2
+    3
+    4
+
+So what ``for`` is doing is really just convenient shorthand for the above.
+
+
+Iterators preserve state
+------------------------
+
+One of the key things about iterators is that they "preserve state" -- that is, they remember where they are in the iteration order. So you can get a few items out, then later on, a few more -- just keep calling next().
+
+And once one has been "exhausted", it's done:
+
+.. code-block:: ipython
+
+    In [15]: it = iter(l)
+
+    In [16]: next(it)
+    Out[16]: 1
+
+    In [17]: next(it)
+    Out[17]: 2
+
+    In [18]: next(it)
+    Out[18]: 3
+
+    In [19]: next(it)
+    Out[19]: 4
+
+    In [20]: next(it)
+    ---------------------------------------------------------------------------
+    StopIteration                             Traceback (most recent call last)
+    <ipython-input-20-bc1ab118995a> in <module>
+    ----> 1 next(it)
+
+    StopIteration:
+
+    In [21]: next(it)
+    ---------------------------------------------------------------------------
+    StopIteration                             Traceback (most recent call last)
+    <ipython-input-21-bc1ab118995a> in <module>
+    ----> 1 next(it)
+
+    StopIteration:
+
+``StopIteration`` will keep getting raised forever.
+
+What if I want to iterate through the same thing again?
+
+Call ``iter`` again:
+
+.. code-block:: ipython
+
+    In [23]: it = iter(l)
+
+    In [24]: next(it)
+    Out[24]: 1
+
+In fact, each time you call ``iter(obj)``, you get a new, independent iterator, each keeping its own state:
+
+.. code-block:: ipython
+
+    In [25]: it1 = iter(l)
+
+    In [26]: it2 = iter(l)
+
+    In [27]: next(it1)
+    Out[27]: 1
+
+    In [28]: next(it1)
+    Out[28]: 2
+
+    In [29]: next(it2)
+    Out[29]: 1
+
+It's not common to do that, but it can be done :-)
+
+Getting the iterator from an iterator?
+--------------------------------------
+
+    Often you don't know that what you want to iterate through is an iterable or an iterator:
+
+.. code-block:: ipython
+
+    In [30]: it = iter(l)
+
+    In [31]: next(it)
+    Out[31]: 1
+
+    In [32]: next(it)
+    Out[32]: 2
+
+    In [33]: for i in it:
+        ...:     print(i)
+        ...:
+    3
+    4
+
+Python has a nifty trick -- you don't have to explicitly call iter() in most cases, e.g. for loops:
+
+.. code-block:: python
+
+    for i in iter(a_list):
+        ...
+
+Wouldn't that be ugly?
+
+Python implicitly calls iter() when it needs an iterable. But we DO want to be able to loop through an iterator as well. So the Iterator Protocol specifies that iterables should return themselves when iter() is called on them:
+
+.. code-block:: python
+
+    In [35]: it = iter(l)
+
+    In [36]: it
+    Out[36]: <list_iterator at 0x103e94a00>
+
+    In [37]: it2 = iter(it)
+
+    In [38]: it2
+    Out[38]: <list_iterator at 0x103e94a00>
+
+    In [39]: it is it2
+    Out[39]: True
+
+So calling iter() on an existing on iterator is a no-op. Seems a bit odd,but it's handy, as you can then chain iterators easily.
+
+The definitions:
+
+**Iterator**
+  An object that returns items when passed to ``next()``. And raises StopIteration when there are no items left.
+
+**Iterable**
+  An object that returns an iterator when passed to ``iter()``
+
+So all iterators are ALSO iterables!
+
+**Note:** Iterators to not need to terminate -- some can be infinite!
+
+Making a custom Iterator or Iterable
+------------------------------------
+
+The other half of the iterator protocol is the dunders used to make custom iterators:
+
+**iter()**
+
+When ``iter()`` is called on an object, its ``__iter__`` method is called. This method should return an iterator.
+
+**next()**
+
+When ``next()`` is called on an object, its ``__next__`` method is called. This method should return the next item.
+
+
+Generators
+==========
+
+See above: an Iterator is not a type -- it is any object that conforms to the protocol. Generators are another nifty way to make a custom iterator. It's a larger topic, but this is the very short version:
+
+A generator function is a function that has a the ``yield`` keyword in it:
+
+.. code-block:: python
+
+    def genfun(something):
+
+        do_some_stuff
+
+        yield something
+
+        do_something_else
+
+Calling a generator function, returns a *generator* object. A *generator* is a Iterator, So when the generator function is called, the code inside it runs until it hits a yield statement. Then it waits until next() is called on it, when it "yields" a value.
+
+When the end of the function is reached, ``StopIteration`` is raised.
+
+.. code-block:: python
+
+    In [47]: def genfun():
+        ...:     yield "yes"
+        ...:     yield "no"
+        ...:     yield "maybe"
+        ...:
+
+    In [48]: gf = genfun()
+
+    In [49]: next(gf)
+    Out[49]: 'yes'
+
+    In [50]: next(gf)
+    Out[50]: 'no'
+
+    In [51]: next(gf)
+    Out[51]: 'maybe'
+
+    In [52]: next(gf)
+    ---------------------------------------------------------------------------
+    StopIteration                             Traceback (most recent call last)
+    <ipython-input-52-c9712ab0ce22> in <module>
+    ----> 1 next(gf)
+
+    StopIteration:
+
+This makes it very easy to make "lazy" iterators -- iterators that "generate" values on the fly.
+
+**NOTE:**
+
+Generators are kind of like functions, except they can be stopped in the middle, and maintain their state. It turns out this kind of "pausable" function is known as a "coroutine", and can be useful for things other than classic iterators.
+
+You will see the term "coroutine" in discussions of asynchronous programming.
+
+One example is ``pytest`` fixtures -- they take advantage of generator functions to make the setup and teardown easy:
+
+.. code-block:: python
+
+    @pytest.fixture
+    def empty_db():
+        """
+        initialize and empty database
+        """
+        # setup
+        db = start_database()
+        yield db
+
+        # teardown
+        cleanup_database(db)
+
+pytest calls next() on the fixture, and it yields (returns) something (in this case an instance of the database), and then waits to call next again until after the test is done.
+
+This is really handy, as you don't need to store any of the variables anywhere to use them in the teardown.
 
 

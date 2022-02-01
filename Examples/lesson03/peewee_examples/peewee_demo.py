@@ -1,8 +1,8 @@
 from datetime import date
-import os
+from pathlib import Path
 from peewee import *
 
-os.remove("people.db")
+Path("people.db").unlink(missing_ok=True)
 
 db = SqliteDatabase('people.db')
 
@@ -29,6 +29,7 @@ def create_tables(database):
 
 
 def add_data():
+    print("before:", len(Person))
     uncle_bob = Person(name='Bob', birthday=date(1960, 1, 15))
     uncle_bob.save()  # bob is now stored in the database
 
@@ -37,6 +38,8 @@ def add_data():
     herb = Person.create(name='Herb', birthday=date(1950, 5, 5))
     grandma.save()
     herb.save()
+    print("after:", len(Person))
+
     return uncle_bob, grandma, herb
 
 
@@ -61,7 +64,7 @@ def delete_pet(herb_mittens):
 
 def show_someones_pets():
     # 1
-    Person.get(Person.name == 'Grandma L.')
+    grandma = Person.get(Person.name == 'Grandma L.')
 
     for person in Person.select():
         print(person.name)
@@ -89,3 +92,4 @@ if __name__ == "__main__":
     delete_pet(herb_mittens)
     show_someones_pets()
     db.close()
+
