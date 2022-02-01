@@ -303,7 +303,7 @@ It's not common to do that, but it can be done :-)
 Getting the iterator from an iterator?
 --------------------------------------
 
-    Often you don't know that what you want to iterate through is an iterable or an iterator:
+Often you don't know whether what you want to iterate through is an iterable or an iterator:
 
 .. code-block:: ipython
 
@@ -315,6 +315,7 @@ Getting the iterator from an iterator?
     In [32]: next(it)
     Out[32]: 2
 
+    # I want to loop through the rest -- it's already an iterator
     In [33]: for i in it:
         ...:     print(i)
         ...:
@@ -347,9 +348,10 @@ Python implicitly calls iter() when it needs an iterable. But we DO want to be a
     In [39]: it is it2
     Out[39]: True
 
-So calling iter() on an existing on iterator is a no-op. Seems a bit odd,but it's handy, as you can then chain iterators easily.
+So calling iter() on an existing on iterator is a no-op. Seems a bit odd, but it's handy, as you can then chain iterators easily.
 
 The definitions:
+................
 
 **Iterator**
   An object that returns items when passed to ``next()``. And raises StopIteration when there are no items left.
@@ -373,6 +375,10 @@ When ``iter()`` is called on an object, its ``__iter__`` method is called. This 
 **next()**
 
 When ``next()`` is called on an object, its ``__next__`` method is called. This method should return the next item.
+
+Sp a class is an **Iterable** if it has a ``__iter__`` method that returns an iterator
+
+A class is a **Iterator** if it has a ``__next__`` method that returns items and raise StopIteration when done, and has an ``__iter__`` method that returns itself.
 
 
 Generators
