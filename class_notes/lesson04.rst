@@ -7,27 +7,81 @@
 ###################
 
 
+
 A collection of notes to go over in class, to keep things organized.
 
 **NOTES:**
 
-I'll try to have a break every hour or so -- ping me if I forget!
+As always -- I'll try to have a break every hour or so -- ping me if I forget!
+
+Assignment03
+============
+
+This week's assignment was challenging!
+
+There was a lot to learn and figure out. A number of you (including me!) struggled a bit with getting even the first bit of code to run: e.g. adding a new user to the User table.
+
+Some notes about that:
+
+The goal of this class is not for you to make a Social Media application.
+
+It's not even for you to learn to use PeeWee.
+
+The goal of this class is for you to:
+
+*learn to code in Python*.
+
+A big part of that is learning how to use a new library, with the basic tutorials and documentation available.
+
+So while it may have been frustrating to feel like you were flailing without getting anything done, you were, in fact, learning to read docs, debug, and generally how to learn a new library to solve a new problem.
+
+That being said: I could have provided more guidance as to how to get started on this one -- I'll try to do better with the rest of the class.
+
+A few notes on the development process:
+---------------------------------------
+
+One of the key things, particularly when learning a new library or system is to use **incremental development**.
+
+First get the tiniest bit of code working, (maybe starting from example code), then add to it bit by bit. That way, when something stops working, you know exactly what new code broke it.
+
+Ideally, you would use TDD to do this. But sometimes getting things working enough to even write tests can be a challenge. But you can still use a similar process.
+
+* Write a tiny little program that does just a little bit.
+* Once it's working, copy and paste the code into your real code.
+* Run your "real" code.
+* Later, rinse, and repeat until you are done.
+
+Example from this assignment:
+
+* First make just the User Model -- in its simplest form, without constraints, etc.
+
+* Make sure you can add users, etc with that model
+
+* Then try adding the UserStatus model, in it's simplest form.
+
+* get it working
+
+* then set up the ForeignKeyField
+
+* get that working
+
+* then start adding constraints
+
+* ...
 
 
+Here's my "trail.py" file that I used to experiment before putting everything together:
 
-Things we noticed in reviewing your work
-========================================
+``/Examples/lesson04/trial.py`` in the class repo.
 
-useful logging messages
------------------------
 
-logging can be used to debug, but more at the application level than the code level. So you really want your messages to be meaningful to someone operating / configuring the app that may not be familiar with the code.
+Luis' Demo of PeeWee
+====================
 
-e.g.
-``f"delete status message failed, id:{status_id} not in database"``
-rather than:
+For all of you that may still be confused, Luis will demo building a PeeWee app:
 
-"delete_status returned False"
+
+Take away, Luis!
 
 
 
@@ -36,13 +90,10 @@ Break Time!
 
 10min break:
 
-Notes about PeeWee
-==================
 
-Luis is going to go through his solution -- so you all can get some ideas if you haven't gotten yours to fully work.
+A few additional thoughts on PeeWee
+===================================
 
-
-A few thoughts of mine on PeeWee / datbases:
 
 Initializing the database
 -------------------------
@@ -58,12 +109,14 @@ Which usually goes in the Base model class.
 
 All the examples in the PeeWee docs have you initializing the database at the top of the models file. That's a easy way to do it for small demos, but not ideal for a full application, and especially not for tests.
 
-But the database does need to be defined when the model classes are defined.
-
-Solution?
-
 
 Also: in real-world code, the database configuration would likely be read from a config file or the like.
+
+**Solution?**
+
+
+But the database does need to be defined when the model classes are defined.
+
 
 Testing the database functionality:
 -----------------------------------
@@ -106,6 +159,21 @@ But SQLlite doesn't support restricted length fields, so nothing happens if you 
 Constraints, on the other hand, are enforced by PeeWee itself.
 
 The other option is to check or truncate the length in your own code.
+
+
+Things I noticed in reviewing your work
+========================================
+
+useful logging messages
+-----------------------
+
+logging can be used to debug, but more at the application level than the code level. So you really want your messages to be meaningful to someone operating / configuring the app that may not be familiar with the code.
+
+e.g.
+``f"delete status message failed, id:{status_id} not in database"``
+rather than:
+
+"delete_status returned False"
 
 
 Break Time!
@@ -380,11 +448,47 @@ Sp a class is an **Iterable** if it has a ``__iter__`` method that returns an it
 
 A class is a **Iterator** if it has a ``__next__`` method that returns items and raise StopIteration when done, and has an ``__iter__`` method that returns itself.
 
+So we can make a custom Iterator by defining a class with an ``__iter__`` method and a __next__method.
+
+Here's how to make a simple one like the built in ``range()``
+
+.. code-block:: python
+
+    class class_range:
+        def __init__(self, start, stop, step=1):
+            self.current = start
+            self.stop = stop
+            self.step = step
+
+        def __iter__(self):
+            return self
+
+        def __next__(self):
+            if self.current >= self.stop:
+                raise StopIteration
+            else:
+                current = self.current
+                self.current += self.step
+                return current
+
+And in use:
+
+.. code-block:: ipython
+
+    In [16]: for i in class_range(0, 10, 2):
+        ...:     print(i)
+        ...:
+    0
+    2
+    4
+    6
+    8
+
 
 Generators
 ==========
 
-See above: an Iterator is not a type -- it is any object that conforms to the protocol. Generators are another nifty way to make a custom iterator. It's a larger topic, but this is the very short version:
+See above: an Iterator is not a type -- it is any object that conforms to the protocol. Generators are a particularly nifty way to make a custom iterator. It's a larger topic, but this is the very short version:
 
 A generator function is a function that has a the ``yield`` keyword in it:
 
@@ -397,6 +501,8 @@ A generator function is a function that has a the ``yield`` keyword in it:
         yield something
 
         do_something_else
+
+        yield something_else
 
 Calling a generator function, returns a *generator* object. A *generator* is a Iterator, So when the generator function is called, the code inside it runs until it hits a yield statement. Then it waits until next() is called on it, when it "yields" a value.
 
@@ -431,20 +537,130 @@ When the end of the function is reached, ``StopIteration`` is raised.
 
 This makes it very easy to make "lazy" iterators -- iterators that "generate" values on the fly.
 
-**NOTE:**
+Here's a simple version of the built in ``range`` function:
+
+.. code-block:: python
+
+    def gen_range(start, stop, step=1):
+        i = start
+        while i < stop:
+            yield i
+            i += step
+
+And in use:
+
+.. code-block:: ipython
+
+    In [14]: for j in gen_range(0, 10, 2):
+        ...:     print(j)
+        ...:
+    0
+    2
+    4
+    6
+    8
+
+Isn't that a **lot** easier? The ability to pause and keep state makes for a lot less bookkeeping code!
+
+.. code-block:: python
+
+    class genclass_range:
+        def __init__(self, start, stop, step=1):
+            self.start = start
+            self.stop = stop
+            self.step = step
+
+        def __iter__(self):
+            i = self.start
+            while i < self.stop:
+                yield i
+                i += self.step
+
+And in use:
+
+.. code-block:: ipython
+
+    In [21]: for k in genclass_range(0, 10, 2):
+        ...:     print(k)
+        ...:
+    0
+    2
+    4
+    6
+    8
+
+In this case, the class is adding nothing, but it could if you had a class that was an iterable, and also had other functionality. In fact, the built in range() is also a Sequence:
+
+.. code-block:: ipython
+
+    In [37]: r = range(10)
+
+    In [38]: r[3]
+    Out[38]: 3
+
+Also -- look carefully -- are they exactly the same? what would happen if you stopped it in the middle and restarted it?
+
+
+Here's what happens with the built in ``range()``:
+
+.. code-block:: ipython
+
+    In [27]: r = range(10)
+
+    In [28]: for i in r:
+        ...:     print(i)
+        ...:     if i > 3:
+        ...:         break
+        ...:
+    0
+    1
+    2
+    3
+    4
+
+    In [29]: for i in r:
+        ...:     print(i)
+        ...:
+    0
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+
+So it "resets" when you loop through again (remember, for calls ``iter()`` on the object)
+
+What will the three implementations above do?
+
+Try it!
+
+What's the difference?
+
+Exercise for the reader:
+
+How would you make one that was rentrant
+
+
+Coroutines
+----------
 
 Generators are kind of like functions, except they can be stopped in the middle, and maintain their state. It turns out this kind of "pausable" function is known as a "coroutine", and can be useful for things other than classic iterators.
 
-You will see the term "coroutine" in discussions of asynchronous programming.
+You will see the term "coroutine" in discussions of asynchronous programming. Actually, technically, a generator is a "semicoroutine", but close enough :-)
 
-One example is ``pytest`` fixtures -- they take advantage of generator functions to make the setup and teardown easy:
+
+One example of a use of genrators that isn't iteration is ``pytest`` fixtures -- they take advantage of generator functions to make the setup and tear down easy:
 
 .. code-block:: python
 
     @pytest.fixture
     def empty_db():
         """
-        initialize and empty database
+        Initialize an empty database
         """
         # setup
         db = start_database()
@@ -455,6 +671,6 @@ One example is ``pytest`` fixtures -- they take advantage of generator functions
 
 pytest calls next() on the fixture, and it yields (returns) something (in this case an instance of the database), and then waits to call next again until after the test is done.
 
-This is really handy, as you don't need to store any of the variables anywhere to use them in the teardown.
+This is really handy, as you don't need to store any of the variables anywhere to use them in the tear down part.
 
 
