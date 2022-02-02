@@ -114,8 +114,48 @@ Also: in real-world code, the database configuration would likely be read from a
 
 **Solution?**
 
+Put your database creation code in a function:
 
-But the database does need to be defined when the model classes are defined.
+.. code-block:: python
+
+    def get_database(filename=None, clear=False):
+        """
+        setup and return a database to use for the models
+
+        :param filename: name of DB file, or ":memory:" for in=memory temp DB
+
+        :param clear=False: Whether to clear out the old db and return an
+                            empty one.
+        """
+
+        if filename == ":memory:":
+            db = pw.SqliteDatabase(':memory:',
+                                    pragmas={'foreign_keys': 1}
+                                   )
+
+        else:
+            if filename is None:
+                filename = DEFAULT_DB_NAME
+            if clear:
+                Path(filename).unlink(missing_ok=True)
+            db = pw.SqliteDatabase(HERE / filename,
+                                   pragmas={'foreign_keys': 1}
+                                   )
+        return db
+
+This one can create an in-memory database, or a file based one, and either delete or not the previous data.
+
+You base model can still use the defaults:
+
+
+.. code-block:: python
+
+    class BaseModel(pw.Model):
+        """
+        base model for all tables
+        """
+        class Meta:
+            database = get_database()
 
 
 Testing the database functionality:
@@ -125,11 +165,129 @@ When you are doing unit tests, you really don't want to use the production datab
 
 Which means that you need to configure the database differently in tests that on your main code.
 
+The above function makes that pretty easy.
+
+But there is a complication:
+
+When you import your models file, that database gets hooked up by the Meta class:
+
+.. code-block:: python
+
+    class BaseModel(pw.Model):
+        """
+        base model for all tables
+        """
+        class Meta:
+            database = get_database()
+
+But with tests, you may (really should!) use a clean database for each of your tests. So how do we do that?
+
 The PeeWee docs have a section on this:
 
-[insert URL here]
-/peewee-3.6.0/index.html#testing-peewee-applications
+https://docs.peewee-orm.com/en/latest/peewee/database.html#testing-peewee-applications
 
+Turns out that you don't have to statically define the database that the models use in your code. You can "Bind" the database to the models, at run time, over and over again ....
+
+PeeWee actually has multiple ways of doing this, including context managers. But I used the simplest:
+
+``database.Bind()``
+
+That way, I could write startup code that would start the database in different ways, and fixtures that could start it up in different ways for the tests.
+
+Here's my function to start up the database:
+
+.. code-block:: python
+
+    def start_database(filename='social.db', clear=False):
+        """
+        initialize an empty databse
+        """
+        models = [User, UserStatus]
+        db = get_database(filename, clear)
+        db.bind(models,
+                bind_refs=False,
+                bind_backrefs=False)
+        db.connect()
+        db.create_tables(models)
+
+        return db
+
+So this gets the database, binds it to the models, connects to the database, and then creates the tables.
+
+By having this in a function, I can re-run it whenever a clean database is required.
+
+My menu.py starts up this way:
+
+.. code-block:: python
+
+    if __name__ == '__main__':  # pragma: no cover
+        setup_logger()
+        clear = True if len(sys.argv) > 1 and sys.argv[1] == "clear" else False
+        socialnetwork_model.start_database('social.db', clear)
+        init_collections()
+        mainloop()
+
+In fact, once I'm doing this -- I don't need to set up the database in the Meta class at all :-)
+
+And once that's all in place, I created some fixtures for the tests:
+
+(in a separate file, so all the test files could use it)
+
+.. code-block:: python
+
+    def cleanup_database(db):
+        """
+        close and cleanup the database
+        """
+        db.drop_tables(MODELS)
+        db.bind(MODELS, bind_refs=False, bind_backrefs=False)
+        db.close()
+
+
+    def make_empty_db():
+        '''
+        make an empty database
+
+        Here so it can be used in both pytest and unittest fixtures
+        '''
+        start_database(":memory:", clear=True)
+
+    @pytest.fixture
+    def empty_db():
+        """
+        initialize and empty database
+        """
+        # setup
+        db = start_database()
+        yield
+
+        # teardown
+        cleanup_database(db)
+
+
+    @pytest.fixture
+    def full_db():
+        """
+        initialize a database with some data in it
+        """
+        # setup
+        # setup
+        db = start_database(":memory:", clear=True)
+
+        # populate the User table
+        for user in SAMPLE_USERS_DATA:
+            new_user = User.create(**user)
+            new_user.save()
+
+        # populate the Status table
+        for stat in SAMPLE_STATUS_DATA:
+            new_stat = UserStatus.create(**stat)
+            new_stat.save()
+
+        yield
+
+        # teardown
+        cleanup_database(db)
 
 
 Foreign Keys
@@ -144,15 +302,21 @@ https://docs.peewee-orm.com/en/latest/peewee/relationships.html#relationships-an
 ::
 
     # Ensure foreign-key constraints are enforced.
-    db = SqliteDatabase('my_app.db', pragmas={'foreign_keys': 1})
+    db = SqliteDatabase('my_app.db',
+                        pragmas={'foreign_keys': 1})
+
+Note that you can pass the pragmas in at database startup.
+
+When I added that, a handful of my tests failed -- that's what the tests are for!
 
 
-maxlen vs constraints, vs...
-----------------------------
 
-It would seem obvious that using maxlen on a char field would, well, restrict its length.
+max_length vs constraints, vs...
+--------------------------------
 
-It turns out that PeeWee passes maxlength on to the underlying database.
+It would seem obvious that using max_length on a char field would, well, restrict its length.
+
+It turns out that PeeWee passes max_length on to the underlying database.
 
 But SQLlite doesn't support restricted length fields, so nothing happens if you pass in a long string.
 
@@ -170,6 +334,7 @@ useful logging messages
 logging can be used to debug, but more at the application level than the code level. So you really want your messages to be meaningful to someone operating / configuring the app that may not be familiar with the code.
 
 e.g.
+
 ``f"delete status message failed, id:{status_id} not in database"``
 rather than:
 
@@ -181,10 +346,12 @@ Break Time!
 
 10min break
 
+
 Iterators and Iterables
 =======================
 
 The next assignment is to extend your social media app with a some iterators. For the most part, the hard part of that is the PeeWee stuff, but I'd like to take a bit of time to go over the Iterator Protocol.
+
 
 Iterator Protocol
 =================

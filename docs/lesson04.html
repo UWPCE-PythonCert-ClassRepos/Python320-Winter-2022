@@ -44,8 +44,43 @@
 <li class="toctree-l1"><a class="reference internal" href="lesson02.html">1/18/2022: Logging and Debugging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson03.html">1/25/2022: Relational Databases</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2/1/2022: Iteration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#assignment03">Assignment03</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#a-few-notes-on-the-development-process">A few notes on the development process:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#luis-demo-of-peewee">Luis’ Demo of PeeWee</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#break-time">Break Time!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-few-additional-thoughts-on-peewee">A few additional thoughts on PeeWee</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#initializing-the-database">Initializing the database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-the-database-functionality">Testing the database functionality:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#foreign-keys">Foreign Keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#max-length-vs-constraints-vs">max_length vs constraints, vs…</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#things-i-noticed-in-reviewing-your-work">Things I noticed in reviewing your work</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#useful-logging-messages">useful logging messages</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#id1">Break Time!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iterators-and-iterables">Iterators and Iterables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iterator-protocol">Iterator Protocol</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-iterators">Using Iterators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#how-to-get-an-iterator">How to get an Iterator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-to-use-an-iterator">How to use an Iterator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#iterators-preserve-state">Iterators preserve state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-the-iterator-from-an-iterator">Getting the iterator from an iterator?</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-definitions">The definitions:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#making-a-custom-iterator-or-iterable">Making a custom Iterator or Iterable</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generators">Generators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#coroutines">Coroutines</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="lesson05.html">2/8/2022: Consuming APIs and NoSQL</a></li>
@@ -54,6 +89,8 @@
 <li class="toctree-l1"><a class="reference internal" href="lesson08.html">3/1/2022: Functional Techniques</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson09.html">3/8/2022: Advanced Language Constructs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson10.html">3/15/2022: API Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_hints.html">Chris’ Handy Testing Hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="github_actions.html">gitHub actions/workflows and CI</a></li>
 </ul>
 
         </div>
@@ -84,14 +121,646 @@
 <span id="notes-lesson04"></span><h1>2/1/2022: Iteration<a class="headerlink" href="#iteration" title="Permalink to this headline"></a></h1>
 <p>A collection of notes to go over in class, to keep things organized.</p>
 <p><strong>NOTES:</strong></p>
-<p>I’ll try to have a break every hour or so – ping me if I forget!</p>
+<p>As always – I’ll try to have a break every hour or so – ping me if I forget!</p>
+<div class="section" id="assignment03">
+<h2>Assignment03<a class="headerlink" href="#assignment03" title="Permalink to this headline"></a></h2>
+<p>This week’s assignment was challenging!</p>
+<p>There was a lot to learn and figure out. A number of you (including me!) struggled a bit with getting even the first bit of code to run: e.g. adding a new user to the User table.</p>
+<p>Some notes about that:</p>
+<p>The goal of this class is not for you to make a Social Media application.</p>
+<p>It’s not even for you to learn to use PeeWee.</p>
+<p>The goal of this class is for you to:</p>
+<p><em>learn to code in Python</em>.</p>
+<p>A big part of that is learning how to use a new library, with the basic tutorials and documentation available.</p>
+<p>So while it may have been frustrating to feel like you were flailing without getting anything done, you were, in fact, learning to read docs, debug, and generally how to learn a new library to solve a new problem.</p>
+<p>That being said: I could have provided more guidance as to how to get started on this one – I’ll try to do better with the rest of the class.</p>
+<div class="section" id="a-few-notes-on-the-development-process">
+<h3>A few notes on the development process:<a class="headerlink" href="#a-few-notes-on-the-development-process" title="Permalink to this headline"></a></h3>
+<p>One of the key things, particularly when learning a new library or system is to use <strong>incremental development</strong>.</p>
+<p>First get the tiniest bit of code working, (maybe starting from example code), then add to it bit by bit. That way, when something stops working, you know exactly what new code broke it.</p>
+<p>Ideally, you would use TDD to do this. But sometimes getting things working enough to even write tests can be a challenge. But you can still use a similar process.</p>
+<ul class="simple">
+<li><p>Write a tiny little program that does just a little bit.</p></li>
+<li><p>Once it’s working, copy and paste the code into your real code.</p></li>
+<li><p>Run your “real” code.</p></li>
+<li><p>Later, rinse, and repeat until you are done.</p></li>
+</ul>
+<p>Example from this assignment:</p>
+<ul class="simple">
+<li><p>First make just the User Model – in its simplest form, without constraints, etc.</p></li>
+<li><p>Make sure you can add users, etc with that model</p></li>
+<li><p>Then try adding the UserStatus model, in it’s simplest form.</p></li>
+<li><p>get it working</p></li>
+<li><p>then set up the ForeignKeyField</p></li>
+<li><p>get that working</p></li>
+<li><p>then start adding constraints</p></li>
+<li><p>…</p></li>
+</ul>
+<p>Here’s my “trail.py” file that I used to experiment before putting everything together:</p>
+<p><code class="docutils literal notranslate"><span class="pre">/Examples/lesson04/trial.py</span></code> in the class repo.</p>
+</div>
+</div>
+<div class="section" id="luis-demo-of-peewee">
+<h2>Luis’ Demo of PeeWee<a class="headerlink" href="#luis-demo-of-peewee" title="Permalink to this headline"></a></h2>
+<p>For all of you that may still be confused, Luis will demo building a PeeWee app:</p>
+<p>Take away, Luis!</p>
+</div>
 <div class="section" id="break-time">
 <h2>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h2>
 <p>10min break:</p>
 </div>
+<div class="section" id="a-few-additional-thoughts-on-peewee">
+<h2>A few additional thoughts on PeeWee<a class="headerlink" href="#a-few-additional-thoughts-on-peewee" title="Permalink to this headline"></a></h2>
+<div class="section" id="initializing-the-database">
+<h3>Initializing the database<a class="headerlink" href="#initializing-the-database" title="Permalink to this headline"></a></h3>
+<p>PeeWee models require a <code class="docutils literal notranslate"><span class="pre">Meta</span></code> class with a database attribute:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+     <span class="n">database</span> <span class="o">=</span> <span class="n">db</span>
+</pre></div>
+</div>
+<p>Which usually goes in the Base model class.</p>
+<p>All the examples in the PeeWee docs have you initializing the database at the top of the models file. That’s a easy way to do it for small demos, but not ideal for a full application, and especially not for tests.</p>
+<p>Also: in real-world code, the database configuration would likely be read from a config file or the like.</p>
+<p><strong>Solution?</strong></p>
+<p>Put your database creation code in a function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_database</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    setup and return a database to use for the models</span>
+
+<span class="sd">    :param filename: name of DB file, or &quot;:memory:&quot; for in=memory temp DB</span>
+
+<span class="sd">    :param clear=False: Whether to clear out the old db and return an</span>
+<span class="sd">                        empty one.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">filename</span> <span class="o">==</span> <span class="s2">&quot;:memory:&quot;</span><span class="p">:</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">pw</span><span class="o">.</span><span class="n">SqliteDatabase</span><span class="p">(</span><span class="s1">&#39;:memory:&#39;</span><span class="p">,</span>
+                                <span class="n">pragmas</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;foreign_keys&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+                               <span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">DEFAULT_DB_NAME</span>
+        <span class="k">if</span> <span class="n">clear</span><span class="p">:</span>
+            <span class="n">Path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">missing_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">pw</span><span class="o">.</span><span class="n">SqliteDatabase</span><span class="p">(</span><span class="n">HERE</span> <span class="o">/</span> <span class="n">filename</span><span class="p">,</span>
+                               <span class="n">pragmas</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;foreign_keys&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+                               <span class="p">)</span>
+    <span class="k">return</span> <span class="n">db</span>
+</pre></div>
+</div>
+<p>This one can create an in-memory database, or a file based one, and either delete or not the previous data.</p>
+<p>You base model can still use the defaults:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BaseModel</span><span class="p">(</span><span class="n">pw</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    base model for all tables</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">database</span> <span class="o">=</span> <span class="n">get_database</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="testing-the-database-functionality">
+<h3>Testing the database functionality:<a class="headerlink" href="#testing-the-database-functionality" title="Permalink to this headline"></a></h3>
+<p>When you are doing unit tests, you really don’t want to use the production database!</p>
+<p>Which means that you need to configure the database differently in tests that on your main code.</p>
+<p>The above function makes that pretty easy.</p>
+<p>But there is a complication:</p>
+<p>When you import your models file, that database gets hooked up by the Meta class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BaseModel</span><span class="p">(</span><span class="n">pw</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    base model for all tables</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">database</span> <span class="o">=</span> <span class="n">get_database</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>But with tests, you may (really should!) use a clean database for each of your tests. So how do we do that?</p>
+<p>The PeeWee docs have a section on this:</p>
+<p><a class="reference external" href="https://docs.peewee-orm.com/en/latest/peewee/database.html#testing-peewee-applications">https://docs.peewee-orm.com/en/latest/peewee/database.html#testing-peewee-applications</a></p>
+<p>Turns out that you don’t have to statically define the database that the models use in your code. You can “Bind” the database to the models, at run time, over and over again ….</p>
+<p>PeeWee actually has multiple ways of doing this, including context managers. But I used the simplest:</p>
+<p><code class="docutils literal notranslate"><span class="pre">database.Bind()</span></code></p>
+<p>That way, I could write startup code that would start the database in different ways, and fixtures that could start it up in different ways for the tests.</p>
+<p>Here’s my function to start up the database:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">start_database</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;social.db&#39;</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    initialize an empty databse</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="n">User</span><span class="p">,</span> <span class="n">UserStatus</span><span class="p">]</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">get_database</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">clear</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">models</span><span class="p">,</span>
+            <span class="n">bind_refs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">bind_backrefs</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">create_tables</span><span class="p">(</span><span class="n">models</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">db</span>
+</pre></div>
+</div>
+<p>So this gets the database, binds it to the models, connects to the database, and then creates the tables.</p>
+<p>By having this in a function, I can re-run it whenever a clean database is required.</p>
+<p>My menu.py starts up this way:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+    <span class="n">setup_logger</span><span class="p">()</span>
+    <span class="n">clear</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;clear&quot;</span> <span class="k">else</span> <span class="kc">False</span>
+    <span class="n">socialnetwork_model</span><span class="o">.</span><span class="n">start_database</span><span class="p">(</span><span class="s1">&#39;social.db&#39;</span><span class="p">,</span> <span class="n">clear</span><span class="p">)</span>
+    <span class="n">init_collections</span><span class="p">()</span>
+    <span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In fact, once I’m doing this – I don’t need to set up the database in the Meta class at all :-)</p>
+<p>And once that’s all in place, I created some fixtures for the tests:</p>
+<p>(in a separate file, so all the test files could use it)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cleanup_database</span><span class="p">(</span><span class="n">db</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    close and cleanup the database</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">drop_tables</span><span class="p">(</span><span class="n">MODELS</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">MODELS</span><span class="p">,</span> <span class="n">bind_refs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bind_backrefs</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">make_empty_db</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    make an empty database</span>
+
+<span class="sd">    Here so it can be used in both pytest and unittest fixtures</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">start_database</span><span class="p">(</span><span class="s2">&quot;:memory:&quot;</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">empty_db</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    initialize and empty database</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># setup</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">start_database</span><span class="p">()</span>
+    <span class="k">yield</span>
+
+    <span class="c1"># teardown</span>
+    <span class="n">cleanup_database</span><span class="p">(</span><span class="n">db</span><span class="p">)</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">full_db</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    initialize a database with some data in it</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># setup</span>
+    <span class="c1"># setup</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">start_database</span><span class="p">(</span><span class="s2">&quot;:memory:&quot;</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># populate the User table</span>
+    <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">SAMPLE_USERS_DATA</span><span class="p">:</span>
+        <span class="n">new_user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">new_user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="c1"># populate the Status table</span>
+    <span class="k">for</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">SAMPLE_STATUS_DATA</span><span class="p">:</span>
+        <span class="n">new_stat</span> <span class="o">=</span> <span class="n">UserStatus</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">stat</span><span class="p">)</span>
+        <span class="n">new_stat</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="k">yield</span>
+
+    <span class="c1"># teardown</span>
+    <span class="n">cleanup_database</span><span class="p">(</span><span class="n">db</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="foreign-keys">
+<h3>Foreign Keys<a class="headerlink" href="#foreign-keys" title="Permalink to this headline"></a></h3>
+<p>See notes in PeeWee docs about Foreign Keys:</p>
+<p><a class="reference external" href="https://docs.peewee-orm.com/en/latest/peewee/relationships.html#relationships-and-joins">https://docs.peewee-orm.com/en/latest/peewee/relationships.html#relationships-and-joins</a></p>
+<p>“In SQLite, foreign keys are not enabled by default. … To avoid problems, I recommend that you enable foreign-key constraints when using SQLite, “</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ensure foreign-key constraints are enforced.</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">SqliteDatabase</span><span class="p">(</span><span class="s1">&#39;my_app.db&#39;</span><span class="p">,</span>
+                    <span class="n">pragmas</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;foreign_keys&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>Note that you can pass the pragmas in at database startup.</p>
+<p>When I added that, a handful of my tests failed – that’s what the tests are for!</p>
+</div>
+<div class="section" id="max-length-vs-constraints-vs">
+<h3>max_length vs constraints, vs…<a class="headerlink" href="#max-length-vs-constraints-vs" title="Permalink to this headline"></a></h3>
+<p>It would seem obvious that using max_length on a char field would, well, restrict its length.</p>
+<p>It turns out that PeeWee passes max_length on to the underlying database.</p>
+<p>But SQLlite doesn’t support restricted length fields, so nothing happens if you pass in a long string.</p>
+<p>Constraints, on the other hand, are enforced by PeeWee itself.</p>
+<p>The other option is to check or truncate the length in your own code.</p>
+</div>
+</div>
+<div class="section" id="things-i-noticed-in-reviewing-your-work">
+<h2>Things I noticed in reviewing your work<a class="headerlink" href="#things-i-noticed-in-reviewing-your-work" title="Permalink to this headline"></a></h2>
+<div class="section" id="useful-logging-messages">
+<h3>useful logging messages<a class="headerlink" href="#useful-logging-messages" title="Permalink to this headline"></a></h3>
+<p>logging can be used to debug, but more at the application level than the code level. So you really want your messages to be meaningful to someone operating / configuring the app that may not be familiar with the code.</p>
+<p>e.g.</p>
+<p><code class="docutils literal notranslate"><span class="pre">f&quot;delete</span> <span class="pre">status</span> <span class="pre">message</span> <span class="pre">failed,</span> <span class="pre">id:{status_id}</span> <span class="pre">not</span> <span class="pre">in</span> <span class="pre">database&quot;</span></code>
+rather than:</p>
+<p>“delete_status returned False”</p>
+</div>
+</div>
 <div class="section" id="id1">
 <h2>Break Time!<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <p>10min break</p>
+</div>
+<div class="section" id="iterators-and-iterables">
+<h2>Iterators and Iterables<a class="headerlink" href="#iterators-and-iterables" title="Permalink to this headline"></a></h2>
+<p>The next assignment is to extend your social media app with a some iterators. For the most part, the hard part of that is the PeeWee stuff, but I’d like to take a bit of time to go over the Iterator Protocol.</p>
+</div>
+<div class="section" id="iterator-protocol">
+<h2>Iterator Protocol<a class="headerlink" href="#iterator-protocol" title="Permalink to this headline"></a></h2>
+<p><strong>Iteration</strong> is going through all the objects in a container.</p>
+<p>“An iterator is an object that enables a programmer to traverse a container”</p>
+<p>So an <strong>Iterator</strong> is a thing that lets you get all the items in a container one by one.</p>
+<p><strong>Wait!</strong> don’t we just use <code class="docutils literal notranslate"><span class="pre">for</span></code> loops for that?</p>
+<p>Indeed we do, and that’s the way to go for the common case, but directly working with iterators can provide more flexibility. And for loops are are using the Iterator Protocol under the hood.</p>
+<p>An <strong>Iterable</strong> is an object that can provide an iterator.</p>
+<p>One key point is that there is no one “type” of Iterator or Iterable – an Iterator is not a particular class.</p>
+<p>Rather, in Python, an Iterator or Iterable is anything that conforms to a particular protocol – known as the <strong>Iterator Protocol</strong>.</p>
+<p>That protocol has two sides: the one users of a iterator see, and the one that you need to make to implement an iterator.</p>
+<div class="section" id="using-iterators">
+<h3>Using Iterators<a class="headerlink" href="#using-iterators" title="Permalink to this headline"></a></h3>
+<div class="section" id="how-to-get-an-iterator">
+<h4>How to get an Iterator<a class="headerlink" href="#how-to-get-an-iterator" title="Permalink to this headline"></a></h4>
+<p>The first thing you need to do to iterate over a iterable is to abtian its iterator.</p>
+<p>The built in function <code class="docutils literal notranslate"><span class="pre">iter()</span></code> will retrieve an iterator from an iterable:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="go"># a list is a common &quot;iterable&quot;</span>
+
+<span class="gp">In [1]: </span><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+
+<span class="gp">In [2]: </span><span class="n">it</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+
+<span class="gp">In [3]: </span><span class="n">it</span>
+<span class="gh">Out[3]: </span><span class="go">&lt;list_iterator at 0x103e46800&gt;</span>
+</pre></div>
+</div>
+<p>You can see that the object returned is not the list – but a special “iterator” object.</p>
+</div>
+<div class="section" id="how-to-use-an-iterator">
+<h4>How to use an Iterator<a class="headerlink" href="#how-to-use-an-iterator" title="Permalink to this headline"></a></h4>
+<p>Once you obtained an iterator, it’s easy to use, when you want the next item from the iterator, call <code class="docutils literal notranslate"><span class="pre">next()</span></code></p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">1</span>
+
+<span class="gp">In [5]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="gh">Out[5]: </span><span class="go">2</span>
+</pre></div>
+</div>
+<p>What happens when there are no more items?</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="gh">Out[6]: </span><span class="go">3</span>
+
+<span class="gp">In [7]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="gh">Out[7]: </span><span class="go">4</span>
+
+<span class="gp">In [8]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">StopIteration</span><span class="g g-Whitespace">                             </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">8</span><span class="o">-</span><span class="n">bc1ab118995a</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+
+<span class="ne">StopIteration</span>:
+</pre></div>
+</div>
+<p>When an iterator is “exhausted”, it raises a special type of Exception: <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code>.</p>
+<p>So you can emulate a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop with a <code class="docutils literal notranslate"><span class="pre">while</span></code> loop like so:</p>
+<p>The for loop:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+<span class="go">    ...:     print(item)</span>
+<span class="go">    ...:</span>
+<span class="go">1</span>
+<span class="go">2</span>
+<span class="go">3</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<p>Built with <code class="docutils literal notranslate"><span class="pre">while</span></code> and the Iterator Protocol</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [14]: </span><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="go">    ...:     try:</span>
+<span class="go">    ...:         item = next(it)</span>
+<span class="go">    ...:     except StopIteration:</span>
+<span class="go">    ...:         break</span>
+<span class="go">    ...:     print(item)</span>
+<span class="go">    ...:</span>
+<span class="go">1</span>
+<span class="go">2</span>
+<span class="go">3</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<p>So what <code class="docutils literal notranslate"><span class="pre">for</span></code> is doing is really just convenient shorthand for the above.</p>
+</div>
+</div>
+<div class="section" id="iterators-preserve-state">
+<h3>Iterators preserve state<a class="headerlink" href="#iterators-preserve-state" title="Permalink to this headline"></a></h3>
+<p>One of the key things about iterators is that they “preserve state” – that is, they remember where they are in the iteration order. So you can get a few items out, then later on, a few more – just keep calling next().</p>
+<p>And once one has been “exhausted”, it’s done:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [15]: </span><span class="n">it</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+
+<span class="gp">In [16]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="gh">Out[16]: </span><span class="go">1</span>
+
+<span class="gp">In [17]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="gh">Out[17]: </span><span class="go">2</span>
+
+<span class="gp">In [18]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="gh">Out[18]: </span><span class="go">3</span>
+
+<span class="gp">In [19]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="gh">Out[19]: </span><span class="go">4</span>
+
+<span class="gp">In [20]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">StopIteration</span><span class="g g-Whitespace">                             </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">20</span><span class="o">-</span><span class="n">bc1ab118995a</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+
+<span class="ne">StopIteration</span>:
+
+<span class="gp">In [21]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">StopIteration</span><span class="g g-Whitespace">                             </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">21</span><span class="o">-</span><span class="n">bc1ab118995a</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+
+<span class="ne">StopIteration</span>:
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">StopIteration</span></code> will keep getting raised forever.</p>
+<p>What if I want to iterate through the same thing again?</p>
+<p>Call <code class="docutils literal notranslate"><span class="pre">iter</span></code> again:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [23]: </span><span class="n">it</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+
+<span class="gp">In [24]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="gh">Out[24]: </span><span class="go">1</span>
+</pre></div>
+</div>
+<p>In fact, each time you call <code class="docutils literal notranslate"><span class="pre">iter(obj)</span></code>, you get a new, independent iterator, each keeping its own state:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [25]: </span><span class="n">it1</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+
+<span class="gp">In [26]: </span><span class="n">it2</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+
+<span class="gp">In [27]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it1</span><span class="p">)</span>
+<span class="gh">Out[27]: </span><span class="go">1</span>
+
+<span class="gp">In [28]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it1</span><span class="p">)</span>
+<span class="gh">Out[28]: </span><span class="go">2</span>
+
+<span class="gp">In [29]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it2</span><span class="p">)</span>
+<span class="gh">Out[29]: </span><span class="go">1</span>
+</pre></div>
+</div>
+<p>It’s not common to do that, but it can be done :-)</p>
+</div>
+<div class="section" id="getting-the-iterator-from-an-iterator">
+<h3>Getting the iterator from an iterator?<a class="headerlink" href="#getting-the-iterator-from-an-iterator" title="Permalink to this headline"></a></h3>
+<p>Often you don’t know whether what you want to iterate through is an iterable or an iterator:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [30]: </span><span class="n">it</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+
+<span class="gp">In [31]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="gh">Out[31]: </span><span class="go">1</span>
+
+<span class="gp">In [32]: </span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="gh">Out[32]: </span><span class="go">2</span>
+
+<span class="go"># I want to loop through the rest -- it&#39;s already an iterator</span>
+<span class="gp">In [33]: </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span>
+<span class="go">    ...:     print(i)</span>
+<span class="go">    ...:</span>
+<span class="go">3</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<p>Python has a nifty trick – you don’t have to explicitly call iter() in most cases, e.g. for loops:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">a_list</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Wouldn’t that be ugly?</p>
+<p>Python implicitly calls iter() when it needs an iterable. But we DO want to be able to loop through an iterator as well. So the Iterator Protocol specifies that iterables should return themselves when iter() is called on them:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">35</span><span class="p">]:</span> <span class="n">it</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">36</span><span class="p">]:</span> <span class="n">it</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">36</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">list_iterator</span> <span class="n">at</span> <span class="mh">0x103e94a00</span><span class="o">&gt;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">37</span><span class="p">]:</span> <span class="n">it2</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">38</span><span class="p">]:</span> <span class="n">it2</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">38</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">list_iterator</span> <span class="n">at</span> <span class="mh">0x103e94a00</span><span class="o">&gt;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">39</span><span class="p">]:</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">it2</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">39</span><span class="p">]:</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>So calling iter() on an existing on iterator is a no-op. Seems a bit odd, but it’s handy, as you can then chain iterators easily.</p>
+<div class="section" id="the-definitions">
+<h4>The definitions:<a class="headerlink" href="#the-definitions" title="Permalink to this headline"></a></h4>
+<dl class="simple">
+<dt><strong>Iterator</strong></dt><dd><p>An object that returns items when passed to <code class="docutils literal notranslate"><span class="pre">next()</span></code>. And raises StopIteration when there are no items left.</p>
+</dd>
+<dt><strong>Iterable</strong></dt><dd><p>An object that returns an iterator when passed to <code class="docutils literal notranslate"><span class="pre">iter()</span></code></p>
+</dd>
+</dl>
+<p>So all iterators are ALSO iterables!</p>
+<p><strong>Note:</strong> Iterators to not need to terminate – some can be infinite!</p>
+</div>
+</div>
+<div class="section" id="making-a-custom-iterator-or-iterable">
+<h3>Making a custom Iterator or Iterable<a class="headerlink" href="#making-a-custom-iterator-or-iterable" title="Permalink to this headline"></a></h3>
+<p>The other half of the iterator protocol is the dunders used to make custom iterators:</p>
+<p><strong>iter()</strong></p>
+<p>When <code class="docutils literal notranslate"><span class="pre">iter()</span></code> is called on an object, its <code class="docutils literal notranslate"><span class="pre">__iter__</span></code> method is called. This method should return an iterator.</p>
+<p><strong>next()</strong></p>
+<p>When <code class="docutils literal notranslate"><span class="pre">next()</span></code> is called on an object, its <code class="docutils literal notranslate"><span class="pre">__next__</span></code> method is called. This method should return the next item.</p>
+<p>Sp a class is an <strong>Iterable</strong> if it has a <code class="docutils literal notranslate"><span class="pre">__iter__</span></code> method that returns an iterator</p>
+<p>A class is a <strong>Iterator</strong> if it has a <code class="docutils literal notranslate"><span class="pre">__next__</span></code> method that returns items and raise StopIteration when done, and has an <code class="docutils literal notranslate"><span class="pre">__iter__</span></code> method that returns itself.</p>
+<p>So we can make a custom Iterator by defining a class with an <code class="docutils literal notranslate"><span class="pre">__iter__</span></code> method and a __next__method.</p>
+<p>Here’s how to make a simple one like the built in <code class="docutils literal notranslate"><span class="pre">range()</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">class_range</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="n">stop</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="n">step</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span>
+            <span class="k">return</span> <span class="n">current</span>
+</pre></div>
+</div>
+<p>And in use:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [16]: </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">class_range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+<span class="go">    ...:     print(i)</span>
+<span class="go">    ...:</span>
+<span class="go">0</span>
+<span class="go">2</span>
+<span class="go">4</span>
+<span class="go">6</span>
+<span class="go">8</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="generators">
+<h2>Generators<a class="headerlink" href="#generators" title="Permalink to this headline"></a></h2>
+<p>See above: an Iterator is not a type – it is any object that conforms to the protocol. Generators are a particularly nifty way to make a custom iterator. It’s a larger topic, but this is the very short version:</p>
+<p>A generator function is a function that has a the <code class="docutils literal notranslate"><span class="pre">yield</span></code> keyword in it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">genfun</span><span class="p">(</span><span class="n">something</span><span class="p">):</span>
+
+    <span class="n">do_some_stuff</span>
+
+    <span class="k">yield</span> <span class="n">something</span>
+
+    <span class="n">do_something_else</span>
+
+    <span class="k">yield</span> <span class="n">something_else</span>
+</pre></div>
+</div>
+<p>Calling a generator function, returns a <em>generator</em> object. A <em>generator</em> is a Iterator, So when the generator function is called, the code inside it runs until it hits a yield statement. Then it waits until next() is called on it, when it “yields” a value.</p>
+<p>When the end of the function is reached, <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code> is raised.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">47</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">genfun</span><span class="p">():</span>
+    <span class="o">...</span><span class="p">:</span>     <span class="k">yield</span> <span class="s2">&quot;yes&quot;</span>
+    <span class="o">...</span><span class="p">:</span>     <span class="k">yield</span> <span class="s2">&quot;no&quot;</span>
+    <span class="o">...</span><span class="p">:</span>     <span class="k">yield</span> <span class="s2">&quot;maybe&quot;</span>
+    <span class="o">...</span><span class="p">:</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">48</span><span class="p">]:</span> <span class="n">gf</span> <span class="o">=</span> <span class="n">genfun</span><span class="p">()</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">49</span><span class="p">]:</span> <span class="nb">next</span><span class="p">(</span><span class="n">gf</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">49</span><span class="p">]:</span> <span class="s1">&#39;yes&#39;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">50</span><span class="p">]:</span> <span class="nb">next</span><span class="p">(</span><span class="n">gf</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">50</span><span class="p">]:</span> <span class="s1">&#39;no&#39;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">51</span><span class="p">]:</span> <span class="nb">next</span><span class="p">(</span><span class="n">gf</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">51</span><span class="p">]:</span> <span class="s1">&#39;maybe&#39;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">52</span><span class="p">]:</span> <span class="nb">next</span><span class="p">(</span><span class="n">gf</span><span class="p">)</span>
+<span class="o">---------------------------------------------------------------------------</span>
+<span class="ne">StopIteration</span>                             <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">52</span><span class="o">-</span><span class="n">c9712ab0ce22</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">----&gt;</span> <span class="mi">1</span> <span class="nb">next</span><span class="p">(</span><span class="n">gf</span><span class="p">)</span>
+
+<span class="ne">StopIteration</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>This makes it very easy to make “lazy” iterators – iterators that “generate” values on the fly.</p>
+<p>Here’s a simple version of the built in <code class="docutils literal notranslate"><span class="pre">range</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">start</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">stop</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">i</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="n">step</span>
+</pre></div>
+</div>
+<p>And in use:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [14]: </span><span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">gen_range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+<span class="go">    ...:     print(j)</span>
+<span class="go">    ...:</span>
+<span class="go">0</span>
+<span class="go">2</span>
+<span class="go">4</span>
+<span class="go">6</span>
+<span class="go">8</span>
+</pre></div>
+</div>
+<p>Isn’t that a <strong>lot</strong> easier? The ability to pause and keep state makes for a lot less bookkeeping code!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">genclass_range</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="n">stop</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="n">step</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">i</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span>
+</pre></div>
+</div>
+<p>And in use:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [21]: </span><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">genclass_range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+<span class="go">    ...:     print(k)</span>
+<span class="go">    ...:</span>
+<span class="go">0</span>
+<span class="go">2</span>
+<span class="go">4</span>
+<span class="go">6</span>
+<span class="go">8</span>
+</pre></div>
+</div>
+<p>In this case, the class is adding nothing, but it could if you had a class that was an iterable, and also had other functionality. In fact, the built in range() is also a Sequence:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [37]: </span><span class="n">r</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="gp">In [38]: </span><span class="n">r</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="gh">Out[38]: </span><span class="go">3</span>
+</pre></div>
+</div>
+<p>Also – look carefully – are they exactly the same? what would happen if you stopped it in the middle and restarted it?</p>
+<p>Here’s what happens with the built in <code class="docutils literal notranslate"><span class="pre">range()</span></code>:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [27]: </span><span class="n">r</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="gp">In [28]: </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
+<span class="go">    ...:     print(i)</span>
+<span class="go">    ...:     if i &gt; 3:</span>
+<span class="go">    ...:         break</span>
+<span class="go">    ...:</span>
+<span class="go">0</span>
+<span class="go">1</span>
+<span class="go">2</span>
+<span class="go">3</span>
+<span class="go">4</span>
+
+<span class="gp">In [29]: </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
+<span class="go">    ...:     print(i)</span>
+<span class="go">    ...:</span>
+<span class="go">0</span>
+<span class="go">1</span>
+<span class="go">2</span>
+<span class="go">3</span>
+<span class="go">4</span>
+<span class="go">5</span>
+<span class="go">6</span>
+<span class="go">7</span>
+<span class="go">8</span>
+<span class="go">9</span>
+</pre></div>
+</div>
+<p>So it “resets” when you loop through again (remember, for calls <code class="docutils literal notranslate"><span class="pre">iter()</span></code> on the object)</p>
+<p>What will the three implementations above do?</p>
+<p>Try it!</p>
+<p>What’s the difference?</p>
+<p>Exercise for the reader:</p>
+<p>How would you make one that was rentrant</p>
+<div class="section" id="coroutines">
+<h3>Coroutines<a class="headerlink" href="#coroutines" title="Permalink to this headline"></a></h3>
+<p>Generators are kind of like functions, except they can be stopped in the middle, and maintain their state. It turns out this kind of “pausable” function is known as a “coroutine”, and can be useful for things other than classic iterators.</p>
+<p>You will see the term “coroutine” in discussions of asynchronous programming. Actually, technically, a generator is a “semicoroutine”, but close enough :-)</p>
+<p>One example of a use of genrators that isn’t iteration is <code class="docutils literal notranslate"><span class="pre">pytest</span></code> fixtures – they take advantage of generator functions to make the setup and tear down easy:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">empty_db</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialize an empty database</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># setup</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">start_database</span><span class="p">()</span>
+    <span class="k">yield</span> <span class="n">db</span>
+
+    <span class="c1"># teardown</span>
+    <span class="n">cleanup_database</span><span class="p">(</span><span class="n">db</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>pytest calls next() on the fixture, and it yields (returns) something (in this case an instance of the database), and then waits to call next again until after the test is done.</p>
+<p>This is really handy, as you don’t need to store any of the variables anywhere to use them in the tear down part.</p>
+</div>
 </div>
 </div>
 
