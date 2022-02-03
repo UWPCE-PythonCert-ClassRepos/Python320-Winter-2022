@@ -26,10 +26,12 @@ class class_range:
 
 # Generators:
 
+
 def simple_genfun():
     yield "yes"
     yield "no"
     yield "maybe"
+    return "All done"
 
 # Often, the yield will be in a loop
 
@@ -39,6 +41,7 @@ def simple_genfun():
 def gen_range(start, stop, step=1):
     i = start
     while i < stop:
+        print("about to yield")
         yield i
         i += step
 
