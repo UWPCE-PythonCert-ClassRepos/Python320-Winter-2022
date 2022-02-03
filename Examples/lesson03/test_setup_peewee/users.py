@@ -2,7 +2,9 @@
 minimal UsersCollection class
 """
 
+
 from loguru import logger
+import peewee as pw
 import models
 
 

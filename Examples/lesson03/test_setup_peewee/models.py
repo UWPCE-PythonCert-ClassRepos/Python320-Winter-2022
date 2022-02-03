@@ -5,6 +5,8 @@ In a larger app, you might split out the models to different
 files, but in this case, it's OK to put it all here
 """
 
+# pylint: disable=invalid-name
+
 from pathlib import Path
 import peewee as pw
 
@@ -80,11 +82,12 @@ class BaseModel(pw.Model):
     # for future shared data.
     # class Meta:
     #     database = get_database()
-    pass
 
 
 class User(BaseModel):
+    """
+    table with user information
+    """
     # note that with SQLlite, max_length is not enforced
     user_id = pw.CharField(primary_key=True, max_length=30)
     user_name = pw.CharField(max_length=30)
-

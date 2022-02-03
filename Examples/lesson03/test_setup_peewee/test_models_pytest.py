@@ -3,6 +3,9 @@ example of a pytest fixture, and how to use it to
 
 test functionality of your models
 """
+# pylint: disable=redefined-outer-name
+# pylint: disable=unused-argument
+# pylint: disable=invalid-name
 
 import pytest
 
@@ -64,16 +67,17 @@ def test_init_populated(populated_db):
 
 
 def test_add_user(empty_db):
+    """can we add a user"""
     user_col = users.UserCollection()
     start_len = len(user_col)
-    user_col.add_user('username', 'name')
+    result = user_col.add_user('username', 'name')
+    assert result is True
     assert len(user_col) == 1 + start_len
 
 
 def test_search_user(populated_db):
+    """can it find and exsiting user """
     user_col = users.UserCollection()
     user = user_col.search_user("cb1234")
     assert user.user_id == "cb1234"
     assert user.user_name == "cbarker"
-
-
