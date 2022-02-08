@@ -186,16 +186,25 @@ Break Time!
 Working with MongoDB
 ====================
 
+NOTE: I updated the Assignment Repo last night -- it should have a bit more info in the README, and the CI should be set up properly.
+
+Five of you were proactive and had already accepted the assignment. I recommend you delete your assignment repo and re-accept.
+
+Sorry about that -- there's no way for me to push changes once it's been accepted.
+
+
+
 Starting up MongoDB
 -------------------
 
 MongoDB is a little different than SQLlite that we've been working with. It is designed to be completely separate server process. This means it can be run on a different machine, and in fact anywhere on the internet.
 
-But it's also dead simple to run locally on your laptop. There's a lot of configure but you can get very far for simple use with all the defaults.
+But it's also dead simple to run locally on your laptop. There's a lot to configure but you can get very far for simple use with all the defaults.
 
-Anyway -- before you can run your Python application htat uses MongoDB -- you need a running instance.
+Anyway -- before you can run your Python application that uses MongoDB -- you need a running instance.
 
 Mongo Configuration:
+....................
 
 In the assignment repo is a simple configuration file for MongoDB:
 
@@ -227,9 +236,9 @@ In the assignment repo is a simple configuration file for MongoDB:
 
 This is mostly defaults, but a few notes:
 
-Whereas SQLlite stored everything in a single file, Mongo needs a bunch of files, and they need to go some where. in this case, they will go in the ``mongo_files`` dir. (on my computer the default is a system dir I can't write to).
+Whereas SQLlite stored everything in a single file, Mongo needs a bunch of files, and they need to go somewhere. in this case, they will go in the ``mongo_files`` dir. (on my computer the default is a system dir I can't write to).
 
-The other thing to note is the port number: The way to have multiple network services on the same computer is that each one gets a unique port number. 27017 is the default for mongo -- but it's better to specify it. (which means you should specify it in your code, too!)
+The other thing to note is the port number: The way to have multiple network services on the same computer is that each one gets a unique port number. 27017 is the default for MongoDB -- but it's better to specify it. (which means you should specify it in your code, too!)
 
 NOTE: don't change this configuration -- the CI is expecting it to be there!
 
@@ -251,6 +260,11 @@ Using Mongo in your code:
 
 Similar to with PeeWee, **it's a really good idea** to have the database start up code in one place, in a function you can call from various locations.
 
+Let's take a look at a complete example. It can be found in the class repo at:
+
+``Examples/lesson05/pymongo_example``
+
+Do a ``git pull`` !
 
 
 

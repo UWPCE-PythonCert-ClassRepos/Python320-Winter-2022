@@ -45,8 +45,28 @@
 <li class="toctree-l1"><a class="reference internal" href="lesson03.html">1/25/2022: Relational Databases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson04.html">2/1/2022: Iteration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2/8/2022: Consuming APIs and NoSQL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#some-issues-brought-up-in-reviewing-your-code">Some Issues Brought up in reviewing your code:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pylint">pylint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-to-100-coverage">Getting to 100% coverage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#connecting-to-the-database">Connecting to the database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comprehensions">Comprehensions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Comprehensions:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generator-comprehensions">Generator Comprehensions</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#break-time">Break Time!</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Break Time!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Break Time!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-with-mongodb">Working with MongoDB</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#starting-up-mongodb">Starting up MongoDB</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mongo-configuration">Mongo Configuration:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#starting-mongodb">Starting MongoDB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-mongo-in-your-code">Using Mongo in your code:</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="lesson06.html">2/15/2022: Profiling and Performance</a></li>
@@ -54,6 +74,8 @@
 <li class="toctree-l1"><a class="reference internal" href="lesson08.html">3/1/2022: Functional Techniques</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson09.html">3/8/2022: Advanced Language Constructs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson10.html">3/15/2022: API Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_hints.html">Chris’ Handy Testing Hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="github_actions.html">gitHub actions/workflows and CI</a></li>
 </ul>
 
         </div>
@@ -85,13 +107,170 @@
 <p>A collection of notes to go over in class, to keep things organized.</p>
 <p><strong>NOTES:</strong></p>
 <p>I’ll try to have a break every hour or so – ping me if I forget!</p>
+<div class="section" id="some-issues-brought-up-in-reviewing-your-code">
+<h2>Some Issues Brought up in reviewing your code:<a class="headerlink" href="#some-issues-brought-up-in-reviewing-your-code" title="Permalink to this headline"></a></h2>
+<div class="section" id="pylint">
+<h3>pylint<a class="headerlink" href="#pylint" title="Permalink to this headline"></a></h3>
+<p>I know that pylint can be <em>VERY</em> annoying. But we are being pedantic in this class for good reason: good code style really is important.</p>
+<p>Critical: As annoying as it can be: <em>MOST</em> of what pylint flags really should be fixed! Trust me on this.</p>
+<p>It’s OK to silence certain linting issues that really don’t apply.</p>
+<p>But Fix any linting issues you should fix <strong>before</strong> ignoring any!</p>
+</div>
+<div class="section" id="getting-to-100-coverage">
+<h3>Getting to 100% coverage<a class="headerlink" href="#getting-to-100-coverage" title="Permalink to this headline"></a></h3>
+<p>Getting to 100% coverage is far more important that removing lint.</p>
+<p>If the code is not tested, you will never know when / if it breaks. And maybe not even know if it works at all!</p>
+<p>That being said, there may be a few lines that it’s OK not to have run in your tests: For instance the <code class="docutils literal notranslate"><span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;</span></code> block. Solution:</p>
+<p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">pragma:</span> <span class="pre">no</span> <span class="pre">cover</span></code></p>
+<p>on a line at the beginning of a block of code will exclude it from the coverage report:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+    <span class="n">setup_logger</span><span class="p">()</span>
+    <span class="n">clear</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;clear&quot;</span> <span class="k">else</span> <span class="kc">False</span>
+    <span class="n">socialnetwork_model</span><span class="o">.</span><span class="n">start_database</span><span class="p">(</span><span class="s1">&#39;social.db&#39;</span><span class="p">,</span> <span class="n">clear</span><span class="p">)</span>
+    <span class="n">init_collections</span><span class="p">()</span>
+    <span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="connecting-to-the-database">
+<h3>Connecting to the database<a class="headerlink" href="#connecting-to-the-database" title="Permalink to this headline"></a></h3>
+<p>With PeeWee, there are various places where you need to have a connection to the database, so you call</p>
+<p><code class="docutils literal notranslate"><span class="pre">db.connect()</span></code></p>
+<p>But you may have noted that that raises an error if the connection is already made. Ideally, you’d be managing your connections a bit more carefully, but a work around is to call it this way:</p>
+<p><code class="docutils literal notranslate"><span class="pre">db.connect(reuse_if_open=True)</span></code></p>
+<p>Then, if it’s already connected, it will simply use the existing connection, rather than raising an error.</p>
+<p>Note on managing connections:</p>
+<p>The PeeWee Database object provides a number of helpful context managers to manage connections:</p>
+<p><a class="reference external" href="https://docs.peewee-orm.com/en/latest/peewee/database.html#context-managers">https://docs.peewee-orm.com/en/latest/peewee/database.html#context-managers</a></p>
+</div>
+<div class="section" id="comprehensions">
+<h3>Comprehensions<a class="headerlink" href="#comprehensions" title="Permalink to this headline"></a></h3>
+<div class="section" id="id1">
+<h4>Comprehensions:<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h4>
+<p>Build a list:</p>
+<p><code class="docutils literal notranslate"><span class="pre">[expr(item)</span> <span class="pre">for</span> <span class="pre">item</span> <span class="pre">in</span> <span class="pre">an_iterable]</span></code></p>
+<p>Build a dict:</p>
+<p><code class="docutils literal notranslate"><span class="pre">[key:</span> <span class="pre">expr(val)</span> <span class="pre">for</span> <span class="pre">key,</span> <span class="pre">val</span> <span class="pre">in</span> <span class="pre">an_iterable]</span></code></p>
+<p>(<code class="docutils literal notranslate"><span class="pre">an_iterable</span></code> in this case must provide a pair of values)</p>
+<p>Build a set:</p>
+<p><code class="docutils literal notranslate"><span class="pre">[expr(item)</span> <span class="pre">for</span> <span class="pre">item</span> <span class="pre">in</span> <span class="pre">an_iterable]</span></code></p>
+<p><strong>NOTE:</strong> For all of these, they loop through <em>any iterable</em> – it doesn’t have to be list, or tuple, or anything in particular – anything that can be iterated and yield appropriate values.</p>
+<p>But ALL of these “exhaust” the iterator, and create a fully realized container (list, dict, set).</p>
+<p>If it’s big – it could be memory intensive.</p>
+</div>
+<div class="section" id="generator-comprehensions">
+<h4>Generator Comprehensions<a class="headerlink" href="#generator-comprehensions" title="Permalink to this headline"></a></h4>
+<p>However – there’s a solution!</p>
+<p>A Generator Comprehension is just like a list comprehension, except that rather than immediately creating a list, it creates an iterator. The actual iteration isn’t performed until it’s iterated over.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The original term for these was “Generator Expression”, because they are an expression that creates a generator. But I don’t use that term, because it loses the connection with the other comprehensions – after all, it is syntactically more related to comprehensions than generator functions (the other way to make a generator). But you will see “Generator Expression” all over the internet – it’s the same thing.</p>
+</div>
+<p>Rule of thumb: If you are writing comprehension simply to immediately loop through the result – use a Generator Comprehension.</p>
+<p>How does one write a Generator Comprehension? Exactly like a List Comprehension, but with parentheses, rather than square brackets:</p>
+<p>List Comprehension:</p>
+<p><code class="docutils literal notranslate"><span class="pre">[expr(item)</span> <span class="pre">for</span> <span class="pre">item</span> <span class="pre">in</span> <span class="pre">an_iterable]</span></code></p>
+<p>Generator Comprehension:</p>
+<p><code class="docutils literal notranslate"><span class="pre">(expr(item)</span> <span class="pre">for</span> <span class="pre">item</span> <span class="pre">in</span> <span class="pre">an_iterable)</span></code></p>
+<p>That’s it!</p>
+<p>A really nifty thing is that if you are putting it in parentheses already, then you don’t even need another set.</p>
+<p>Example from this assignment:</p>
+<p>Using a comprehension to transform a iterable of objects and produce a tuple.</p>
+<p><code class="docutils literal notranslate"><span class="pre">status_list</span> <span class="pre">=</span> <span class="pre">tuple([(str(x.user_id),</span> <span class="pre">x.status_text)</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">result])</span></code></p>
+<p>This code works just fine, and does the job. But let’s look at what it’s doing:</p>
+<p>This is a list comprehension:</p>
+<p><code class="docutils literal notranslate"><span class="pre">[(str(x.user_id),</span> <span class="pre">x.status_text)</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">result]</span></code></p>
+<p>It iterates through <code class="docutils literal notranslate"><span class="pre">result</span></code> and turns the <code class="docutils literal notranslate"><span class="pre">user_id</span></code> attribute to string (It’s a User object before that). Then it puts the results in a list. Then the:</p>
+<p><code class="docutils literal notranslate"><span class="pre">tuple(</span> <span class="pre">....</span> <span class="pre">)</span></code> takes the list and turns it into a tuple.</p>
+<p>But what does the <code class="docutils literal notranslate"><span class="pre">tuple()</span></code> constructor take as input?</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span>tuple<span class="o">?</span>
+<span class="go">Init signature: tuple(iterable=(), /)</span>
+<span class="go">Docstring:</span>
+<span class="go">Built-in immutable sequence.</span>
+
+<span class="go">If no argument is given, the constructor returns an empty tuple.</span>
+<span class="go">If iterable is specified the tuple is initialized from iterable&#39;s items.</span>
+</pre></div>
+</div>
+<p>So it takes an iterable, and iterates through its items, and makes a tuple out of them. So is a list an iterable? Yes – so you can pass a list to it and it will work as expected.</p>
+<p>But do you need a list? No – in fact you can use any iterable – and hey! a Generator Comprehension is an iterable! The cool thing is all we need to do is remove the square brackets, and it works the same, but more efficiently.</p>
+<p><code class="docutils literal notranslate"><span class="pre">status_list</span> <span class="pre">=</span> <span class="pre">tuple((str(x.user_id),</span> <span class="pre">x.status_text)</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">result)</span></code></p>
+<p>That’s it! no intermediate list created.</p>
+<p>The moral of the story is that you want to avoid “realizing” an iterable until you need to.</p>
+<p>In fact – see the above code – why a tuple? is that required? or will any iterable do? If so, then:</p>
+<p><code class="docutils literal notranslate"><span class="pre">result</span></code> is already an iterable – we need to transform it a bit, but we may not need to create an actual sequence, so you could do:</p>
+<p><code class="docutils literal notranslate"><span class="pre">status_msgs</span> <span class="pre">=</span> <span class="pre">((str(x.user_id),</span> <span class="pre">x.status_text)</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">result)</span></code></p>
+<p>And you’d get an iterator that an be passed on, and the result won’t be generated until it’s actually needed.</p>
+</div>
+</div>
+</div>
 <div class="section" id="break-time">
 <h2>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h2>
 <p>10min break:</p>
 </div>
-<div class="section" id="id1">
-<h2>Break Time!<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<div class="section" id="id2">
+<h2>Break Time!<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
 <p>10min break</p>
+</div>
+<div class="section" id="working-with-mongodb">
+<h2>Working with MongoDB<a class="headerlink" href="#working-with-mongodb" title="Permalink to this headline"></a></h2>
+<p>NOTE: I updated the Assignment Repo last night – it should have a bit more info in the README, and the CI should be set up properly.</p>
+<p>Five of you were proactive and had already accepted the assignment. I recommend you delete your assignment repo and re-accept.</p>
+<p>Sorry about that – there’s no way for me to push changes once it’s been accepted.</p>
+<div class="section" id="starting-up-mongodb">
+<h3>Starting up MongoDB<a class="headerlink" href="#starting-up-mongodb" title="Permalink to this headline"></a></h3>
+<p>MongoDB is a little different than SQLlite that we’ve been working with. It is designed to be completely separate server process. This means it can be run on a different machine, and in fact anywhere on the internet.</p>
+<p>But it’s also dead simple to run locally on your laptop. There’s a lot to configure but you can get very far for simple use with all the defaults.</p>
+<p>Anyway – before you can run your Python application that uses MongoDB – you need a running instance.</p>
+<div class="section" id="mongo-configuration">
+<h4>Mongo Configuration:<a class="headerlink" href="#mongo-configuration" title="Permalink to this headline"></a></h4>
+<p>In the assignment repo is a simple configuration file for MongoDB:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># mongo_config_dev.yaml</span><span class="w"></span>
+
+<span class="c1"># this is set up to be run from the main dir in the repo</span><span class="w"></span>
+<span class="c1"># to start:</span><span class="w"></span>
+
+<span class="c1"># mongod -f mongo_config_dev.yml</span><span class="w"></span>
+<span class="c1"># On Windows you may need the .exe:</span><span class="w"></span>
+<span class="c1"># mongod.exe -f mongo_config_dev.yml</span><span class="w"></span>
+
+
+<span class="nt">net</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">bindIp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">127.0.0.1</span><span class="w">  </span><span class="c1"># Enter 0.0.0.0,:: to bind to all IPv4 and IPv6 addresses or, alternatively, use the net.bindIpAll setting.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">27017</span><span class="w">  </span><span class="c1"># this is the mongo default</span><span class="w"></span>
+
+<span class="nt">systemLog</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">destination</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span><span class="w"></span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./mongo_files/mongod.log&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">logAppend</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+
+<span class="nt">storage</span><span class="p">:</span><span class="w"></span>
+<span class="w">   </span><span class="nt">dbPath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./mongo_files&quot;</span><span class="w"></span>
+<span class="w">   </span><span class="nt">journal</span><span class="p">:</span><span class="w"></span>
+<span class="w">     </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+</pre></div>
+</div>
+<p>This is mostly defaults, but a few notes:</p>
+<p>Whereas SQLlite stored everything in a single file, Mongo needs a bunch of files, and they need to go somewhere. in this case, they will go in the <code class="docutils literal notranslate"><span class="pre">mongo_files</span></code> dir. (on my computer the default is a system dir I can’t write to).</p>
+<p>The other thing to note is the port number: The way to have multiple network services on the same computer is that each one gets a unique port number. 27017 is the default for MongoDB – but it’s better to specify it. (which means you should specify it in your code, too!)</p>
+<p>NOTE: don’t change this configuration – the CI is expecting it to be there!</p>
+</div>
+</div>
+<div class="section" id="starting-mongodb">
+<h3>Starting MongoDB<a class="headerlink" href="#starting-mongodb" title="Permalink to this headline"></a></h3>
+<p>The command is:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mongod</span> <span class="pre">-f</span> <span class="pre">mongo_config_dev.yml</span></code></p>
+<p>Which means: “Start the mongo daemon, and use this file to get configuration”</p>
+<p>You will want to run this in the same dir as the project (so it can find the mongo_files dir). You will need to do that in a separate terminal, as it will keep running.</p>
+<p>Once that’s running, you can run your Python application, tests, etc.</p>
+</div>
+<div class="section" id="using-mongo-in-your-code">
+<h3>Using Mongo in your code:<a class="headerlink" href="#using-mongo-in-your-code" title="Permalink to this headline"></a></h3>
+<p>Similar to with PeeWee, <strong>it’s a really good idea</strong> to have the database start up code in one place, in a function you can call from various locations.</p>
+<p>Let’s take a look at a complete example. It can be found in the class repo at:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Examples/lesson05/pymongo_example</span></code></p>
+<p>Do a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> !</p>
+</div>
 </div>
 </div>
 
