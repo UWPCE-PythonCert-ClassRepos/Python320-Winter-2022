@@ -166,9 +166,16 @@ Indeed we did -- but it turns out it was not doing what we thought it would. Her
 Let's walk through that and see what it's doing.
 
 
+Aren't we done with PeeWee?
+---------------------------
 
+Well, yes, we are (if you're done with assignment 4 anyway), but:
 
+This is a general software development concept -- you should keep your configuration dynamic, and defined in one place.
 
+And you should make sure that your tests really are isolated.
+
+This also applies to MongoDB (but it's a bit easier)
 
 
 Comprehensions
