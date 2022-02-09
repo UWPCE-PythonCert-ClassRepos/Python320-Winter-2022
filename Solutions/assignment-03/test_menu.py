@@ -4,7 +4,7 @@ tests for the menu module
 These tests mock the input() function so they can run
 
 Note: they do not test actual functionality implimented by main,
-as that is tested in data_for_tests.py
+as that is tested in utilities_for_tests.py
 
 These tests use pytest fixtures, and don't use unittest
 """
@@ -25,7 +25,7 @@ import pytest
 import main
 import menu
 
-from data_for_tests import empty_db, full_db
+from utilities_for_tests import empty_db, full_db
 
 
 HERE = Path(__file__).parent

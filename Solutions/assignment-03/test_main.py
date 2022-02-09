@@ -21,7 +21,7 @@ from users import UserCollection
 from user_status import UserStatusCollection
 
 
-from data_for_tests import (SAMPLE_USERS_DATA,
+from utilities_for_tests import (SAMPLE_USERS_DATA,
                             SAMPLE_STATUS_DATA,
                             start_database,
                             cleanup_database,

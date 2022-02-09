@@ -170,11 +170,29 @@ In fact -- see the above code -- why a tuple? is that required? or will any iter
 
 And you'd get an iterator that an be passed on, and the result won't be generated until it's actually needed.
 
+Code Review?
 
-Break Time!
-===========
+
+
+Break Time! (if we haven't already)
+===================================
 
 10min break:
+
+A few Topic to get ready for this weeks assignment
+==================================================
+
+
+``dataclasses`` and the glory of ``**kwargs``
+---------------------------------------------
+
+As pymongo works directly with python dicts, rather than objects, we need some ways to make it easy to move between the two.
+
+``**kwargs`` is a very handy way to pass a dict of arguments into a function (or class constructor)
+
+``dataclasses`` are a nifty fairly recent addition to the python standard library
+
+I don't have anything prepared for this -- so let's dive in!
 
 
 
@@ -254,6 +272,7 @@ Which means: "Start the mongo daemon, and use this file to get configuration"
 You will want to run this in the same dir as the project (so it can find the mongo_files dir). You will need to do that in a separate terminal, as it will keep running.
 
 Once that's running, you can run your Python application, tests, etc.
+
 
 Using Mongo in your code:
 -------------------------

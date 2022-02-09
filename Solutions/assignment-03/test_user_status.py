@@ -9,7 +9,7 @@ tests for the PeeWee based UserStatusCollection class
 
 from user_status import UserStatusCollection
 
-from data_for_tests import empty_db, full_db # pylint: disable=unused-import
+from utilities_for_tests import empty_db, full_db # pylint: disable=unused-import
 
 
 def test_init_empty(empty_db):
