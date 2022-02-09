@@ -45,4 +45,6 @@ Notes for each Lesson
 
     github_actions
 
+    installing_mongo
+
 
