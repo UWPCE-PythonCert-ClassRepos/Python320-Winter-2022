@@ -9,6 +9,7 @@ class TestDirectors(TestCase):
         self.database = SqliteDatabase(':memory:')
         self.database.connect()
         self.database.pragma('foreign_keys', 1, permanent=True)
+        self.database.bind([DirectorsTable])
         # Creation of the database
         self.database.create_tables([
                 DirectorsTable
