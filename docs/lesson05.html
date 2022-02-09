@@ -49,6 +49,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#pylint">pylint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#getting-to-100-coverage">Getting to 100% coverage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#connecting-to-the-database">Connecting to the database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-up-a-db-for-tests-etc">Setting up a DB for tests, etc.</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#comprehensions">Comprehensions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id1">Comprehensions:</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#generator-comprehensions">Generator Comprehensions</a></li>
@@ -56,8 +57,13 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#code-review">Code Review?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#break-time-if-we-haven-t-already">Break Time! (if we haven’t already)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-few-topic-to-get-ready-for-this-weeks-assignment">A few Topic to get ready for this weeks assignment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dataclasses-and-the-glory-of-kwargs"><code class="docutils literal notranslate"><span class="pre">dataclasses</span></code> and the glory of <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#break-time">Break Time!</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">Break Time!</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#working-with-mongodb">Working with MongoDB</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#starting-up-mongodb">Starting up MongoDB</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mongo-configuration">Mongo Configuration:</a></li>
@@ -143,6 +149,80 @@
 <p>The PeeWee Database object provides a number of helpful context managers to manage connections:</p>
 <p><a class="reference external" href="https://docs.peewee-orm.com/en/latest/peewee/database.html#context-managers">https://docs.peewee-orm.com/en/latest/peewee/database.html#context-managers</a></p>
 </div>
+<div class="section" id="setting-up-a-db-for-tests-etc">
+<h3>Setting up a DB for tests, etc.<a class="headerlink" href="#setting-up-a-db-for-tests-etc" title="Permalink to this headline"></a></h3>
+<p>We went over this last week, but I think there is still some confusion.</p>
+<p>The big problem is that ALL the examples, including the ones we gave you, use a static approach: the database is assigned and set up at module import time. e.g.:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">database</span> <span class="o">=</span> <span class="n">SqliteDatabase</span><span class="p">(</span><span class="s1">&#39;database_model.db&#39;</span><span class="p">)</span>
+<span class="n">database</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="n">database</span><span class="o">.</span><span class="n">pragma</span><span class="p">(</span><span class="s1">&#39;foreign_keys&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">permanent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">BaseModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        BaseModel class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Meta class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">database</span> <span class="o">=</span> <span class="n">database</span>
+
+<span class="o">&lt;</span><span class="n">models</span> <span class="n">defined</span> <span class="n">here</span><span class="o">&gt;</span>
+
+<span class="c1"># Creation of the database</span>
+<span class="n">database</span><span class="o">.</span><span class="n">create_tables</span><span class="p">([</span>
+        <span class="n">DirectorsTable</span><span class="p">,</span>
+        <span class="n">MoviesTable</span>
+    <span class="p">])</span>
+
+<span class="n">database</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Why is that a problem? It works!</p>
+<p>Yes, but it works in a way that is exactly the same every time you run the code, and it’s too late to customize any of that once that models module is imported.</p>
+<p>In practice, we generally want the database to be set up in different ways under different circumstances:</p>
+<ul class="simple">
+<li><p>Under development – maybe you want a fresh empty database each time</p></li>
+<li><p>Operationally – you probably want a persistent database,and maybe one running on a different machine, etc.</p></li>
+<li><p>Tests – tests should be able to easily create a clean, database again and again.</p></li>
+</ul>
+<p>PeeWee does offer an solution – it’s buried a bit in the docs under testing:</p>
+<p><a class="reference external" href="https://docs.peewee-orm.com/en/latest/peewee/database.html#testing-peewee-applications">https://docs.peewee-orm.com/en/latest/peewee/database.html#testing-peewee-applications</a></p>
+<p>The trick is the various <code class="docutils literal notranslate"><span class="pre">bind</span></code> methods – this seems simplest to me:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Database.bind(models)</span></code></p>
+<p>This, well, binds the model to the database – that is, sets things up so that actions on the model will use that particular database instance. This is what happens automatically, when you use:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Meta class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">database</span> <span class="o">=</span> <span class="n">database</span>
+</pre></div>
+</div>
+<p>But you need to call <code class="docutils literal notranslate"><span class="pre">database.bind()</span></code> if you want to change it (or set it) at run time.</p>
+<p>So you have two options:</p>
+<ol class="arabic simple">
+<li><p>Do not set up the database connection in your models code, and call <code class="docutils literal notranslate"><span class="pre">database.bind()</span></code> at run time before you use the models.</p></li>
+</ol>
+<p>or</p>
+<ol class="arabic simple" start="2">
+<li><p>Do set up a default database in your models code, and then call <code class="docutils literal notranslate"><span class="pre">database.bind()</span></code> if you want to override the default – e.g. in your tests.</p></li>
+</ol>
+<p><strong>But wait!</strong></p>
+<p>Didn’t you show us a testing example two weeks ago that didn’t call <code class="docutils literal notranslate"><span class="pre">database.bind()</span></code>?</p>
+<p>Indeed we did – but it turns out it was not doing what we thought it would. Here’s the code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="n">SqliteDatabase</span><span class="p">(</span><span class="s1">&#39;:memory:&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">pragma</span><span class="p">(</span><span class="s1">&#39;foreign_keys&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">permanent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Creation of the database</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">create_tables</span><span class="p">([</span>
+            <span class="n">DirectorsTable</span>
+        <span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">directors_collection</span> <span class="o">=</span> <span class="n">directors</span><span class="o">.</span><span class="n">DirectorsCollection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s walk through that and see what it’s doing.</p>
+</div>
 <div class="section" id="comprehensions">
 <h3>Comprehensions<a class="headerlink" href="#comprehensions" title="Permalink to this headline"></a></h3>
 <div class="section" id="id1">
@@ -204,12 +284,26 @@
 </div>
 </div>
 </div>
-<div class="section" id="break-time">
-<h2>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h2>
+<div class="section" id="code-review">
+<h2>Code Review?<a class="headerlink" href="#code-review" title="Permalink to this headline"></a></h2>
+<p>Is anyone unsatisfied with their solution to using interables in assignment 4 that would like a code review?</p>
+</div>
+<div class="section" id="break-time-if-we-haven-t-already">
+<h2>Break Time! (if we haven’t already)<a class="headerlink" href="#break-time-if-we-haven-t-already" title="Permalink to this headline"></a></h2>
 <p>10min break:</p>
 </div>
-<div class="section" id="id2">
-<h2>Break Time!<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<div class="section" id="a-few-topic-to-get-ready-for-this-weeks-assignment">
+<h2>A few Topic to get ready for this weeks assignment<a class="headerlink" href="#a-few-topic-to-get-ready-for-this-weeks-assignment" title="Permalink to this headline"></a></h2>
+<div class="section" id="dataclasses-and-the-glory-of-kwargs">
+<h3><code class="docutils literal notranslate"><span class="pre">dataclasses</span></code> and the glory of <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code><a class="headerlink" href="#dataclasses-and-the-glory-of-kwargs" title="Permalink to this headline"></a></h3>
+<p>As pymongo works directly with python dicts, rather than objects, we need some ways to make it easy to move between the two.</p>
+<p><code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> is a very handy way to pass a dict of arguments into a function (or class constructor)</p>
+<p><code class="docutils literal notranslate"><span class="pre">dataclasses</span></code> are a nifty fairly recent addition to the python standard library</p>
+<p>I don’t have anything prepared for this – so let’s dive in!</p>
+</div>
+</div>
+<div class="section" id="break-time">
+<h2>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h2>
 <p>10min break</p>
 </div>
 <div class="section" id="working-with-mongodb">

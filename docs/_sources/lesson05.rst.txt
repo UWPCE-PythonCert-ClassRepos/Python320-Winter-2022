@@ -71,6 +71,105 @@ The PeeWee Database object provides a number of helpful context managers to mana
 https://docs.peewee-orm.com/en/latest/peewee/database.html#context-managers
 
 
+Setting up a DB for tests, etc.
+-------------------------------
+
+
+We went over this last week, but I think there is still some confusion.
+
+The big problem is that ALL the examples, including the ones we gave you, use a static approach: the database is assigned and set up at module import time. e.g.:
+
+.. code-block:: python
+
+    database = SqliteDatabase('database_model.db')
+    database.connect()
+    database.pragma('foreign_keys', 1, permanent=True)
+
+    class BaseModel(Model):
+        """
+            BaseModel class
+        """
+        class Meta:
+            """
+                Meta class
+            """
+            database = database
+
+    <models defined here>
+
+    # Creation of the database
+    database.create_tables([
+            DirectorsTable,
+            MoviesTable
+        ])
+
+    database.close()
+
+
+Why is that a problem? It works!
+
+Yes, but it works in a way that is exactly the same every time you run the code, and it's too late to customize any of that once that models module is imported.
+
+In practice, we generally want the database to be set up in different ways under different circumstances:
+
+- Under development -- maybe you want a fresh empty database each time
+- Operationally -- you probably want a persistent database,and maybe one running on a different machine, etc.
+- Tests -- tests should be able to easily create a clean, database again and again.
+
+PeeWee does offer an solution -- it's buried a bit in the docs under testing:
+
+https://docs.peewee-orm.com/en/latest/peewee/database.html#testing-peewee-applications
+
+The trick is the various ``bind`` methods -- this seems simplest to me:
+
+``Database.bind(models)``
+
+This, well, binds the model to the database -- that is, sets things up so that actions on the model will use that particular database instance. This is what happens automatically, when you use:
+
+.. code-block:: python
+
+    class Meta:
+        """
+            Meta class
+        """
+        database = database
+
+But you need to call ``database.bind()`` if you want to change it (or set it) at run time.
+
+So you have two options:
+
+1) Do not set up the database connection in your models code, and call ``database.bind()`` at run time before you use the models.
+
+or
+
+2) Do set up a default database in your models code, and then call ``database.bind()`` if you want to override the default -- e.g. in your tests.
+
+
+**But wait!**
+
+Didn't you show us a testing example two weeks ago that didn't call ``database.bind()``?
+
+Indeed we did -- but it turns out it was not doing what we thought it would. Here's the code:
+
+.. code-block:: python
+
+    def setUp(self):
+        self.database = SqliteDatabase(':memory:')
+        self.database.connect()
+        self.database.pragma('foreign_keys', 1, permanent=True)
+        # Creation of the database
+        self.database.create_tables([
+                DirectorsTable
+            ])
+        self.directors_collection = directors.DirectorsCollection(self.database)
+
+Let's walk through that and see what it's doing.
+
+
+
+
+
+
 
 Comprehensions
 --------------
@@ -171,10 +270,34 @@ In fact -- see the above code -- why a tuple? is that required? or will any iter
 And you'd get an iterator that an be passed on, and the result won't be generated until it's actually needed.
 
 
-Break Time!
-===========
+Code Review?
+============
+
+Is anyone unsatisfied with their solution to using interables in assignment 4 that would like a code review?
+
+
+
+
+Break Time! (if we haven't already)
+===================================
 
 10min break:
+
+
+A few Topic to get ready for this weeks assignment
+==================================================
+
+
+``dataclasses`` and the glory of ``**kwargs``
+---------------------------------------------
+
+As pymongo works directly with python dicts, rather than objects, we need some ways to make it easy to move between the two.
+
+``**kwargs`` is a very handy way to pass a dict of arguments into a function (or class constructor)
+
+``dataclasses`` are a nifty fairly recent addition to the python standard library
+
+I don't have anything prepared for this -- so let's dive in!
 
 
 
@@ -254,6 +377,7 @@ Which means: "Start the mongo daemon, and use this file to get configuration"
 You will want to run this in the same dir as the project (so it can find the mongo_files dir). You will need to do that in a separate terminal, as it will keep running.
 
 Once that's running, you can run your Python application, tests, etc.
+
 
 Using Mongo in your code:
 -------------------------
