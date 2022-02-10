@@ -19,7 +19,7 @@ def start_mongo():
 
     # In production code, these would be read from a config file, or ...
     # these values should match what's in mongo_config_dev.yml
-    client = MongoClient(host='localhost', port=27017)
+    client = MongoClient(host='127.0.0.1', port=27017)
 
     return client
 
