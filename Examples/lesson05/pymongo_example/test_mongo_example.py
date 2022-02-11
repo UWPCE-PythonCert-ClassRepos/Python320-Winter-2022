@@ -12,7 +12,6 @@ import pytest
 
 from mongo_example import start_mongo, DirectorCollection
 
-CLIENT = start_mongo()
 
 @pytest.fixture
 def empty_db():
@@ -23,10 +22,17 @@ def empty_db():
           So we can use one for testing that's separte from the
           operational one
     """
-    CLIENT.drop_database('test_database')
+    client = start_mongo()
+    client.drop_database('test_database')
 
-    # now create it again
-    return CLIENT.test_database
+    # now create it again and passes it to the test
+    yield client.test_database
+
+    # probably not required as the object will get cleaned
+    # when deleted, but still a good practice
+    client.close()
+
+
 
 @pytest.fixture
 def full_db():
@@ -37,10 +43,11 @@ def full_db():
           So we can use one for testing that's separte from the
           operational one
     """
-    CLIENT.drop_database('test_database')
+    client = start_mongo()
+    client.drop_database('test_database')
 
     # now create it again
-    database = CLIENT.test_database
+    database = client.test_database
     coll = database.directors
 
     # and populate it
@@ -48,7 +55,12 @@ def full_db():
     coll.insert_one({'_id': "spie345", 'full_name': "Steven Spielberg"})
     coll.insert_one({'_id': "kubr678", 'full_name': "Stanley Kubrick"})
 
-    return database
+    # now pass it to the test
+    yield database
+
+    # probably not required as the object will get cleaned
+    # when deleted, but still a good practice
+    client.close()
 
 
 def test_init_director_collection_empty(empty_db):
