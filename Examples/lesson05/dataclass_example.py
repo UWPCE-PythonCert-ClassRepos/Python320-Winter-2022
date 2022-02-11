@@ -21,5 +21,14 @@ user = User('cbarker', '12234', 'Chris@this.com')
 
 user = User(user_name='cbarker', user_id='12234', email='Chris@this.com')
 
+user_data = {'user_name': 'cbarker',
+             'user_id': '12234',
+             'email': 'Chris@this.com'}
 
+user2 = User(**user_data)
+print(user2)
+
+user_tup = ('cbarker', '12234', 'Chris@this.com')
+user3 = User(*user_tup)
+print(user3)
 

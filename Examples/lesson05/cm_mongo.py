@@ -101,6 +101,7 @@ def find_false_orders():
             print(f"Order {order['order_id']} corresponds to a non-existent user {customer_id}!")
     print("Search for false orders concluded")
 
+
 def quit_program():
     drop = input("Drop database? [Y/N]: ")
     if drop.lower() == 'y':
@@ -108,9 +109,9 @@ def quit_program():
         order_collection.drop()
     sys.exit()
 
+
 if __name__ == "__main__":
-    mongo = MongoDBConnection()
-    with mongo:
+    with MongoDBConnection() as mongo:
         database = mongo.connection.FoodService
         customer_collection = database['customers']
         order_collection = database['orders']
