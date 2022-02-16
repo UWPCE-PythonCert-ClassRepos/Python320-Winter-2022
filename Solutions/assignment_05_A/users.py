@@ -61,15 +61,19 @@ class UserCollection():
         '''
         Deletes an existing user
         '''
-        mongo_query = {"_id":user_id}
-        if self.users_collection.count_documents(mongo_query) > 0:
-            # Need to delete all status updates associated to the user
-            mongo_query_status = {"user_id":user_id}
-            self.status_collection.delete_many(mongo_query_status)
-            # Now delete user
-            result = self.users_collection.delete_one(mongo_query)
-            if result.deleted_count == 1:
-                return True
+        # create a session:
+        client = self.database.client
+        with client.start_session() as session:
+            with session.start_transaction():
+                mongo_query = {"_id": user_id}
+                if self.users_collection.count_documents(mongo_query) > 0:
+                    # Need to delete all status updates associated to the user
+                    mongo_query_status = {"user_id": user_id}
+                    self.status_collection.delete_many(mongo_query_status)
+                    # Now delete user
+                    result = self.users_collection.delete_one(mongo_query)
+                    if result.deleted_count == 1:
+                        return True
         logger.error(f"User {user_id} does not exist in the database")
         return False
 
