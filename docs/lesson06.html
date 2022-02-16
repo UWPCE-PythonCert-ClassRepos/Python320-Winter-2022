@@ -46,14 +46,32 @@
 <li class="toctree-l1"><a class="reference internal" href="lesson04.html">2/1/2022: Iteration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson05.html">2/8/2022: Consuming APIs and NoSQL</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2/15/2022: Profiling and Performance</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#break-time">Break Time!</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Break Time!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pylint-duplicate-code">pylint: Duplicate Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#packages">Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#context-managers">Context Managers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#break-time">Break Time!</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mongo-issues">Mongo Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#transactions">Transactions ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-mongo-in-a-native-way">Using Mongo in a native way</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Break Time!</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Profiling and Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-approaches">Performance Approaches:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-you-really-should-be-able-to-do-at-this-stage">What you really should be able to do at this stage:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#about-performance-and-profiling">About performance and profiling:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-context-manager-timer">A context manager timer:</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="lesson07.html">2/22/2022: Concurrency and Async</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson08.html">3/1/2022: Functional Techniques</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson09.html">3/8/2022: Advanced Language Constructs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson10.html">3/15/2022: API Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_hints.html">Chris’ Handy Testing Hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="github_actions.html">gitHub actions/workflows and CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing_mongo.html">Installing MongoDB</a></li>
 </ul>
 
         </div>
@@ -85,13 +103,132 @@
 <p>A collection of notes to go over in class, to keep things organized.</p>
 <p><strong>NOTES:</strong></p>
 <p>I’ll try to have a break every hour or so – ping me if I forget!</p>
+<div class="section" id="pylint-duplicate-code">
+<h2>pylint: Duplicate Code<a class="headerlink" href="#pylint-duplicate-code" title="Permalink to this headline"></a></h2>
+<p>Now THIS is an annoying one. PyLint gives an error for duplicate code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*************</span> <span class="n">Module</span> <span class="n">users</span>
+<span class="n">users</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">0</span><span class="p">:</span> <span class="n">R0801</span><span class="p">:</span> <span class="n">Similar</span> <span class="n">lines</span> <span class="ow">in</span> <span class="mi">2</span> <span class="n">files</span>
+<span class="o">==</span><span class="n">user_status</span><span class="p">:[</span><span class="mi">4</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span>
+<span class="o">==</span><span class="n">users</span><span class="p">:[</span><span class="mi">4</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span>
+<span class="kn">import</span> <span class="nn">dataclasses</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">pymongo.errors</span> <span class="kn">import</span> <span class="n">DuplicateKeyError</span>
+<span class="kn">from</span> <span class="nn">pymongo.results</span> <span class="kn">import</span> <span class="n">DeleteResult</span>
+
+<span class="kn">from</span> <span class="nn">mongo_collection</span> <span class="kn">import</span> <span class="n">MongoCollection</span> <span class="p">(</span><span class="n">duplicate</span><span class="o">-</span><span class="n">code</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is particularly annoying, as having the same import block in multiple files is NOT an error, or code that can reasonable be de-duplicated.</p>
+<p>Another place you may have duplicate code is tests.</p>
+<p>In my solution, I was able to add:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=duplicate-code</span>
+</pre></div>
+</div>
+<p>In the files with the duplicate code, and the error sent away. But that doesn’t always work.</p>
+<p>It turns out this is a long-standing (2014!) issue in pylint:</p>
+<p><a class="reference external" href="https://github.com/PyCQA/pylint/issues/214">https://github.com/PyCQA/pylint/issues/214</a></p>
+<p>The solution is to disable it in a <code class="docutils literal notranslate"><span class="pre">.pylintrc</span></code> file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">BASIC</span><span class="p">]</span>
+    <span class="n">disable</span><span class="o">=</span>
+        <span class="n">duplicate</span><span class="o">-</span><span class="n">code</span>
+</pre></div>
+</div>
+<p><strong>Caution!</strong> In many case, the duplicate-code check is a good one! So don’t turn it off until you’ve linted your code with it on.</p>
+</div>
+<div class="section" id="packages">
+<h2>Packages<a class="headerlink" href="#packages" title="Permalink to this headline"></a></h2>
+<p>Big topic – but it’s pretty key.</p>
+<p>This should have been covered in the course 1 – but as a reminder, let’s take a look:</p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/ProgrammingInPython/modules/Packaging.html#packages-and-packaging">https://uwpce-pythoncert.github.io/ProgrammingInPython/modules/Packaging.html#packages-and-packaging</a></p>
+</div>
+<div class="section" id="context-managers">
+<h2>Context Managers<a class="headerlink" href="#context-managers" title="Permalink to this headline"></a></h2>
+<p>Let’s talk about context managers!</p>
+<p>There are some notes in the Course 1 materials under Extra Topics:</p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/ProgrammingInPython/modules/ContextManagers.html">https://uwpce-pythoncert.github.io/ProgrammingInPython/modules/ContextManagers.html</a></p>
+<p>Luis’ Solution used a context manager – let’s take a look at that:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MongoDBConnection</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;MongoDB Connection&#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">27017</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; be sure to use the ip address not name for local windows&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">MongoClient</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Example Code that’s getting a bit confused:</p>
+<p><a class="reference external" href="https://github.com/uw-continuum/python-320-assignment-05-busbykt">https://github.com/uw-continuum/python-320-assignment-05-busbykt</a></p>
 <div class="section" id="break-time">
-<h2>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h2>
+<h3>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h3>
 <p>10min break:</p>
 </div>
+<div class="section" id="mongo-issues">
+<h3>Mongo Issues<a class="headerlink" href="#mongo-issues" title="Permalink to this headline"></a></h3>
+</div>
+</div>
+<div class="section" id="transactions">
+<h2>Transactions ?<a class="headerlink" href="#transactions" title="Permalink to this headline"></a></h2>
+<p>Quoting the MongoDB docs:</p>
+<blockquote>
+<div><p>In MongoDB, an operation on a single document is atomic. Because you can use embedded documents and arrays to capture relationships between data in a single document structure instead of normalizing across multiple documents and collections, this single-document atomicity obviates the need for multi-document transactions for many practical use cases.</p>
+</div></blockquote>
+<p>However, there are some cases where you want to operate on multiple collections as a single action.</p>
+<p>In recent versions, MongoDB does provide a transaction option:</p>
+<p><a class="reference external" href="https://pymongo.readthedocs.io/en/stable/api/pymongo/client_session.html#transactions">https://pymongo.readthedocs.io/en/stable/api/pymongo/client_session.html#transactions</a></p>
+<p>If you did build your system with two collections – one for users, and one for status updates – then a transaction might make sense. Let’s give that a try:</p>
+<p>Luis’ solution:</p>
+<p>(not published yet)</p>
+<p>Let’s take a look.</p>
+</div>
+<div class="section" id="using-mongo-in-a-native-way">
+<h2>Using Mongo in a native way<a class="headerlink" href="#using-mongo-in-a-native-way" title="Permalink to this headline"></a></h2>
+<p>The way this assignment was set up, it’s very natureal to use two collections, just like you did with PeeWee.</p>
+<p>But then you needed to manually keep them in sync – e.g. remove status messages when you removed a user</p>
+<p>Is there another way? let’s take a look!</p>
 <div class="section" id="id1">
-<h2>Break Time!<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<h3>Break Time!<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
 <p>10min break</p>
+</div>
+<div class="section" id="id2">
+<h3>Profiling and Performance<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
+</div>
+</div>
+<div class="section" id="performance-approaches">
+<h2>Performance Approaches:<a class="headerlink" href="#performance-approaches" title="Permalink to this headline"></a></h2>
+<p>This week has a lot of disparate material in it.</p>
+<p>And some of it is pretty advanced (getting your compiler set up for Cython, etc.)</p>
+<p>So: Do read it – Do try to do some of it, but don’t worry too much if you can’t figure it all out.</p>
+<p>But hopefully you’ll remember the ideas later on in your Python careers, and you can learn it for real then.</p>
+</div>
+<div class="section" id="what-you-really-should-be-able-to-do-at-this-stage">
+<h2>What you really should be able to do at this stage:<a class="headerlink" href="#what-you-really-should-be-able-to-do-at-this-stage" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Basic Timing of code: both whole programs and little bits.</p></li>
+<li><p>Basic Profiling – where are the bottlenecks?</p></li>
+<li><p>An understanding of what data structures to use where.</p></li>
+</ul>
+<p>So: for this week, once you’ve got everything working, do some timing, do some profiling, figure how how to make the bottlenecks faster, and report what you’ve found.</p>
+</div>
+<div class="section" id="about-performance-and-profiling">
+<h2>About performance and profiling:<a class="headerlink" href="#about-performance-and-profiling" title="Permalink to this headline"></a></h2>
+<p>Here’s some of my notes on the topic – for an overview:</p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/ProgrammingInPython/modules/Profiling.html">https://uwpce-pythoncert.github.io/ProgrammingInPython/modules/Profiling.html</a></p>
+</div>
+<div class="section" id="a-context-manager-timer">
+<h2>A context manager timer:<a class="headerlink" href="#a-context-manager-timer" title="Permalink to this headline"></a></h2>
+<p>Since we just talked about context managers – let’s do this little exercise and make a handy timer:</p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/ProgrammingInPython/exercises/context-managers-exercise.html#timing-context-manager">https://uwpce-pythoncert.github.io/ProgrammingInPython/exercises/context-managers-exercise.html#timing-context-manager</a></p>
 </div>
 </div>
 
