@@ -76,11 +76,11 @@ def run_in_subprocesses_wait():
 if __name__ == "__main__":
     # run_sequential()
 
-    results1 = run_in_subprocesses()
-    print("results after calling run_in_subprocesses", results1)
+    # results1 = run_in_subprocesses()
+    # print("results after calling run_in_subprocesses", results1)
 
     results2 = run_in_subprocesses_wait()
     print("results after calling run_in_subprocesses_wait", results2)
 
-    print("results after waiting:", results1)
-    print("results after waiting:", results2)
+    # print("results after waiting:", results1)
+    # print("results after waiting:", results2)

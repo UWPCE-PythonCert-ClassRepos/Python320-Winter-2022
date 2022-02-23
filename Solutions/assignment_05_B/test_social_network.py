@@ -1,7 +1,7 @@
 """
 tests for Social Network code
 
-NOTE: most functionalityis tested by test_main
+NOTE: most functionality is tested by test_main
 """
 
 # pylint: disable=missing-function-docstring
@@ -47,8 +47,6 @@ def test_user_from_dict():
 
 
 def test_user_with_status_messages():
-    user = User('xxxx', 'cbarker@this.that', 'cbarker', 'Barker')
-
     user = User('xxxx',
                 'cbarker@this.that',
                 'cbarker',
@@ -58,7 +56,6 @@ def test_user_with_status_messages():
     user.status_updates.append(StatusUpdate('xxxx_02', "A random message"))
     udict = user.to_dict()
 
-    print(udict)
     assert 'user_id' not in udict
     assert udict['_id'] == 'xxxx'
     assert udict['status_updates'] == [{'status_id': 'xxxx_01','status_text': "a new message"},

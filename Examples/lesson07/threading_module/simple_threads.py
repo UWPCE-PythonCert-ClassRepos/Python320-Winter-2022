@@ -28,6 +28,7 @@ def run_sequential():
     for i in range(10):
         working_function(100, results)
     print(f"{results=}")
+    return results
 
 
 def run_in_threads():

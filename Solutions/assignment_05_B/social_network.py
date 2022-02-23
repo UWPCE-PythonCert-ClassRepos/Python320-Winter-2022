@@ -84,9 +84,12 @@ class User():
 
         """
         dict_ = dc.asdict(self)
+
         dict_['_id'] = dict_['user_id']
         del dict_['user_id']
-        dict_['status_updates'] = [sud.to_dict() for sud in self.status_updates]
+
+        # this is optional -- only if the dataclass.asdict() doesn't work.
+        # dict_['status_updates'] = [sud.to_dict() for sud in self.status_updates]
         return dict_
 
     @classmethod
@@ -98,6 +101,14 @@ class User():
         del dict_['_id']
         dict_['status_updates'] = [StatusUpdate(**su) for su in dict_['status_updates']]
         return cls(**dict_)
+
+# just for demo
+# class SuperUser(User):
+#     def to_dict(self):
+#         dict_ = super().to_dict()
+#         dict_['superuser'] = True
+#         return dict_
+
 
 
 class SocialNetwork:
@@ -134,6 +145,7 @@ class SocialNetwork:
         '''
         mongo_query = {"_id": user_id}
         if self.collection.count_documents(mongo_query) > 0:
+            # Fixme: make sure to preserve status_updates
             new_user = User(user_id, email, user_name, user_last_name)
 
             new_values = {"$set":new_user.to_dict()}
