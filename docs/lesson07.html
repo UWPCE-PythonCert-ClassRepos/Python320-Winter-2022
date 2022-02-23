@@ -47,13 +47,28 @@
 <li class="toctree-l1"><a class="reference internal" href="lesson05.html">2/8/2022: Consuming APIs and NoSQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson06.html">2/15/2022: Profiling and Performance</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2/22/2022: Concurrency and Async</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#break-time">Break Time!</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Break Time!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extra-files-in-git">Extra files in git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#opening-a-mongo-connection-with-every-interaction">Opening a Mongo Connection with every interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#profiling-performance">Profiling / Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mongodb-with-more-complex-documents">MongoDB with more complex documents:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#if-we-have-time">If we have time:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#break-time">Break Time!</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#concurrency">Concurrency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#threading-and-multiprocessing">Threading and Multiprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Break Time!</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#this-week-s-assignment">This week’s assignment:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mongo-clients">Mongo Clients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-does-join-mean">What does join() mean?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="lesson08.html">3/1/2022: Functional Techniques</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson09.html">3/8/2022: Advanced Language Constructs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson10.html">3/15/2022: API Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_hints.html">Chris’ Handy Testing Hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="github_actions.html">gitHub actions/workflows and CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing_mongo.html">Installing MongoDB</a></li>
 </ul>
 
         </div>
@@ -85,13 +100,89 @@
 <p>A collection of notes to go over in class, to keep things organized.</p>
 <p><strong>NOTES:</strong></p>
 <p>I’ll try to have a break every hour or so – ping me if I forget!</p>
+<p>Some issues that came up during the week.</p>
+<div class="section" id="extra-files-in-git">
+<h2>Extra files in git<a class="headerlink" href="#extra-files-in-git" title="Permalink to this headline"></a></h2>
+<p><strong>BE CARFUL WHEN YOU GIT ADD</strong></p>
+<p>You really don’t want to put a bunch of cruft in git that you don’t need – for instance all the working files from MongoDB in mongo_files.</p>
+<p>Avoid <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">.</span></code> or <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">*</span></code>.</p>
+<p>Add each files as you need.</p>
+<p>If you do do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">.</span> <span class="pre">or</span> <span class="pre">*</span></code>, then make sure it did what you want before committing. And look at <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code> first to see what it will add (untracked files)</p>
+<p>NOTE: mongo_files is a good example!</p>
+</div>
+<div class="section" id="opening-a-mongo-connection-with-every-interaction">
+<h2>Opening a Mongo Connection with every interaction<a class="headerlink" href="#opening-a-mongo-connection-with-every-interaction" title="Permalink to this headline"></a></h2>
+<p>One of you wrote a solution that used the context manger to open (and close) the MongoDB connection.</p>
+<p>Are you willing to share? Did you profile it?</p>
+</div>
+<div class="section" id="profiling-performance">
+<h2>Profiling / Performance<a class="headerlink" href="#profiling-performance" title="Permalink to this headline"></a></h2>
+<p>Anyone willing to share how your profiling went?</p>
+<p>Did you find a bottleneck to speed up?</p>
+</div>
+<div class="section" id="mongodb-with-more-complex-documents">
+<h2>MongoDB with more complex documents:<a class="headerlink" href="#mongodb-with-more-complex-documents" title="Permalink to this headline"></a></h2>
+<p>The real benefits of using a Database like MongoDB is that you can store documents that are complex nested data structures – you don’t need to do a lot of work to keep tables in sync with foreign keys and all that.</p>
+<p>Did anyone write their Social Network code that way? Willing to share?</p>
+<p>Or you can look at mine:</p>
+<p>Solutions/assignment_05_B</p>
+</div>
+<div class="section" id="if-we-have-time">
+<h2>If we have time:<a class="headerlink" href="#if-we-have-time" title="Permalink to this headline"></a></h2>
+<p>As you’ve seen, if you want nice Python objects (rather than working with dicts), there’s a bit of work to make them serialize / deserialize to Mongo-Compatible dicts. You can automate that more.</p>
+<p>I wrote a system for the NOAA ADIOS Oil Database:</p>
+<p>Which I extracted into its own (poorly tested) package:</p>
+<p><a class="reference external" href="https://github.com/PythonCHB/flexi">https://github.com/PythonCHB/flexi</a></p>
+<p>See the third-party packages: attrs and pydantic</p>
 <div class="section" id="break-time">
-<h2>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h2>
+<h3>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h3>
 <p>10min break:</p>
 </div>
+<div class="section" id="concurrency">
+<h3>Concurrency<a class="headerlink" href="#concurrency" title="Permalink to this headline"></a></h3>
+<p>Is a <strong>BIG</strong> topic.</p>
+<p>Please do the reading / watch the videos, and try to run through the examples.</p>
+<p>But we don’t expect you to “get” it all – but to have an appreciation of the tools, so you can learn them for real when you need them.</p>
+<p>Any thoughts / questions so far?</p>
+</div>
+<div class="section" id="threading-and-multiprocessing">
+<h3>Threading and Multiprocessing<a class="headerlink" href="#threading-and-multiprocessing" title="Permalink to this headline"></a></h3>
+<p>Let’s take a really fast and furious look at the basics of threading and multiprocessing – it should be enough to get you started in the assignment:</p>
+<p>In the class repo:</p>
+<p><cite>Python320-Winter-2022/Examples/lesson07/threading_module</cite></p>
+</div>
 <div class="section" id="id1">
-<h2>Break Time!<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
-<p>10min break</p>
+<h3>Break Time!<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<p>10min break:</p>
+</div>
+</div>
+<div class="section" id="this-week-s-assignment">
+<h2>This week’s assignment:<a class="headerlink" href="#this-week-s-assignment" title="Permalink to this headline"></a></h2>
+<p>Shall we take a look?</p>
+<p>A few notes:</p>
+</div>
+<div class="section" id="mongo-clients">
+<h2>Mongo Clients<a class="headerlink" href="#mongo-clients" title="Permalink to this headline"></a></h2>
+<p>MongoDB is a full multi-user database server. Even though you can start it up with a single simple command – it’s ready to work with multiple users.</p>
+<p>Which makes it easy to have multiple clients running at once in your code:</p>
+<blockquote>
+<div><p>In [1]: import pymongo</p>
+<p>In [2]: client1 = pymongo.MongoClient()</p>
+<p>In [3]: client1.list_database_names()
+Out[3]: [‘SocialNetwork’, ‘admin’, ‘config’, ‘local’, ‘social_network’]</p>
+<p>In [4]: client2 = pymongo.MongoClient()</p>
+<p>In [5]: client2.list_database_names()
+Out[5]: [‘SocialNetwork’, ‘admin’, ‘config’, ‘local’, ‘social_network’]</p>
+<p>In [6]: client1.drop_database(‘SocialNetwork’)</p>
+<p>In [7]: client1.list_database_names()
+Out[7]: [‘admin’, ‘config’, ‘local’, ‘social_network’]</p>
+</div></blockquote>
+<p>This is pretty handy for the multiprocessing assignment!</p>
+</div>
+<div class="section" id="what-does-join-mean">
+<h2>What does join() mean?<a class="headerlink" href="#what-does-join-mean" title="Permalink to this headline"></a></h2>
+<p>Both threads an processes have a <code class="docutils literal notranslate"><span class="pre">.join()</span></code> method</p>
+<p>What <code class="docutils literal notranslate"><span class="pre">join(a_thread)</span></code> means is “wait until a_thread has terminated”. Why it’s not called something like “wait_until_done” is beyond me.</p>
 </div>
 </div>
 
