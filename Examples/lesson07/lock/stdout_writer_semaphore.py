@@ -3,18 +3,24 @@ import sys
 import threading
 import time
 
-lock = threading.Semaphore(2)
+# A Semaphore allows up to N threads to run at once
+# allowing more than 1 lets the stdout get intertwinded
+# 4 makes it obvious
+lock = threading.Semaphore(4)
+
 
 def write():
+    time.sleep(random.random() / 2)
     lock.acquire()
-    sys.stdout.write( "%s writing.." % threading.current_thread().name)
+    sys.stdout.write(f"{threading.current_thread().name} writing..")
     time.sleep(random.random())
-    sys.stdout.write( "..done\n")
+    sys.stdout.write("..done\n")
     lock.release()
-    
-    
-while True:
+
+
+for _ in range(50):
     thread = threading.Thread(target=write)
     thread.start()
-    time.sleep(.1)
-    
+    time.sleep(.01)
+
+

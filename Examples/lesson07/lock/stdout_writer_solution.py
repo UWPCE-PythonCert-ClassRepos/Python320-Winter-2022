@@ -7,11 +7,13 @@ lock = threading.Lock()
 
 
 def write():
+    time.sleep(random.random() / 2)
     lock.acquire()
-    sys.stdout.write("%s writing.." % threading.current_thread().name)
-    time.sleep(random.random())
+    sys.stdout.write(f"{threading.current_thread().name} writing..")
+    time.sleep(random.random() / 2)
     sys.stdout.write("..done\n")
     lock.release()
+
 
 threads = []
 for i in range(50):
