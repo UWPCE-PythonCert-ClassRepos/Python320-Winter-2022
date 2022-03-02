@@ -93,6 +93,6 @@ def time_load_status():
 
 if __name__ == "__main__":
     setup_logger()
-    time_load_users()
+    # time_load_users()
     time_multiprocessing()
-    time_queue()
+    # time_queue()

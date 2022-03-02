@@ -164,8 +164,6 @@ class SocialNetwork:
                                                  ordered=False)
         except BulkWriteError as err:
             details = err.details
-            print("Looking at BulkWriteError details")
-            print(f"{details.keys()=}")
             for error in  details['writeErrors']:
                 logger.error(f"user_id: {error['keyValue']['_id']} Failed to write")
             return details['nInserted']
