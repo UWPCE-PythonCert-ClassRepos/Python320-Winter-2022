@@ -127,6 +127,7 @@ def test_add_users_duplicate(empty_db):
     assert result == 0
     assert len(snw) == 3
 
+    assert False
 
 def test_add_statuses(empty_db):
     """

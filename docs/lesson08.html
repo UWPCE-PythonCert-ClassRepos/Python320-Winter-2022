@@ -48,12 +48,28 @@
 <li class="toctree-l1"><a class="reference internal" href="lesson06.html">2/15/2022: Profiling and Performance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson07.html">2/22/2022: Concurrency and Async</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">3/1/2022: Functional Techniques</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#break-time">Break Time!</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Break Time!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#one-small-note-for-else">One small note: <code class="docutils literal notranslate"><span class="pre">for:</span> <span class="pre">else</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#results-from-the-pymongo-insert-many-call">Results from the pymongo <code class="docutils literal notranslate"><span class="pre">insert_many()</span></code> call</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dataset">DataSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#break-time">Break Time!</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiprocessing-issues">Multiprocessing Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#multiprocessing-and-pickling">MultiProcessing and pickling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multiprocessing-must-be-in-name-main">“multiprocessing must be in <code class="docutils literal notranslate"><span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#windows-vs-nix">Windows vs *nix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-a-queue">Using a Queue</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Break Time!</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#closures">Closures</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="lesson09.html">3/8/2022: Advanced Language Constructs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson10.html">3/15/2022: API Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_hints.html">Chris’ Handy Testing Hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="github_actions.html">gitHub actions/workflows and CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing_mongo.html">Installing MongoDB</a></li>
 </ul>
 
         </div>
@@ -85,13 +101,136 @@
 <p>A collection of notes to go over in class, to keep things organized.</p>
 <p><strong>NOTES:</strong></p>
 <p>I’ll try to have a break every hour or so – ping me if I forget!</p>
+<div class="section" id="one-small-note-for-else">
+<h2>One small note: <code class="docutils literal notranslate"><span class="pre">for:</span> <span class="pre">else</span></code><a class="headerlink" href="#one-small-note-for-else" title="Permalink to this headline"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">else</span></code> option for a for loop is confusing, and rarely used. But really handy when you do need it. Example from one of my tests:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># need to check if at least one was correct</span>
+<span class="c1"># user: &#39;bwinkle678&#39; should have status: &#39;st12455&#39;</span>
+<span class="n">user</span> <span class="o">=</span> <span class="n">snw</span><span class="o">.</span><span class="n">search_user</span><span class="p">(</span><span class="s1">&#39;bwinkle678&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">status_update</span> <span class="ow">in</span> <span class="n">user</span><span class="o">.</span><span class="n">status_updates</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">status_update</span><span class="o">.</span><span class="n">status_id</span> <span class="o">==</span> <span class="s1">&#39;st12455&#39;</span><span class="p">:</span>
+        <span class="k">break</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;id: &#39;st12455&#39; not found in user &#39;bwinkle678&#39;&quot;</span>
+</pre></div>
+</div>
+<p>As a mnemonic, I like to think of it as “else not break”.</p>
+</div>
+<div class="section" id="results-from-the-pymongo-insert-many-call">
+<h2>Results from the pymongo <code class="docutils literal notranslate"><span class="pre">insert_many()</span></code> call<a class="headerlink" href="#results-from-the-pymongo-insert-many-call" title="Permalink to this headline"></a></h2>
+<p>One of the tricks of using pymongo’s insert_many() is that when you pass in a whole bunch of stuff to insert, there is no single result – they all could have passed, they all could have failed.</p>
+<p>If anything went wrong, then it raises a <code class="docutils literal notranslate"><span class="pre">BulkWriteError</span></code>.</p>
+<p>But what went wrong? and what went right?</p>
+<p>pymongo adds a <code class="docutils literal notranslate"><span class="pre">.details</span></code> attribute to the <code class="docutils literal notranslate"><span class="pre">BulkWriteError</span></code>, that has a lot of information.</p>
+<dl>
+<dt>::</dt><dd><dl>
+<dt>except BulkWriteError as err:</dt><dd><p>details = err.details
+for error in  details[‘writeErrors’]:</p>
+<blockquote>
+<div><p>logger.error(f”user_id: {error[‘keyValue’][‘_id’]} Failed to write”)</p>
+</div></blockquote>
+<p>return details[‘nInserted’]</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Lets look at this in my example solution:</p>
+<p>Examples/lesson07/ConcurrentMongo</p>
+<p>Look in social_network.py: <code class="docutils literal notranslate"><span class="pre">SocialNetwork.add_users()</span></code></p>
+<div class="section" id="dataset">
+<h3>DataSet<a class="headerlink" href="#dataset" title="Permalink to this headline"></a></h3>
+<p>This week’s assignment involves building a version of your Social Network code with a functional approach, using an extension to PeeWee known as DataSet:</p>
+<p><a class="reference external" href="https://docs.peewee-orm.com/en/latest/peewee/playhouse.html#dataset">https://docs.peewee-orm.com/en/latest/peewee/playhouse.html#dataset</a></p>
+<p>ONE thing I note: in the docs:</p>
+<p>“The aims of the DataSet module are to provide: A simplified API for working with relational data, along the lines of working with JSON. …”</p>
+<p>Which aligns with my impression of DataSet – it feels a bit like working with Mongo.</p>
+<p>Luis has more experience than I do with DAtaSet, so he’s going to give you an introduction.</p>
+</div>
 <div class="section" id="break-time">
-<h2>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h2>
+<h3>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h3>
 <p>10min break:</p>
 </div>
+<div class="section" id="multiprocessing-issues">
+<h3>Multiprocessing Issues<a class="headerlink" href="#multiprocessing-issues" title="Permalink to this headline"></a></h3>
+</div>
+</div>
+<div class="section" id="multiprocessing-and-pickling">
+<h2>MultiProcessing and pickling<a class="headerlink" href="#multiprocessing-and-pickling" title="Permalink to this headline"></a></h2>
+<p>A number of you saw this error:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">File</span> <span class="s2">&quot;/Users/chris/miniconda3/envs/py3/lib/python3.10/multiprocessing/popen_spawn_posix.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">47</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_launch</span>
+<span class="n">reduction</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">process_obj</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
+<span class="n">File</span> <span class="s2">&quot;/Users/chris/miniconda3/envs/py3/lib/python3.10/multiprocessing/reduction.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">60</span><span class="p">,</span> <span class="ow">in</span> <span class="n">dump</span>
+<span class="n">ForkingPickler</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">protocol</span><span class="p">)</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+
+<span class="ne">TypeError</span><span class="p">:</span> <span class="n">cannot</span> <span class="n">pickle</span> <span class="s1">&#39;_thread.lock&#39;</span> <span class="nb">object</span>
+</pre></div>
+</div>
+<p>I got that too, when I tried to set it up this way:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span>
+                         <span class="n">chunksize</span><span class="o">=</span><span class="n">CHUNK_SIZE</span><span class="p">,</span>
+                         <span class="n">iterator</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CHUNK </span><span class="si">{</span><span class="n">chunk_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">({</span><span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;USER_ID&#39;</span><span class="p">],</span>
+             <span class="s1">&#39;email&#39;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;EMAIL&#39;</span><span class="p">],</span>
+             <span class="s1">&#39;user_name&#39;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">],</span>
+             <span class="s1">&#39;user_last_name&#39;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;LASTNAME&#39;</span><span class="p">]</span>
+             <span class="p">}</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()</span>
+            <span class="p">)</span>
+    <span class="n">proc</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">snw</span><span class="o">.</span><span class="n">add_users</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">data</span><span class="p">,))</span>
+    <span class="n">processes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">proc</span><span class="p">)</span>
+    <span class="n">proc</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">chunk_number</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">proc</span> <span class="ow">in</span> <span class="n">processes</span><span class="p">:</span>
+    <span class="n">proc</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>So what’s wrong here?</p>
+<p><strong>NOTE:</strong></p>
+<p>This same code DOES work with multithreading – why is that???</p>
+<p>Would one of you like to share your successful solution? Or look at mine?</p>
+</div>
+<div class="section" id="multiprocessing-must-be-in-name-main">
+<h2>“multiprocessing must be in <code class="docutils literal notranslate"><span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;</span></code><a class="headerlink" href="#multiprocessing-must-be-in-name-main" title="Permalink to this headline"></a></h2>
+<p>In the official docs:</p>
+<p><a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#the-spawn-and-forkserver-start-methods">https://docs.python.org/3/library/multiprocessing.html#the-spawn-and-forkserver-start-methods</a></p>
+<p>And in various googlable sources, we are told that the starting of Processes must be in a if <code class="docutils literal notranslate"><span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> block.</p>
+<p>Really? could that possibly be true?</p>
+<p>Well, sort of.</p>
+<p>It does NOT mean that you can’t put Process creating (and starting) in functions, classes, etc – pretty much anywhere.</p>
+<p>The examples are very misleading:</p>
+<p>[look at the examples in docs (under “Safe importing of main module”)]</p>
+<p>Let’s see what it actually says:</p>
+<p>“Make sure that the main module can be safely imported by a new Python interpreter without causing unintended side effects (such a starting a new process).”</p>
+<p>Let’s look at my timer code:</p>
+<p>Examples/lesson07/ConcurrentMongo/timing.py</p>
+</div>
+<div class="section" id="windows-vs-nix">
+<h2>Windows vs *nix<a class="headerlink" href="#windows-vs-nix" title="Permalink to this headline"></a></h2>
+<p>Stephen did some experiments with the same code on Windows and a Raspberry Pi running Linux.</p>
+<p>Let’s take a look.</p>
+<p><a class="reference external" href="https://docs.google.com/spreadsheets/d/17879dX9pvfTGF5Dpjsikm-MHKIs5oyakgm6J2S1K7bQ/edit#gid=1860662791">https://docs.google.com/spreadsheets/d/17879dX9pvfTGF5Dpjsikm-MHKIs5oyakgm6J2S1K7bQ/edit#gid=1860662791</a></p>
+</div>
+<div class="section" id="using-a-queue">
+<h2>Using a Queue<a class="headerlink" href="#using-a-queue" title="Permalink to this headline"></a></h2>
+<p>A Queue makes a lot of sense for this goalL you probably don’t know how large a CSV file you are going to read in – so how big should the chunks be?</p>
+<p>But you do know how many processers you have.</p>
+<p>A Queue lets you create one or more “tasks” and then set up a defeined number of processes to work on them.</p>
+<p>But is is a bit tricky to manage – when do you put the tasks on the queue? when do you know it’s done?</p>
+<p>I did it with a <code class="docutils literal notranslate"><span class="pre">JoinableQueue</span></code> which is pretty slick.</p>
+<p>Shall we look?</p>
+<p>Jared did it with a regular Queue but had an issue – let’s check that out.</p>
 <div class="section" id="id1">
-<h2>Break Time!<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<h3>Break Time!<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
 <p>10min break</p>
+</div>
+<div class="section" id="closures">
+<h3>Closures<a class="headerlink" href="#closures" title="Permalink to this headline"></a></h3>
+<p>Closures can be a tricky topic.</p>
+<p>A key part of it is understanding “Scope” in Python.</p>
+<p>There’s notes and examples in Canvas, but if have a bit of time, let’s go over some notes:</p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/ProgrammingInPython/modules/Closures.html">https://uwpce-pythoncert.github.io/ProgrammingInPython/modules/Closures.html</a></p>
+<p>(These are found in the PY310 “Extra Topics”)</p>
+</div>
 </div>
 </div>
 

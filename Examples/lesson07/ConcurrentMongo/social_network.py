@@ -155,7 +155,6 @@ class SocialNetwork:
                       user_id, email, user_name, user_last_name
 
         Duplicate users are ignored
-
         '''
         # convert to User objects
         # generator comprehension so as not to pre-calculate
@@ -165,6 +164,8 @@ class SocialNetwork:
                                                  ordered=False)
         except BulkWriteError as err:
             details = err.details
+            print("Looking at BulkWriteError details")
+            print(f"{details.keys()=}")
             for error in  details['writeErrors']:
                 logger.error(f"user_id: {error['keyValue']['_id']} Failed to write")
             return details['nInserted']
