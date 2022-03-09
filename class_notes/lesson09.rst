@@ -41,15 +41,23 @@ In particular, we talk about Decorators, Context Managers, and recursion.
 
 Recursion is more a technique than a language feature -- and a very powerful one.
 
-Decorators and Context Managers are a little different -- they both use language features: ``with`` and the ``@decoration`` syntax. But actually making new ones requires what's broadly known as "metaprogramming".
+Any questions on recursion? -- you should have all seen it a bit last quarter.
 
-Metprogramming sounds really fancy -- but in its simplest form, it's pretty straightforward. But you need to know the tools available.
+Decorators and Context Managers are a little different -- they both use language features: the ``with`` keyword and the ``@decoration`` syntax. And you've all been using them some already.
+
+But actually making new ones requires what's broadly known as "metaprogramming".
+
+Metaprogramming sounds really fancy -- but in its simplest form, it's pretty straightforward. But you need to know the tools available.
 
 So let's dig deeper into that now:
 
 https://uwpce-pythoncert.github.io/ProgrammingInPython/modules/MetaProgramming.html
 
 (Again from the Course One Notes)
+
+If time: let's write a class decorator to make it easy to save dataclasses into Mongo:
+
+``Examples/lesson09/class_decorator``
 
 
 Break Time!

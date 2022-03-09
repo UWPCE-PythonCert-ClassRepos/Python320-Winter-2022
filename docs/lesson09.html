@@ -49,8 +49,12 @@
 <li class="toctree-l1"><a class="reference internal" href="lesson07.html">2/22/2022: Concurrency and Async</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson08.html">3/1/2022: Functional Techniques</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">3/8/2022: Advanced Language Constructs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#break-time">Break Time!</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Break Time!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#issues-from-this-week">Issues from this week</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#break-time">Break Time!</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#metaprogramming">Metaprogramming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Break Time!</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="lesson10.html">3/15/2022: API Design</a></li>
@@ -88,13 +92,42 @@
 <p>A collection of notes to go over in class, to keep things organized.</p>
 <p><strong>NOTES:</strong></p>
 <p>I’ll try to have a break every hour or so – ping me if I forget!</p>
+<div class="section" id="issues-from-this-week">
+<h2>Issues from this week<a class="headerlink" href="#issues-from-this-week" title="Permalink to this headline"></a></h2>
+<p>I usually find a number of sticking points, confusions, etc, when reviewing your work – and taking your questions.</p>
+<p>This week – not so much! congrats!</p>
+<p>So we can take this time to answer questions – what are you still unsure of?</p>
+<p>Fire Away!</p>
+<p>And/or we can do a little live code review.</p>
 <div class="section" id="break-time">
-<h2>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h2>
+<h3>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h3>
 <p>10min break:</p>
 </div>
+<div class="section" id="metaprogramming">
+<h3>Metaprogramming<a class="headerlink" href="#metaprogramming" title="Permalink to this headline"></a></h3>
+<p>This week’s topic is “Advanced Language Constructs”.</p>
+<p>In particular, we talk about Decorators, Context Managers, and recursion.</p>
+<p>Recursion is more a technique than a language feature – and a very powerful one.</p>
+<p>Any questions on recursion? – you should have all seen it a bit last quarter.</p>
+<p>Decorators and Context Managers are a little different – they both use language features: the <code class="docutils literal notranslate"><span class="pre">with</span></code> keyword and the <code class="docutils literal notranslate"><span class="pre">&#64;decoration</span></code> syntax. And you’ve all been using them some already.</p>
+<p>But actually making new ones requires what’s broadly known as “metaprogramming”.</p>
+<p>Metaprogramming sounds really fancy – but in its simplest form, it’s pretty straightforward. But you need to know the tools available.</p>
+<p>So let’s dig deeper into that now:</p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/ProgrammingInPython/modules/MetaProgramming.html">https://uwpce-pythoncert.github.io/ProgrammingInPython/modules/MetaProgramming.html</a></p>
+<p>(Again from the Course One Notes)</p>
+<p>If time: let’s write a class decorator to make it easy to save dataclasses into Mongo:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Examples/lesson09/class_decorator</span></code></p>
+</div>
 <div class="section" id="id1">
-<h2>Break Time!<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<h3>Break Time!<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
 <p>10min break</p>
+<p>This week’s assignment: let’s take a look.</p>
+<p>One of the key parts is creating a context manager to manage the database connection – we saw this a couple weeks ago in Luis’ example.</p>
+<p>But before you can do that – you need to think about how the database connection is managed – in many of the examples, and in many of your solutions (and ours) – the database is created at the top of a module. So it gets started up right at module import – making it very hard to control how it happens.</p>
+<p>So let’s look at that first.</p>
+<p>Example for Mongo in:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Examples/lesson09/mdb.py</span></code></p>
+</div>
 </div>
 </div>
 
