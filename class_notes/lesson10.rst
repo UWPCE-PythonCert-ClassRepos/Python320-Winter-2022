@@ -13,6 +13,14 @@ A collection of notes to go over in class, to keep things organized.
 
 I'll try to have a break every hour or so -- ping me if I forget!
 
+INTERNET PROGRAMMING WITH PYTHON
+================================
+
+The third and final class.
+
+Luis will be teaching that one -- do you have any questions about it?
+
+
 backslashes in strings
 ----------------------
 
@@ -129,8 +137,9 @@ Break Time!
 10min break
 
 
-flask
-=====
+Final Assignment: Flask
+=======================
+
 
 The gitHub CI:
 --------------
@@ -143,12 +152,28 @@ Depending on what you accepted the assignment, flask may or may not be in the ``
     pytest
 
 
+JSON and flask:
+---------------
+
+Nifty hint: Flask provides the ``jsonify`` utility:
+
+.. code-block:: python
+
+    from flask import jsonify
+
+It converts what you pass in to JSON, and wraps it in a proper JSON response object.
+
+
+TDD and Flask
+-------------
 
 The final assignment is to build a JSON API for your social network app.
 
-Flask is a very simple, streamlined framework, and well documented. But I'm going to take a bit of time now to show you how to set it up for testing, so you can do TDD right off the bat.
+Flask is a very simple, streamlined framework, and well documented.
 
-NOTE: WE are not building a "complete" Flask application -- no need to set up everything the way it's done in the full tutorial.
+But I'm going to take a bit of time now to show you how to set it up for testing, so you can do TDD right off the bat.
+
+NOTE: We are not building a "complete" Flask application -- no need to set up everything the way it's done in the full tutorial.
 
 In fact, you already have the database and all that -- so you really only need a small amount of code for the web API.
 
