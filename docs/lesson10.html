@@ -50,8 +50,32 @@
 <li class="toctree-l1"><a class="reference internal" href="lesson08.html">3/1/2022: Functional Techniques</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lesson09.html">3/8/2022: Advanced Language Constructs</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">3/15/2022: API Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#last-class">Last Class!</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#some-logistics">Some logistics:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-if-i-m-not-all-done">What if I’m not all done?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#support-for-the-last-week">Support for the Last Week</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#internet-programming-with-python">INTERNET PROGRAMMING WITH PYTHON</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#backslashes-in-strings">Backslashes in Strings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-little-metaprogramming">A little metaprogramming:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#managing-global-configuration">Managing global configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#a-config-object">A config object</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#any-other-questions-concerns">Any other questions / concerns?</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#break-time">Break Time!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#json">JSON</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id1">Break Time!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#final-assignment-flask">Final Assignment: Flask</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-github-ci">The gitHub CI:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#json-and-flask">JSON and flask:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tdd-and-flask">TDD and Flask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flask-testing">Flask Testing:</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="testing_hints.html">Chris’ Handy Testing Hints</a></li>
@@ -88,13 +112,240 @@
 <p>A collection of notes to go over in class, to keep things organized.</p>
 <p><strong>NOTES:</strong></p>
 <p>I’ll try to have a break every hour or so – ping me if I forget!</p>
+<div class="section" id="last-class">
+<h2>Last Class!<a class="headerlink" href="#last-class" title="Permalink to this headline"></a></h2>
+<p>This is the final class – it went by fast!</p>
+<div class="section" id="some-logistics">
+<h3>Some logistics:<a class="headerlink" href="#some-logistics" title="Permalink to this headline"></a></h3>
+<p>I am supposed to turn in your grades 7 days from today. So as usual, the final assignment (all the assignments!) is due a week from today, on Tuesday, March 22.</p>
+<p>But please try not to turn it all in at once at the end! We need time to review your work.</p>
+</div>
+<div class="section" id="what-if-i-m-not-all-done">
+<h3>What if I’m not all done?<a class="headerlink" href="#what-if-i-m-not-all-done" title="Permalink to this headline"></a></h3>
+<p>In order to complete the class, you need to have completed most of all the assignments. Most of you have gotten full credit on most assignments, so you’re in good shape.</p>
+<p>But if you are pressed for time, and you are almost done with an assignment (maybe it’s missing one feature, or doesn’t score 10/10 on pylint, or …) – turn that in, and get working on the next one.</p>
+<p>If you have made a good faith effort on all assignments, and completed most of the requirements – you will pass.</p>
+</div>
+<div class="section" id="support-for-the-last-week">
+<h3>Support for the Last Week<a class="headerlink" href="#support-for-the-last-week" title="Permalink to this headline"></a></h3>
+<p>I will be out of town for the weekend, and will not be able to hold office hours.</p>
+<p>However, I will monitor email and MS Teams, and may even be able to schedule an impromptu meeting or two. Reach out for help if you need it.</p>
+</div>
+</div>
+<div class="section" id="internet-programming-with-python">
+<h2>INTERNET PROGRAMMING WITH PYTHON<a class="headerlink" href="#internet-programming-with-python" title="Permalink to this headline"></a></h2>
+<p>The third and final class.</p>
+<p>Luis will be teaching that one – do you have any questions about it?</p>
+<div class="section" id="backslashes-in-strings">
+<h3>Backslashes in Strings<a class="headerlink" href="#backslashes-in-strings" title="Permalink to this headline"></a></h3>
+<p>The backslash is the escape character in string literals:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;this</span><span class="se">\n</span><span class="s1">that&#39;</span>
+</pre></div>
+</div>
+<p>So that puts a “newline” in instead of the slash and the “n”</p>
+<p>What if you want a slash? You escape the slash:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;this</span><span class="se">\\</span><span class="s1">that&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-little-metaprogramming">
+<h3>A little metaprogramming:<a class="headerlink" href="#a-little-metaprogramming" title="Permalink to this headline"></a></h3>
+<p>I don’t like repeated code – that’s the DRY principle:</p>
+<blockquote>
+<div><p><strong>Don’t Repeat Yourself</strong></p>
+</div></blockquote>
+<p>So when I found myself writing the same code three times to validate the input for the DataSet solution, I did a little metaprogramming:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">restrictions</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+                <span class="s1">&#39;user_name&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+                <span class="s1">&#39;user_last_name&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">}</span>
+<span class="n">vars_</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">fieldname</span><span class="p">,</span> <span class="n">limit</span> <span class="ow">in</span> <span class="n">restrictions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">vars_</span><span class="p">[</span><span class="n">fieldname</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">limit</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fieldname</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2"> too long, not added&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="managing-global-configuration">
+<h3>Managing global configuration<a class="headerlink" href="#managing-global-configuration" title="Permalink to this headline"></a></h3>
+<p>This is one to be very, very careful of. Make sure that anything that is truly global state – like what database you are working with, is managed carefully.</p>
+<p>Where things can get sticky is where you manage the same thing (like the database name) in more than one place, e.g. menu.py, social_network.py, etc.
+If you use the same name for the DB: “social.db” then it all appears to work, but things can get very ugly if you want to use a different DB!</p>
+<div class="section" id="a-config-object">
+<h4>A config object<a class="headerlink" href="#a-config-object" title="Permalink to this headline"></a></h4>
+<p>A solution to this is to put all of your configuration in one place.</p>
+<p>If there’s a lot of complexity, you can have a <code class="docutils literal notranslate"><span class="pre">config.py</span></code> module just for that.</p>
+<p>But in the simple case, a dict in the module where you define you database setup, etc. is just fine:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">HERE</span> <span class="o">=</span> <span class="n">path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;database_name&#39;</span><span class="p">:</span> <span class="s1">&#39;social.db&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;data_dir&#39;</span><span class="p">:</span> <span class="n">HERE</span> <span class="o">/</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span>
+          <span class="p">}</span>
+</pre></div>
+</div>
+<p>Then when you want to use that config:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">socialnetwork_model</span> <span class="kn">import</span> <span class="n">config</span>
+
+<span class="k">def</span> <span class="nf">create_dataset</span><span class="p">():</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">DataSet</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;sqlite:///</span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;database_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="o">...</span>
+
+    <span class="k">return</span> <span class="n">dataset</span>
+</pre></div>
+</div>
+<p>The nifty thing is that that dict is mutable – you can change it from runtime, from anywhere:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># in your test code</span>
+
+<span class="kn">from</span> <span class="nn">socialnetwork_model</span> <span class="kn">import</span> <span class="n">config</span>
+
+<span class="c1"># set up things for the tests:</span>
+
+<span class="n">config</span><span class="p">[</span><span class="s1">&#39;database_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;:memory:&quot;</span>
+<span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_dir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">HERE</span> <span class="o">/</span> <span class="s1">&#39;test_data_dir&#39;</span>
+
+<span class="c1"># And now your tests will all use the new values.</span>
+</pre></div>
+</div>
+<p><strong>NOTES:</strong></p>
+<ul class="simple">
+<li><p>Make sure that all code that uses the config does so in functions – e.g. it does not run at module import time. In that case, if would be to late to change it.</p></li>
+<li><p>If you do want to change the config dict – do so <em>in place</em> – e.g. mutate the dict. If you make a new one, the changes will not be seen anywhere else:</p></li>
+</ul>
+<p>This will <strong>NOT</strong> work!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">socialnetwork_model</span> <span class="kn">import</span> <span class="n">config</span>
+
+<span class="c1"># set up things for the tests:</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;database_name&#39;</span><span class="p">]:</span> <span class="s2">&quot;:memory:&quot;</span><span class="p">,</span>
+          <span class="s1">&#39;data_dir&#39;</span><span class="p">:</span> <span class="n">HERE</span> <span class="o">/</span> <span class="s1">&#39;test_data_dir&#39;</span>
+          <span class="p">}</span>
+</pre></div>
+</div>
+<p>Why not – what’s going on there that’s different?</p>
+<p>And you can’t even change it in the original namespace.</p>
+<p>This won’t work right either:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">socialnetwork_model</span>
+
+<span class="c1"># set up things for the tests:</span>
+<span class="n">social_network_model</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;database_name&#39;</span><span class="p">]:</span> <span class="s2">&quot;:memory:&quot;</span><span class="p">,</span>
+                               <span class="s1">&#39;data_dir&#39;</span><span class="p">:</span> <span class="n">HERE</span> <span class="o">/</span> <span class="s1">&#39;test_data_dir&#39;</span>
+                               <span class="p">}</span>
+</pre></div>
+</div>
+<p>That DOES change the object in the <code class="docutils literal notranslate"><span class="pre">socialnetwork_model</span></code> module, so code using it in that module will see the change. But any other module that imports it will not – it already got a reference to the original dict.</p>
+<p>As your application gets more complex, you can do things like have the config read from a file at startup, etc…</p>
+</div>
+</div>
+<div class="section" id="any-other-questions-concerns">
+<h3>Any other questions / concerns?<a class="headerlink" href="#any-other-questions-concerns" title="Permalink to this headline"></a></h3>
+<p>Any sticking points you want to go over?</p>
+<p>Do a little code review?</p>
+</div>
+</div>
 <div class="section" id="break-time">
 <h2>Break Time!<a class="headerlink" href="#break-time" title="Permalink to this headline"></a></h2>
 <p>10min break:</p>
 </div>
+<div class="section" id="json">
+<h2>JSON<a class="headerlink" href="#json" title="Permalink to this headline"></a></h2>
+<p>Ultra quick JSON tutorial.</p>
+<p>JSON (JavaScript Object Notation) is a text format for storing javascript, that look very much like a subset of Python. So you can very easily move between them. I like to use the term:</p>
+<p>“JSON compatible Python” for Python data that can be converted to/from JSON losslessly. Essentially, You can use:</p>
+<ul class="simple">
+<li><p>dicts (with string keys)</p></li>
+<li><p>lists</p></li>
+<li><p>strings</p></li>
+<li><p>numbers (int and float)</p></li>
+<li><p>Bools (<code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">False</span></code>, and <code class="docutils literal notranslate"><span class="pre">None</span></code> are spelled differently in JSON, but otherwise it’s the same.</p>
+<p>You can go to and from JSON with the built in json lib:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;this&#39;</span><span class="p">:</span> <span class="s1">&#39;something&#39;</span><span class="p">,</span>
+   <span class="o">...</span><span class="p">:</span>         <span class="s1">&#39;that&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mf">7.0</span><span class="p">],</span>
+   <span class="o">...</span><span class="p">:</span>         <span class="s1">&#39;a_flag&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+   <span class="o">...</span><span class="p">:</span>         <span class="s1">&#39;nothing&#39;</span><span class="p">:</span> <span class="kc">None</span>
+   <span class="o">...</span><span class="p">:</span>         <span class="p">}</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="c1"># to put json in a string:</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">js_string</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="nb">print</span><span class="p">(</span><span class="n">js_string</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="s2">&quot;this&quot;</span><span class="p">:</span> <span class="s2">&quot;something&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;that&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="mi">4</span><span class="p">,</span>
+        <span class="mi">5</span><span class="p">,</span>
+        <span class="mi">6</span><span class="p">,</span>
+        <span class="mf">7.0</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;a_flag&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;nothing&quot;</span><span class="p">:</span> <span class="n">null</span>
+<span class="p">}</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="c1"># to get python objects from json</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="n">data2</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">js_string</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="n">data2</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="p">{</span><span class="s1">&#39;this&#39;</span><span class="p">:</span> <span class="s1">&#39;something&#39;</span><span class="p">,</span> <span class="s1">&#39;that&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">],</span> <span class="s1">&#39;a_flag&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;nothing&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="n">data</span> <span class="o">==</span> <span class="n">data2</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>To dump / load JSON directly to a file, use <code class="docutils literal notranslate"><span class="pre">json.dump</span></code> and <code class="docutils literal notranslate"><span class="pre">json.load</span></code> and pass in an open file object.</p>
+<p>NOTE: In JSON, white space is insignificant, so be default it’s all crammed on one line.
+If you want it to be readable – pass a value in for <code class="docutils literal notranslate"><span class="pre">indent</span></code> to <code class="docutils literal notranslate"><span class="pre">dump</span></code> and <code class="docutils literal notranslate"><span class="pre">dumps</span></code> – if you give a value for indent, the JSON will be nicely formatted with newlines and indentation.</p>
+<p>That’s it!</p>
+</div>
 <div class="section" id="id1">
 <h2>Break Time!<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <p>10min break</p>
+</div>
+<div class="section" id="final-assignment-flask">
+<h2>Final Assignment: Flask<a class="headerlink" href="#final-assignment-flask" title="Permalink to this headline"></a></h2>
+<div class="section" id="the-github-ci">
+<h3>The gitHub CI:<a class="headerlink" href="#the-github-ci" title="Permalink to this headline"></a></h3>
+<p>Depending on what you accepted the assignment, flask may or may not be in the <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file. If you are having trouble with the CI failing – you may need to add it. Here’s mine:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">loguru</span>
+<span class="n">peewee</span>
+<span class="n">flask</span>
+<span class="n">pytest</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="json-and-flask">
+<h3>JSON and flask:<a class="headerlink" href="#json-and-flask" title="Permalink to this headline"></a></h3>
+<p>Nifty hint: Flask provides the <code class="docutils literal notranslate"><span class="pre">jsonify</span></code> utility:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">jsonify</span>
+</pre></div>
+</div>
+<p>It converts what you pass in to JSON, and wraps it in a proper JSON response object.</p>
+</div>
+<div class="section" id="tdd-and-flask">
+<h3>TDD and Flask<a class="headerlink" href="#tdd-and-flask" title="Permalink to this headline"></a></h3>
+<p>The final assignment is to build a JSON API for your social network app.</p>
+<p>Flask is a very simple, streamlined framework, and well documented.</p>
+<p>But I’m going to take a bit of time now to show you how to set it up for testing, so you can do TDD right off the bat.</p>
+<p>NOTE: We are not building a “complete” Flask application – no need to set up everything the way it’s done in the full tutorial.</p>
+<p>In fact, you already have the database and all that – so you really only need a small amount of code for the web API.</p>
+<p>The Flask Quickstart is a good place to dive in.</p>
+<p><a class="reference external" href="https://flask.palletsprojects.com/en/2.0.x/quickstart/">https://flask.palletsprojects.com/en/2.0.x/quickstart/</a></p>
+</div>
+<div class="section" id="flask-testing">
+<h3>Flask Testing:<a class="headerlink" href="#flask-testing" title="Permalink to this headline"></a></h3>
+<p>Flask comes out of the box with some testing utilities – built on pytest:</p>
+<p><a class="reference external" href="https://flask.palletsprojects.com/en/2.0.x/testing/">https://flask.palletsprojects.com/en/2.0.x/testing/</a></p>
+<p>Let’s dive right in!</p>
+<p>I’m working in the class repo:</p>
+<p>Examples/lesson10/flask_example</p>
+</div>
 </div>
 </div>
 
